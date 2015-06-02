@@ -16,6 +16,13 @@ RSpec.describe Question, type: :model do
     @question.should_not be_valid
   end
 
+
+  it "should have  comments" do
+    @question.should respond_to(:comments)
+  end
+
+
+
 end
 
 
