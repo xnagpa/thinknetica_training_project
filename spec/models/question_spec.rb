@@ -2,19 +2,14 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
 
-   before(:each) do
-    @question = Question.new
-  end
+  it { should validate_presence_of(:title) }
+  it { should validate_length_of(:title).is_at_most(150) }
+  it { should validate_presence_of(:content) }
+  it { should have_many(:answers).dependent(:destroy) }
 
-  it "should have title" do
-    @question.title = nil
-    @question.should_not be_valid
-  end
-
-   it "should have content" do
-    @question.content = nil
-    @question.should_not be_valid
-  end
+  #validates :title, presence: true
+  #validates :title, length: {maximum:150}
+  #validates :content, presence: true
 
 end
 
