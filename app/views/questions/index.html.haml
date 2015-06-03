@@ -1,0 +1,15 @@
+.questions_container
+%h1 Questions will be listed lower!
+=link_to "Create new question", questions_path, :method => :post
+-@questions.each do |q|
+ %p
+  %b=q.title
+ %p=q.content
+ -q.answers.each do |answer|
+  %p
+   %i=answer.content
+ =link_to "Create new comment", new_question_answer_path(q), :method => :post
+ %hr
+
+%p=132  
+
