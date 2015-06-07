@@ -1,0 +1,8 @@
+%p
+ %b=question.title
+%p=question.content
+=render question.answers
+=link_to "Create new comment", new_question_answer_path(question), :method => :get
+%hr
+
+
