@@ -15,11 +15,13 @@ class AnswersController < ApplicationController
 
 	  	respond_to do |format|
 	  		format.html {redirect_to root_path}
+	  		flash[:notice] = "Answer successfully created"
 	  		
 	  	end	  
 	  else
 		respond_to do |format|
 	  		format.html { render template: 'answers/new'}
+	  		flash[:notice] = "Your parameters are not okay, try once again"
 	  		
 	  	end	 
 

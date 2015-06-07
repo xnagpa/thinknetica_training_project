@@ -9,10 +9,15 @@ class QuestionsController < ApplicationController
 
 		respond_to do |format|
       		if @question.save
+      			 flash[:notice] = "Question successfully created"
        			 format.html { redirect_to root_path}
+
        			
       		else
-        		format.html { render :new }       		   
+        		format.html { render :new } 
+        		
+        		flash[:notice] = "Your parameters are not okay, try once again"
+
       	end      	
     end
 
