@@ -1,40 +1,29 @@
 class AnswersController < ApplicationController
+  before_action :set_question
 
+  def create    
+    @answer =  @question.answers.new(answer_params)
 
+    if @answer.save    
+      redirect_to question_url(@question)
+      flash[:notice] = 'Answer successfully created'     
+    else      
+      render template: 'answers/new'
+      flash[:notice] = 'Your parameters are not okay, try once again'
+    end
+  end
 
-	def index 
-		@question=Question.find(params[:question_id])
-		@answers = @question.answers
-	end
+  def new    
+    @answer =  Answer.new
+  end
 
-	def create 
-	  @question=Question.find(params[:question_id])
-	  @answer =  @question.answers.new(answer_params)
+  private
 
-	  if @answer.save 
+  def answer_params
+    params.require(:answer).permit(:content)
+  end
 
-	  	respond_to do |format|
-	  		format.html {redirect_to root_path}
-	  		flash[:notice] = "Answer successfully created"
-	  		
-	  	end	  
-	  else
-		respond_to do |format|
-	  		format.html { render template: 'answers/new'}
-	  		flash[:notice] = "Your parameters are not okay, try once again"
-	  		
-	  	end	 
-
-	  end
-
-	end
-
-	def new 
-	  @question=Question.find(params[:question_id])
-	  @answer =  @question.answers.new
-	end
-
-	def answer_params
-		params.require(:answer).permit(:content,:question_id)		
-	end
+  def set_question
+    @question = Question.find(params[:question_id])
+  end
 end
