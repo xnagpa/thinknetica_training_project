@@ -25,11 +25,17 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "twitter-bootstrap-rails"
 # haml
 gem 'haml'
+
 gem 'haml-rails'
+
 gem 'bootstrap-generators', '~> 3.3.4'
 
 # Use postgress as the database for Active Record
 gem 'pg'
+
+gem 'rubocop', require:false
+
+
 #rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
