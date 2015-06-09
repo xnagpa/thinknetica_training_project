@@ -19,28 +19,28 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   describe 'POST #create' do
-    #before :each do
-      #valid_answer_attrs = { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) }
-      #invalid_answer_attrs = { answer: FactoryGirl.attributes_for(:invalid_answer) }
-      #question_attrs = { question_id: question_with_answers.id }
-      let!(:post_params_valid){ {question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer)} }
-      let!(:post_params_invalid){ {question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:invalid_answer)} }
-   # end
+    # before :each do
+    # valid_answer_attrs = { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) }
+    # invalid_answer_attrs = { answer: FactoryGirl.attributes_for(:invalid_answer) }
+    # question_attrs = { question_id: question_with_answers.id }
+    let!(:post_params_valid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) } }
+    let!(:post_params_invalid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:invalid_answer) } }
+    # end
 
     context 'with valid attributes' do
       it 'saves a new answer in the database' do
-        expect { post :create, post_params_valid }.to change( question_with_answers.answers, :count).by(1)
+        expect { post :create, post_params_valid }.to change(question_with_answers.answers, :count).by(1)
       end
 
       it 'redirects to show' do
         post :create, post_params_valid
-        expect(response).to redirect_to( question_url(question_with_answers.id))
+        expect(response).to redirect_to(question_url(question_with_answers.id))
       end
     end
 
     context 'with invalid attributes' do
       it "doesn't save a new question in the database" do
-        expect { post :create, post_params_invalid }.to_not change( question_with_answers.answers, :count)
+        expect { post :create, post_params_invalid }.to_not change(Answer, :count)
       end
 
       it 'rerenders new template' do
@@ -48,5 +48,5 @@ RSpec.describe AnswersController, type: :controller do
         expect(response).to render_template('answers/new')
       end
     end
-  end 
+  end
 end

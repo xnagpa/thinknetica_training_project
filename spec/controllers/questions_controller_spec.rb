@@ -4,7 +4,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:question_with_answers) { FactoryGirl.create(:question_with_valid_answer) }
 
   describe 'GET #index' do
-    let(:generated_questions) { FactoryGirl.create_list(:question, 2) }   
+    let(:generated_questions) { FactoryGirl.create_list(:question, 2) }
 
     before do
       get :index
@@ -16,7 +16,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'renders index template' do
       expect(response).to render_template(:index)
-    end   
+    end
   end
 
   describe 'GET #new' do
@@ -42,8 +42,8 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'redirects to show' do
-        post :create, question: FactoryGirl.attributes_for(:question)        
-        expect(response).to redirect_to(action: "show", id: Question.last)
+        post :create, question: FactoryGirl.attributes_for(:question)
+        expect(response).to redirect_to(action: 'show', id: Question.last)
       end
     end
 

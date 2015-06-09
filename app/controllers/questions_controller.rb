@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         flash[:notice] = 'Question successfully created'
-        format.html { redirect_to action:"show", id: @question }
+        format.html { redirect_to @question }
       else
         format.html { render :new }
         flash[:notice] = 'Your parameters are not okay, try once again'

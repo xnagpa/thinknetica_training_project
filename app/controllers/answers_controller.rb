@@ -1,19 +1,19 @@
 class AnswersController < ApplicationController
   before_action :set_question
 
-  def create    
+  def create
     @answer =  @question.answers.new(answer_params)
 
-    if @answer.save    
+    if @answer.save
       redirect_to question_url(@question)
-      flash[:notice] = 'Answer successfully created'     
-    else      
+      flash[:notice] = 'Answer successfully created'
+    else
       render template: 'answers/new'
       flash[:notice] = 'Your parameters are not okay, try once again'
     end
   end
 
-  def new    
+  def new
     @answer =  Answer.new
   end
 

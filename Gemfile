@@ -32,8 +32,6 @@ gem 'bootstrap-generators', '~> 3.3.4'
 # Use postgress as the database for Active Record
 gem 'pg'
 
-gem 'rubocop', require: false
-
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
@@ -48,6 +46,8 @@ gem 'rubocop', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  gem 'rubocop', require: false
 
   gem 'rspec-rails'
 
