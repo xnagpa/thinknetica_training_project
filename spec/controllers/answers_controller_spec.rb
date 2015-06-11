@@ -1,0 +1,52 @@
+require 'rails_helper'
+
+RSpec.describe AnswersController, type: :controller do
+  let(:question_with_answers) { FactoryGirl.create(:question_with_valid_answer) }
+
+  describe 'GET #new' do
+    before do
+      params = { question_id: question_with_answers.id }
+      get :new, params
+    end
+
+    it 'assigns new variable to @answer of the @question' do
+      expect(assigns(:answer)).to be_a_new(Answer)
+    end
+
+    it 'renders new template' do
+      expect(response).to render_template('answers/new')
+    end
+  end
+
+  describe 'POST #create' do
+    # before :each do
+    # valid_answer_attrs = { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) }
+    # invalid_answer_attrs = { answer: FactoryGirl.attributes_for(:invalid_answer) }
+    # question_attrs = { question_id: question_with_answers.id }
+    let!(:post_params_valid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) } }
+    let!(:post_params_invalid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:invalid_answer) } }
+    # end
+
+    context 'with valid attributes' do
+      it 'saves a new answer in the database' do
+        expect { post :create, post_params_valid }.to change(question_with_answers.answers, :count).by(1)
+      end
+
+      it 'redirects to show' do
+        post :create, post_params_valid
+        expect(response).to redirect_to(question_url(question_with_answers.id))
+      end
+    end
+
+    context 'with invalid attributes' do
+      it "doesn't save a new question in the database" do
+        expect { post :create, post_params_invalid }.to_not change(Answer, :count)
+      end
+
+      it 'rerenders new template' do
+        post :create, post_params_invalid
+        expect(response).to render_template('answers/new')
+      end
+    end
+  end
+end
