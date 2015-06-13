@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :question do
     title 'Factory question'
     content 'Factory content'
+    user_id 1
 
     factory :question_with_valid_answer do
       after(:create) do |question|

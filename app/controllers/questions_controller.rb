@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index,:show]
+  before_action :extract_question_id, only: [:show, :destroy]
   
   def index
     @questions = Question.all
@@ -7,6 +8,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
+    @question.user_id=current_user.id
 
     respond_to do |format|
       if @question.save
@@ -24,10 +26,24 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.find(params[:id])
+    
+  end
+
+  def destroy
+    if(current_user.id == @question.user_id) 
+      @question.destroy
+      flash[:notice] = 'Question successfully deleted'
+    else       
+      flash[:notice] = 'You are not allowed to delete this question' 
+    end
+    redirect_to root_path     
   end
 
   private
+
+  def extract_question_id
+    @question = Question.find(params[:id])
+  end
 
   def question_params
     params.require(:question).permit(:title, :content)

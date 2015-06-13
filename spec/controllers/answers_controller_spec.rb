@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:question_with_answers) { FactoryGirl.create(:question_with_valid_answer) }
+  let(:user){ FactoryGirl.create(:user)}
 
   describe 'GET #new' do
     before do
+      sign_in(user)
       params = { question_id: question_with_answers.id }
       get :new, params
     end
@@ -23,6 +25,10 @@ RSpec.describe AnswersController, type: :controller do
     # valid_answer_attrs = { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) }
     # invalid_answer_attrs = { answer: FactoryGirl.attributes_for(:invalid_answer) }
     # question_attrs = { question_id: question_with_answers.id }
+     before do
+      sign_in(user)
+     end
+   
     let!(:post_params_valid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:answer) } }
     let!(:post_params_invalid) { { question_id: question_with_answers.id, answer: FactoryGirl.attributes_for(:invalid_answer) } }
     # end

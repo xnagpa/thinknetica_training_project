@@ -33,6 +33,16 @@
               %a{href: "#about"} About
             %li
               %a{href: "#contact"} Contact
+            %li 
+              =link_to "Sign in",new_user_session_path
+            %li 
+              =link_to "Sign up",new_user_registration_path
+
+            -unless current_user.nil?
+              %li
+                =link_to "Sign out", destroy_user_session_path(current_user),method: :delete
+
+            
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do

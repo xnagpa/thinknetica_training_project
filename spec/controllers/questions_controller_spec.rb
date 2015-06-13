@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:question_with_answers) { FactoryGirl.create(:question_with_valid_answer) }
+   let(:user){ FactoryGirl.create(:user)}
 
   describe 'GET #index' do
     let(:generated_questions) { FactoryGirl.create_list(:question, 2) }
@@ -19,10 +20,10 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe 'GET #new' do
-   sign_in_user
+  describe 'GET #new' do   
 
     before do
+      sign_in(user)
       get :new
     end
 
@@ -36,7 +37,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
-    sign_in_user
+    before {sign_in(user)}
+    
     let(:factory_question) { FactoryGirl.build(:question) }
 
     context 'with valid attributes' do
@@ -72,5 +74,21 @@ RSpec.describe QuestionsController, type: :controller do
     it 'renders show view' do
       expect(response).to render_template :show
     end
+  end
+
+
+  describe 'DELETE #destroy' do
+    let!(:question_to_delete) { FactoryGirl.create(:question_with_valid_answer) }
+    before {sign_in(user)}
+
+    it 'deletes question  with given id' do       
+      expect { delete :destroy, id: question_to_delete }.to change(Question, :count).by(-1)
+    end
+
+    it 'redirect to index view' do
+      delete :destroy, id: question_to_delete
+      expect(response).to redirect_to root_path
+    end
+
   end
 end
