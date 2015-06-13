@@ -20,6 +20,8 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
+   sign_in_user
+
     before do
       get :new
     end
@@ -34,6 +36,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    sign_in_user
     let(:factory_question) { FactoryGirl.build(:question) }
 
     context 'with valid attributes' do
