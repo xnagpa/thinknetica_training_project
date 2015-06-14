@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :authenticate_user!, except: [:index,:show]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_question
 
   def create
@@ -15,7 +15,6 @@ class AnswersController < ApplicationController
   end
 
   def new
-     
     @answer =  Answer.new
   end
 
@@ -27,6 +26,5 @@ class AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
-
   end
 end

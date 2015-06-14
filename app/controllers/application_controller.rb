@@ -5,9 +5,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Overwriting the sign_out redirect path method
-  def after_sign_out_path_for(resource_or_scope)
-  	byebug
-  	respond_to?(:root_path) ? root_path : "/"
-	end
+  def store_location
+    # store last url as long as it isn't a /users path
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+  end
+
+  def after_sign_out_path_for(_resource)
+    session[:previous_url] || root_path
+  end
 end
