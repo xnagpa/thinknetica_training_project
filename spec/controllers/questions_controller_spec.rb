@@ -49,6 +49,11 @@ RSpec.describe QuestionsController, type: :controller do
         post :create, question: FactoryGirl.attributes_for(:question)
         expect(response).to redirect_to(action: 'show', id: Question.last)
       end
+
+      it 'ensures that created question has user_id of its creator' do
+        post :create, question: FactoryGirl.attributes_for(:question)
+        expect(Question.last.user_id).to eq subject.current_user.id
+      end
     end
 
     context 'with invalid attributes' do
@@ -77,10 +82,15 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let!(:question_to_delete) { FactoryGirl.create(:question_with_valid_answer) }
+    let!(:question_by_another_user) { FactoryGirl.create(:question_made_by_other_user) }
     before { sign_in(user) }
 
     it 'deletes question  with given id' do
       expect { delete :destroy, id: question_to_delete }.to change(Question, :count).by(-1)
+    end
+
+    it 'doesnt delete question made by other user' do
+      expect { delete :destroy, id: question_by_another_user }.to_not change(Question, :count)
     end
 
     it 'redirect to index view' do
