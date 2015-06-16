@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:question_with_answers) { FactoryGirl.create(:question_with_valid_answer) }
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user){ FactoryGirl.create(:user) }
+  let(:question){ FactoryGirl.create(:question, user: user) }
+  let(:answer){ FactoryGirl.create(:answer, question:  question, user: user) }
+  let(:another_user){  FactoryGirl.create(:another_user) }
 
   describe 'GET #index' do
     let(:generated_questions) { FactoryGirl.create_list(:question, 2) }
@@ -42,6 +44,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       it 'saves a new question in the database' do
+
         expect { post :create, question: FactoryGirl.attributes_for(:question) }.to change(Question, :count).by(1)
       end
 
@@ -52,7 +55,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'ensures that created question has user_id of its creator' do
         post :create, question: FactoryGirl.attributes_for(:question)
-        expect(Question.last.user_id).to eq subject.current_user.id
+        expect(Question.last.user).to eq subject.current_user
       end
     end
 
@@ -69,10 +72,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { get :show, id: question_with_answers.id }
+    before { get :show, id: question.id }
 
     it 'assings the requested question to @question' do
-      expect(assigns(:question)).to eq question_with_answers
+      expect(assigns(:question)).to eq question
     end
 
     it 'renders show view' do
@@ -81,19 +84,20 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:question_to_delete) { FactoryGirl.create(:question_with_valid_answer) }
-    let!(:question_by_another_user) { FactoryGirl.create(:question_made_by_other_user) }
-    before { sign_in(user) }
+    let!(:question_to_delete) { FactoryGirl.create(:question, user: user) }   
 
     it 'deletes question  with given id' do
+      sign_in(user)
       expect { delete :destroy, id: question_to_delete }.to change(Question, :count).by(-1)
     end
 
     it 'doesnt delete question made by other user' do
-      expect { delete :destroy, id: question_by_another_user }.to_not change(Question, :count)
+      sign_in(another_user)
+      expect { delete :destroy, id: question_to_delete }.to_not change(Question, :count)
     end
 
     it 'redirect to index view' do
+      sign_in(user)
       delete :destroy, id: question_to_delete
       expect(response).to redirect_to root_path
     end

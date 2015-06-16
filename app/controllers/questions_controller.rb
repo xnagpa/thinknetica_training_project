@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    @question.user_id = current_user.id
+    @question.user = current_user
 
     respond_to do |format|
       if @question.save

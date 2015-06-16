@@ -2,7 +2,8 @@
  %b
   =link_to question.title,question
 %p=question.content
-=link_to "Delete stupid question", question_path(question), method: :delete
+-if current_user==question.user
+ =link_to "Delete stupid question", question_path(question), method: :delete
 =render question.answers
 =link_to "Create new comment", new_question_answer_path(question), method: :get
 %hr

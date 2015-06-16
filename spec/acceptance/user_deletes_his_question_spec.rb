@@ -5,38 +5,24 @@ feature 'User deletes question', '
    I want to be able to delete my own question
 
 ' do
-  given(:user) { FactoryGirl.create(:user) }
-  given(:another) { FactoryGirl.create(:another_user) }
+  given(:user_not_an_author) { FactoryGirl.create(:user) }
+  given(:user_with_questions) { FactoryGirl.create(:user_with_question) }
+  
 
   scenario 'Author tries to delete his own crap' do
-    sign_in(user)
-    visit root_path
-    click_on 'Create new question'
+    sign_in(user_with_questions)
 
-    fill_in 'Title', with: 'Some title'
-    fill_in 'Content', with: 'Question to delete later'
-    click_on 'Create'
-    expect(page).to have_content 'Question successfully created'
+    question_count = user_with_questions.questions.count
+    visit question_path(user_with_questions.questions.first)
+    click_on 'Delete stupid question'    
 
-    click_on 'Delete stupid question'
-    expect(page).to have_content 'Question successfully deleted'
+    expect(page).to have_content('Factory question', count: question_count-1)
   end
 
   scenario 'Non-author tries to delete a question' do
-    sign_in(user)
-    visit root_path
-    click_on 'Create new question'
+    sign_in(user_not_an_author)
 
-    fill_in 'Title', with: 'Some title'
-    fill_in 'Content', with: 'Question to delete later'
-    click_on 'Create'
-    expect(page).to have_content 'Question successfully created'
-
-    click_on 'Sign out'
-    sign_in(another)
-    visit root_path
-
-    click_on 'Delete stupid question'
-    expect(page).to have_content 'You are not allowed to delete this question'
+    visit question_path(user_with_questions.questions.first)
+    expect(page).to_not have_content 'Delete stupid question'   
   end
 end

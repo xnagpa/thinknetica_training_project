@@ -5,7 +5,7 @@ class AnswersController < ApplicationController
 
   def create
     @answer =  @question.answers.new(answer_params)
-
+    @answer.user =  current_user
     if @answer.save
       redirect_to question_url(@question)
       flash[:notice] = 'Answer successfully created'
@@ -20,10 +20,12 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if (current_user.id == @answer.user_id)
+    if current_user == @answer.user
+      #byebug
       @answer.destroy
       flash[:notice] = 'Answer successfully deleted'
     else
+      #byebug
       flash[:notice] = 'You are not allowed to delete this answer'
     end
     redirect_to root_path

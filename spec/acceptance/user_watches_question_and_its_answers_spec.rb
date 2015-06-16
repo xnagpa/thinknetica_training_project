@@ -6,14 +6,10 @@ feature 'User can watch question and answers related', '
 
 ' do
   given(:user) { FactoryGirl.create(:user) }
+  given(:question){ FactoryGirl.create(:question_with_valid_answers) }
 
-  scenario 'User or guest watches question and its answers' do
-    FactoryGirl.create(:question_with_valid_answer)
-
-    visit questions_path
-
-    click_on 'Factory question'
-
-    expect(page).to have_content 'You suck!'
+  scenario 'User or guest watches question and its answers' do     
+    visit question_path(question)
+    expect(page).to have_content('You are beautiful!', count: 5)
   end
 end
