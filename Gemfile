@@ -31,6 +31,8 @@ gem 'bootstrap-generators', '~> 3.3.4'
 
 # Use postgress as the database for Active Record
 gem 'pg'
+gem 'devise'
+gem 'launchy'
 
 # rails new myapp --database=postgresql
 
@@ -54,6 +56,8 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'shoulda-matchers'
+
+  gem 'capybara'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
