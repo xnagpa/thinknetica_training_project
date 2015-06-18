@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user == @answer.user
+    if current_user.id == @answer.user.id
       #byebug
       @answer.destroy
       flash[:notice] = 'Answer successfully deleted'
