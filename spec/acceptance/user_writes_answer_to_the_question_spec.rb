@@ -8,15 +8,23 @@ feature 'User writes answer to the question', '
   given(:user) { FactoryGirl.create(:user) }
   given(:question) { FactoryGirl.create(:question) }
 
-  scenario 'Authed user creates comment' do    
+  scenario 'Authed user creates comment', js: true do    
     sign_in(user)
 
     visit question_path(question)
-    click_on 'Create new comment'
-    fill_in 'Content', with: 'Test comment and some crap'
-    click_on 'Create Answer'
-    expect(page).to have_content 'Answer successfully created'
-    expect(page).to have_content 'Test comment and some crap'
+    
+    fill_in 'Your answer', with: 'Test comment and some crap'
+
+    click_on 'Create'
+
+   
+    expect(current_path).to eq question_path(question)
+    
+    
+    within '.answers' do
+      expect(page).to have_content 'Test comment and some crap'
+    end
+   
   end
 
   scenario 'Non Authed user cant create a  comment' do

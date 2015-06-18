@@ -53,8 +53,8 @@ RSpec.describe AnswersController, type: :controller do
       sign_in(user)
     end
 
-    let(:post_params_valid) {{question_id: question.id}.merge({answer: FactoryGirl.attributes_for(:answer)})}
-    let(:post_params_invalid) {{question_id: question.id}.merge({answer: FactoryGirl.attributes_for(:invalid_answer)})}
+    let(:post_params_valid) {{question_id: question.id}.merge({answer: FactoryGirl.attributes_for(:answer), format: :js})}
+    let(:post_params_invalid) {{question_id: question.id}.merge({answer: FactoryGirl.attributes_for(:invalid_answer), format: :js})}
     #let(:post_params_invalid)
     # end
 
@@ -64,13 +64,13 @@ RSpec.describe AnswersController, type: :controller do
         expect{post :create, post_params_valid}.to change(Answer,:count).by(1)
       end
 
-      it 'redirects to show' do
+      it 'render template create' do
         post :create, post_params_valid
-        expect(response).to redirect_to(question_url(question))
+        expect(response).to render_template :create
       end
 
       it 'ensures that created question has user_id of its creator' do
-        post :create, post_params_valid
+        post :create, post_params_valid,format: :js
         expect(Answer.last.user_id).to eq subject.current_user.id
       
       end
