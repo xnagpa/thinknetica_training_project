@@ -6,10 +6,7 @@ class AnswersController < ApplicationController
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user
-    if @answer.save
-      redirect_to question_url(@question)
-      flash[:notice] = 'Answer successfully created'
-    else
+    unless @answer.save     
       render template: 'answers/new'
       flash[:notice] = 'Your parameters are not okay, try once again'
     end
@@ -20,7 +17,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user == @answer.user
+    if current_user.id == @answer.user.id
       #byebug
       @answer.destroy
       flash[:notice] = 'Answer successfully deleted'

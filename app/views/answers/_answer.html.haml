@@ -1,5 +1,5 @@
 %p
  %i=answer.content
--if current_user==answer.user 
+-if current_user==answer.user && !answer.id.nil?
  %p
   %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete
