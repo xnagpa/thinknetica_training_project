@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User can watch question and answers related', '
    In order to ffind the answer to my question
    As authed user or guest

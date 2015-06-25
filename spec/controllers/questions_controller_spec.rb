@@ -106,4 +106,41 @@ RSpec.describe QuestionsController, type: :controller do
       expect(response).to redirect_to root_path
     end
   end
+
+
+
+  describe 'patch #update' do
+    before do      
+      sign_in(user)
+    end
+
+    context 'does ' do      
+       let!(:question_to_update){ FactoryGirl.create(:question, user: user) }
+
+      it 'assign @question ' do  
+
+        patch :update, id: question_to_update, question: FactoryGirl.attributes_for(:question), format: :js
+        expect(assigns(:question)).to eq question_to_update
+      end
+
+      it 'render template create' do
+        patch :update, id: question_to_update, question: FactoryGirl.attributes_for(:question), format: :js
+        expect(response).to render_template :update
+      end
+
+      it 'changes the original content off the answer' do
+        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap'}, format: :js
+        question_to_update.reload
+        expect(question_to_update.content).to eq 'new crap'
+        expect(question_to_update.title).to eq 'crap'
+      
+      end
+    end
+
+
+
+  end
+
+
+
 end

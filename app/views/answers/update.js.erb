@@ -1,0 +1,12 @@
+<% if @answer.errors.present? %>
+    <% @answer.errors.full_messages.each do |message| %>
+        $('.answer-errors').html('<%= j message %>');
+    <% end %>
+<% else %>
+
+var s = '#<%= @answer.id%>';
+$(s).html('<%= @answer.content%>').css('color','red');
+
+ $('#edit-answer-'+<%= @answer.id%>).hide();
+ $('[data-answer-id="<%= @answer.id%>"]').show();
+ <%end%>

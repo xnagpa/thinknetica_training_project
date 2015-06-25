@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User deletes question', '
    In order to hide my stupidity
    As a user

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User creates question', '
    In order to get answer from other users
    As authed user
@@ -14,7 +14,7 @@ feature 'User creates question', '
     click_on 'Create new question'
     fill_in 'Title', with: 'Test question'
     fill_in 'Content', with: 'texttext'
-    click_on 'Create'
+    click_on 'Save'
 
     expect(page).to have_content 'Question successfully created'
      expect(page).to have_content 'Test question'

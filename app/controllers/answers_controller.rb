@@ -6,15 +6,20 @@ class AnswersController < ApplicationController
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user
-    unless @answer.save     
-      render template: 'answers/new'
-      flash[:notice] = 'Your parameters are not okay, try once again'
-    end
+    @answer.save   
+         
   end
 
   def new
     @answer =  Answer.new
   end
+
+
+  def update
+    @answer =  Answer.find(params[:id])
+    @answer.update(answer_params)   
+  end
+
 
   def destroy
     if current_user.id == @answer.user.id
@@ -25,7 +30,7 @@ class AnswersController < ApplicationController
       #byebug
       flash[:notice] = 'You are not allowed to delete this answer'
     end
-    redirect_to root_path
+    
   end
 
   private

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User watches list of questions', '
    In order to find the answer
    As user or guest

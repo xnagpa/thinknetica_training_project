@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User can pass the regicstration', '
    In order to become a user and ask questions
    As guest

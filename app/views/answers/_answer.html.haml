@@ -1,5 +1,14 @@
-%p
+%p{ id: answer.id}
  %i=answer.content
 -if current_user==answer.user && !answer.id.nil?
  %p
-  %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete
+  %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
+ %p
+  =form_for [answer.question,answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+   =f.label :content,"Edit your answer"
+   %br
+   =f.text_area :content
+   %br
+   =f.submit "Save"
+ %p
+  %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true

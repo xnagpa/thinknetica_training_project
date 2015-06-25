@@ -1,4 +1,4 @@
-require 'rails_helper'
+require_relative 'acceptance_helper'
 feature 'User deletes answer', '
    In order to hide my stupidity
    As a user
@@ -10,7 +10,7 @@ feature 'User deletes answer', '
  
   #given(:question_with_valid_answers){ FactoryGirl.create(:question_with_valid_answers) }
  
-  scenario 'Author tries to delete his own crappy answer' do
+  scenario 'Author tries to delete his own crappy answer', js: true do
     sign_in(answer.user)   
    
     visit question_path(answer.question)
@@ -18,7 +18,7 @@ feature 'User deletes answer', '
     expect(page).to_not have_content answer.content
   end
 
-  scenario 'Non-author tries to delete an answer' do
+  scenario 'Non-author tries to delete an answer', js: true do
     sign_in(user)    
     visit question_path(answer.question)
 
