@@ -6,40 +6,44 @@ feature 'User can choose best answer', '
    I want to be able to make it bold
 
 ' do
-  given(:user) { FactoryGirl.create(:user) }
-  given(:question){ FactoryGirl.create(:question, user: user) }
-  given(:answer){ FactoryGirl.create(:answer,  question:  question)} 
-  given(:another_answer){ FactoryGirl.create(:answer,  question:  question)} 
-
+  given!(:user) { FactoryGirl.create(:user) }
+  given!(:question){ FactoryGirl.create(:question, user: user) }
+  given!(:answer){ FactoryGirl.create(:answer,  question:  question)} 
+  given!(:another_answer){ FactoryGirl.create(:another_answer,  question:  question)} 
+	given!(:another_user){ FactoryGirl.create(:another_user)} 
   
  
   #given(:question_with_valid_answers){ FactoryGirl.create(:question_with_valid_answers) }
  
   scenario 'Author can choose the best answer', js: true do
-    # sign_in(user)   
-   
-    # visit question_path(question)
-    # last('.answer').click_link('Be the best!')   
-    # expect(page).to have_tag(".answers answer:nth-child(1)", text: @date1.content)
-    
-
+     sign_in(user)      
+     visit question_path(question)      
+     first('.answer').click_link('Best ever')   
+     #Otherwise it doesnt find element   
+     sleep 1.seconds    
+     expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true']")     
   end
 
-  scenario 'There is only one best answer', js: true do
-    # visit question_path(question)
-    # expect(first('.answer')).to have_css()
+  scenario 'There is only one best answer and it situated first on the page', js: true do
+  	sign_in(user)    
+    visit question_path(question)    
+    answers = page.all('.answer')
+    answers[1].find('a').click
+    sleep 1.seconds    
+    expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")  
+       
   end
 
-  scenario 'Best answer should be the first on the page', js: true do
-    # visit question_path(question)
-    # expect(first('.answer')).to have_css()
+
+
+  scenario 'Guest can\'t choose the best answer', js: true do
+  	visit question_path(question)
+  	expect(page).not_to have_content('Best ever')    
   end
 
-  scenario 'Author can change his mind and choose another answer', js: true do
-    
-  end
-
-  scenario 'Non-author can\'t choose the best answer', js: true do
-    
+  scenario 'Another user can\'t choose the best answer', js: true do
+  	sign_in(another_user)
+  	visit question_path(question)
+  	expect(page).not_to have_content('Best ever')    
   end
 end

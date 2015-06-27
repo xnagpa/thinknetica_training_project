@@ -16,7 +16,13 @@ class AnswersController < ApplicationController
 
 
   def update
-    @answer =  Answer.find(params[:id])
+    @answer =  Answer.find(params[:id])  
+    @old_best_answer = Answer.where({ question: @answer.question, best: true }).first        
+    #byebug
+    if params[:answer][:best] =="true" 
+      @old_best_answer.update({best:false}) unless @old_best_answer.blank? 
+      #byebug
+    end
     @answer.update(answer_params)   
   end
 
@@ -36,7 +42,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:content)
+    params.require(:answer).permit(:content, :best)
   end
 
   def set_question
