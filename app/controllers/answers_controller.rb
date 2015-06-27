@@ -6,37 +6,33 @@ class AnswersController < ApplicationController
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user
-    @answer.save   
-         
+    @answer.save
   end
 
   def new
     @answer =  Answer.new
   end
 
-
   def update
-    @answer =  Answer.find(params[:id])  
-    @old_best_answer = Answer.where({ question: @answer.question, best: true }).first        
-    #byebug
-    if params[:answer][:best] =="true" 
-      @old_best_answer.update({best:false}) unless @old_best_answer.blank? 
-      #byebug
+    @answer =  Answer.find(params[:id])
+    @old_best_answer = Answer.where(question: @answer.question, best: true).first
+    # byebug
+    if params[:answer][:best] == 'true'
+      @old_best_answer.update(best: false) unless @old_best_answer.blank?
+      # byebug
     end
-    @answer.update(answer_params)   
+    @answer.update(answer_params)
   end
-
 
   def destroy
     if current_user.id == @answer.user.id
-      #byebug
+      # byebug
       @answer.destroy
       flash[:notice] = 'Answer successfully deleted'
     else
-      #byebug
+      # byebug
       flash[:notice] = 'You are not allowed to delete this answer'
     end
-    
   end
 
   private

@@ -9,8 +9,8 @@ feature 'User watches list of questions', '
 
   scenario 'User or guest visits the root ' do
     # sign_in(user)
-    FactoryGirl.create_list(:question,3)
-    visit root_path    
+    FactoryGirl.create_list(:question, 3)
+    visit root_path
     expect(page).to have_content('Factory question', count: 3)
     expect(current_path).to eq root_path
   end

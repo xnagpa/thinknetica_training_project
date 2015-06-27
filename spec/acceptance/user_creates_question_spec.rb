@@ -17,8 +17,8 @@ feature 'User creates question', '
     click_on 'Save'
 
     expect(page).to have_content 'Question successfully created'
-     expect(page).to have_content 'Test question'
-      expect(page).to have_content 'texttext'
+    expect(page).to have_content 'Test question'
+    expect(page).to have_content 'texttext'
   end
 
   scenario 'Non authed user tries to create question' do

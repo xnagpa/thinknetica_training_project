@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.configure do |config|
-   Capybara.javascript_driver= :webkit
-   
-	  config.use_transactional_fixtures = false
+  Capybara.javascript_driver = :webkit
 
-	 config.before(:suite) do
+  config.use_transactional_fixtures = false
+
+  config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
 
@@ -24,5 +24,4 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
 end

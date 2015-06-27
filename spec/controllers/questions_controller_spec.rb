@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
-  let(:user){ FactoryGirl.create(:user) }
-  let(:question){ FactoryGirl.create(:question, user: user) }
-  let(:answer){ FactoryGirl.create(:answer, question:  question, user: user) }
-  let(:another_user){  FactoryGirl.create(:another_user) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:question) { FactoryGirl.create(:question, user: user) }
+  let(:answer) { FactoryGirl.create(:answer, question:  question, user: user) }
+  let(:another_user) {  FactoryGirl.create(:another_user) }
 
   describe 'GET #index' do
     let(:generated_questions) { FactoryGirl.create_list(:question, 2) }
@@ -44,7 +44,6 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       it 'saves a new question in the database' do
-
         expect { post :create, question: FactoryGirl.attributes_for(:question) }.to change(Question, :count).by(1)
       end
 
@@ -88,7 +87,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:question_to_delete) { FactoryGirl.create(:question, user: user) }   
+    let!(:question_to_delete) { FactoryGirl.create(:question, user: user) }
 
     it 'deletes question  with given id' do
       sign_in(user)
@@ -107,18 +106,15 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-
-
   describe 'patch #update' do
-    before do      
+    before do
       sign_in(user)
     end
 
-    context 'does ' do      
-       let!(:question_to_update){ FactoryGirl.create(:question, user: user) }
+    context 'does ' do
+      let!(:question_to_update) { FactoryGirl.create(:question, user: user) }
 
-      it 'assign @question ' do  
-
+      it 'assign @question ' do
         patch :update, id: question_to_update, question: FactoryGirl.attributes_for(:question), format: :js
         expect(assigns(:question)).to eq question_to_update
       end
@@ -129,18 +125,11 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 'changes the original content off the answer' do
-        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap'}, format: :js
+        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
         question_to_update.reload
         expect(question_to_update.content).to eq 'new crap'
         expect(question_to_update.title).to eq 'crap'
-      
       end
     end
-
-
-
   end
-
-
-
 end

@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.build   
+    @answer = @question.answers.build
   end
 
   def destroy
@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-     @question.update(question_params)
+    @question.update(question_params)
   end
 
   private
