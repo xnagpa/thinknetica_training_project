@@ -1,11 +1,11 @@
 .answer{id: answer.id, data: { is_best: answer.best.inspect} }
  .answer_content
   =answer.content
- -if current_user==answer.question.user && !answer.id.nil?
+ -if current_user==answer.question.user && answer.persisted?
   %p
    %i=link_to "Best ever",question_answer_path(answer.question, answer, answer: {best: true, content: answer.content}), class: 'best-answer-link', data: { best_id: answer.id }, method: :put, remote: true
 
- -if current_user==answer.user && !answer.id.nil?   
+ -if  current_user==answer.user && answer.persisted?   
   %p
    %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
   %p
@@ -15,5 +15,5 @@
     =f.text_area :content
     %br
     =f.submit "Save"
-  %p
-   %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true
+   %p
+    %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true

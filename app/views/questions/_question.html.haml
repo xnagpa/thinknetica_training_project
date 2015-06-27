@@ -3,7 +3,7 @@
   %b
    =link_to question.title,question
  %p.content=question.content
- -if current_user == question.user
+ -if  !current_user.nil? && current_user.id == question.user.id 
   %p
    =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }
    =render 'questions/form',locals:{:question => question}
