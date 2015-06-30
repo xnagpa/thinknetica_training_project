@@ -3,11 +3,12 @@
         $('.answer-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-var s = '#<%= @answer.id%> .answer_content';
-var new_best_answer_id ='#<%= @answer.id%>';
-$('.answers').html('<%=j render @answer.question.answers%>');
-
- <%end%>
+	//$('.answers').html('<%=j render @answer.question.answers%>');
+	var s = '#<%= @answer.id%> .answer_content';
+	$(s).html('<%= @answer.content%>');
+  $('#edit-answer-'+<%= @answer.id%>).hide();  
+  $('[data-answer-id="<%= @answer.id%>"]').show();
+<%end%>
 
  // Replace first answer on the page with the best answer	
 	// var first_answer_on_the_page = $('.answer').first();	

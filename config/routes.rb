@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :questions, only: [:index, :new, :create, :show, :destroy, :update] do
-    resources :answers
+    resources :answers do 
+      patch 'set_best_answer', on: :member
+    end
+
   end
 
   root 'questions#index'

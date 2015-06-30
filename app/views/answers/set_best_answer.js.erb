@@ -1,0 +1,17 @@
+	<% if @answer.errors.present? %>
+    <% @answer.errors.full_messages.each do |message| %>
+        $('.answer-errors').html('<%= j message %>');
+    <% end %>
+<% else %>
+		var s = '#<%= @answer.id%> .answer_content';
+		var new_best_answer_id ='#<%= @answer.id%>';
+
+		$( ".answer:first").before($(new_best_answer_id) );
+		
+		//$('.answer').removeClass('best_answer');
+		//$('.answer:first').addClass('best_answer');	 	 
+		$('.answer').css('border','none');	 
+		$( ".answer:first").css('border','4px solid orange ');
+		//$('.answer:first').addClass('best_answer');
+<%end%>
+

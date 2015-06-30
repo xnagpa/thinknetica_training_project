@@ -3,7 +3,7 @@
   =answer.content
  -if current_user==answer.question.user && answer.persisted?
   %p
-   %i=link_to "Best ever",question_answer_path(answer.question, answer, answer: {best: true, content: answer.content}), class: 'best-answer-link', data: { best_id: answer.id }, method: :put, remote: true
+   %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
 
  -if  current_user==answer.user && answer.persisted?   
   %p

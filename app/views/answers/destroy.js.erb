@@ -3,6 +3,6 @@
 <% else %>
 
 var s = '#<%= @answer.id%>';
-$(s).html('DELETED').css('color','red');
+$(s).remove();
 
  <%end%>

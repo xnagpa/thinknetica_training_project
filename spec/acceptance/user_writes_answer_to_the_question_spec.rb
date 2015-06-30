@@ -32,8 +32,7 @@ feature 'User writes answer to the question', '
   scenario 'User try to create invalid answer', js: true do
     sign_in(user)
     visit question_path(question)
-    click_on 'Create'
-    save_and_open_page
+    click_on 'Create'    
     expect(page).to have_content 'Content can\'t be blank'
   end
 end
