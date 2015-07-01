@@ -29,10 +29,9 @@ class AnswersController < ApplicationController
 
   def set_best_answer 
        if @question.user ==current_user
-         @old_best_answer = Answer.get_old_best_answer(@answer.question)         
-        Answer.get_rid_of_the_old_best_answer(@answer.question) 
+          @answer.make_best
          #byebug
-         @answer.update(answer_params) unless @answer==@old_best_answer   
+         
        end
   end
 
