@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+$(function(){
+$('[data-is-best="true"]').addClass('best_answer');
+	
+});

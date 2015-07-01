@@ -5,15 +5,3 @@
 	display:none;
 }
 
-[data-is-best="true"]{
-	border: 4px solid orange; 	
-}
-
-.best_answer{
-	border: 4px solid orange;	
-	backgound-color:red;
-}
-
-[data-is-best="false"] {
-	border:none;
-}
