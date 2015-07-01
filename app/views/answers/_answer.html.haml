@@ -1,11 +1,11 @@
 .answer{id: answer.id, data: { is_best: answer.best.inspect} }
  .answer_content
   =answer.content
- -if current_user==answer.question.user && answer.persisted?
+ -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
   %p
    %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
 
- -if  current_user==answer.user && answer.persisted?   
+ -if  user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
   %p
    %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
   %p

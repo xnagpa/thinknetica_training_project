@@ -44,27 +44,60 @@ RSpec.describe AnswersController, type: :controller do
   ######################################
 
   describe 'patch #update' do
-    before do
-      sign_in(user)
-    end
+    #before do
+    #  sign_in(user)
+   # end
 
     context 'does ' do
       let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
 
       it 'assign @answer ' do
+        sign_in(user)
         patch :update, id: answer_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
         expect(assigns(:answer)).to eq answer_to_update
       end
 
-      it 'render template create' do
+      it 'render template update' do
+        sign_in(user)
         patch :update, id: answer_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
         expect(response).to render_template :update
       end
 
       it 'changes the original content off the answer' do
+        sign_in(user)
         patch :update, id: answer_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
         answer_to_update.reload
         expect(answer_to_update.content).to eq 'new crap'
+      end
+
+      it 'doesnt change if another user tries to change it' do
+        sign_in(another_user)
+        patch :update, id: answer_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
+        answer_to_update.reload
+         expect(answer_to_update.content).not_to eq 'new crap'
+      end
+
+    end
+  end
+
+  describe 'PATCH #set_best_answer' do
+
+   before do
+      sign_in(user)
+    end
+    let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
+    context 'does' do
+      
+       it 'sets answer to be the best' do
+        patch :set_best_answer, id: answer_to_update, question_id: question, answer: { best: true }, format: :js
+        answer_to_update.reload
+        expect(answer_to_update.best).to eq true
+      end
+
+       it 'render template set_best_answer' do
+        patch :set_best_answer, id: answer_to_update, question_id: question, answer: { best: true }, format: :js
+        
+        expect(response).to render_template :set_best_answer
       end
     end
   end

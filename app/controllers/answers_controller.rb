@@ -13,8 +13,10 @@ class AnswersController < ApplicationController
     @answer =  Answer.new
   end
 
-  def update   
-    @answer.update(answer_params)
+  def update  
+    if @answer.user == current_user 
+      @answer.update(answer_params)
+    end
   end
 
   def destroy
@@ -28,9 +30,10 @@ class AnswersController < ApplicationController
   end
 
   def set_best_answer 
-       if @question.user ==current_user
-          @answer.make_best
-         #byebug
+       
+       if @question.user == current_user
+
+          @answer.make_best    
          
        end
   end
