@@ -1,8 +1,10 @@
 =render @question
-
-=form_for [@question,@answer],remote: true do |f|
- =f.label :content, "Your answer"
- =f.text_area :content
- =f.submit "Create"
-
+-if user_signed_in?
+ =render 'answers/form'
+-else
+ %b
+  %p 
+   If you want to comment
+   =link_to "Sign in", new_user_session_path
+%br  
 =link_to "Back", root_path

@@ -1,8 +1,21 @@
 FactoryGirl.define do
   
-    factory :answer do	 
+  factory :answer do	 
+    association :user
+    association :question
+    content 'You are beautiful!'
+
+    factory :another_answer  do	 
       association :user
       association :question  
-	    content 'You are beautiful!' 	   
+	     content 'You are handsome!' 	   
     end
- end
+
+     factory :best_answer  do   
+      association :user
+      association :question  
+       content 'You are handsome!'   
+       best true  
+    end
+  end
+end

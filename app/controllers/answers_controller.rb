@@ -1,37 +1,47 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_question
-  before_action :set_answer, only: [:destroy]
+  before_action :set_answer, only: [:destroy,:update,:set_best_answer]
 
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user
-    unless @answer.save     
-      render template: 'answers/new'
-      flash[:notice] = 'Your parameters are not okay, try once again'
-    end
+    @answer.save
   end
 
   def new
     @answer =  Answer.new
   end
 
+  def update  
+    if @answer.user == current_user 
+      @answer.update(answer_params)
+    end
+  end
+
   def destroy
     if current_user.id == @answer.user.id
-      #byebug
       @answer.destroy
       flash[:notice] = 'Answer successfully deleted'
     else
-      #byebug
+      # byebug
       flash[:notice] = 'You are not allowed to delete this answer'
     end
-    redirect_to root_path
+  end
+
+  def set_best_answer 
+       
+       if @question.user == current_user
+
+          @answer.make_best    
+         
+       end
   end
 
   private
 
   def answer_params
-    params.require(:answer).permit(:content)
+    params.require(:answer).permit(:content, :best)
   end
 
   def set_question

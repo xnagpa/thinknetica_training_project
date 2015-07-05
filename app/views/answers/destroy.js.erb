@@ -1,0 +1,8 @@
+<% if @answer.errors.present? %>
+    alert('Errors!!');
+<% else %>
+
+var s = '#<%= @answer.id%>';
+$(s).remove();
+
+ <%end%>

@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :extract_question_id, only: [:show, :destroy]
+  before_action :extract_question_id, only: [:show, :destroy, :update]
 
   def index
     @questions = Question.all
@@ -26,7 +26,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @answer = @question.answers.build   
+    @answer = @question.answers.build
   end
 
   def destroy
@@ -37,6 +37,12 @@ class QuestionsController < ApplicationController
       flash[:notice] = 'You are not allowed to delete this question'
     end
     redirect_to root_path
+  end
+
+  def update
+    if (current_user.id == @question.user_id)
+      @question.update(question_params)
+    end
   end
 
   private

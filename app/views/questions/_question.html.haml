@@ -1,13 +1,17 @@
-%p
- %b
-  =link_to question.title,question
-%p=question.content
--if current_user == question.user
- =link_to "Delete stupid question", question_path(question), method: :delete
-.answers
- =render question.answers
-=link_to "Create new comment", new_question_answer_path(question), method: :get
-%hr
+.question{ id: question.id}
+ %p.title
+  %b
+   =link_to question.title,question
+ %p.content=question.content
+ -if  !current_user.nil? && current_user.id == question.user.id 
+  %p
+   =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }
+   =render 'questions/form',locals:{:question => question}
+  %p 
+   =link_to "Delete stupid question", question_path(question), method: :delete
+ .answers
+  =render question.answers
+ %hr
 
 
 
