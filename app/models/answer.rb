@@ -9,15 +9,10 @@ class Answer < ActiveRecord::Base
   validates :question_id, presence: true
 
   def make_best
-    
-  	best_answer = question.best_answer  	
-    
-  	best_answer.update(best: false) unless best_answer.blank?
-    
-    update(best: true) unless self==best_answer
-       
+    best_answer = question.best_answer
+
+    best_answer.update(best: false) unless best_answer.blank?
+
+    update(best: true) unless self == best_answer
   end
-
-  
-
 end

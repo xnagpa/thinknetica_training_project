@@ -21,6 +21,7 @@ feature 'User can choose best answer', '
     # Otherwise it doesnt find element
     sleep 1.seconds
     visit question_path(question)
+    save_and_open_page
     expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true']")
   end
 
@@ -30,6 +31,7 @@ feature 'User can choose best answer', '
     answers = page.all('.answer')
     answers[1].find('a').click
     visit question_path(question)
+    save_and_open_page
     expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")
   end
 

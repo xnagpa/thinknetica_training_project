@@ -7,10 +7,10 @@ FactoryGirl.define do
     factory :question_with_valid_answers do
       after(:create) do |question|
         create_list(:answer, 5, question: question)
-      end     
-  end
+      end
+    end
 
-  factory :question_with_best_answer do
+    factory :question_with_best_answer do
       after(:create) do |question|
         create_list(:best_answer, 1, question: question)
       end

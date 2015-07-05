@@ -107,8 +107,6 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'patch #update' do
-    
-
     context 'does ' do
       let!(:question_to_update) { FactoryGirl.create(:question, user: user) }
 
@@ -134,11 +132,10 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'doesnt change if another user tries to change it' do
         sign_in(another_user)
-         patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
-         question_to_update.reload
-         expect(question_to_update.content).not_to eq 'new crap'
+        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
+        question_to_update.reload
+        expect(question_to_update.content).not_to eq 'new crap'
       end
-
     end
   end
 end

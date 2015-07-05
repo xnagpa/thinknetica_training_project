@@ -13,7 +13,7 @@ feature 'In order to improve my question
 
     within('.question') do
       click_on 'Edit stupid question'
-      
+
       fill_in 'question[content]', with: 'Test edit question'
     end
 

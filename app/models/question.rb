@@ -7,6 +7,6 @@ class Question < ActiveRecord::Base
   validates :content, presence: true
 
   def best_answer
-  	self.answers.where({ best:true}).first    	
+    answers.where(best: true).first
   end
 end

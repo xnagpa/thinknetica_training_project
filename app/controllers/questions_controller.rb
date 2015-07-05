@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if (current_user.id == @question.user_id)
+    if current_user.id == @question.user_id
       @question.destroy
       flash[:notice] = 'Question successfully deleted'
     else
@@ -40,9 +40,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if (current_user.id == @question.user_id)
-      @question.update(question_params)
-    end
+    @question.update(question_params) if current_user.id == @question.user_id
   end
 
   private

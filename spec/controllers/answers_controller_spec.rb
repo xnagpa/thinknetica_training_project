@@ -44,9 +44,9 @@ RSpec.describe AnswersController, type: :controller do
   ######################################
 
   describe 'patch #update' do
-    #before do
+    # before do
     #  sign_in(user)
-   # end
+    # end
 
     context 'does ' do
       let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
@@ -74,29 +74,26 @@ RSpec.describe AnswersController, type: :controller do
         sign_in(another_user)
         patch :update, id: answer_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
         answer_to_update.reload
-         expect(answer_to_update.content).not_to eq 'new crap'
+        expect(answer_to_update.content).not_to eq 'new crap'
       end
-
     end
   end
 
   describe 'PATCH #set_best_answer' do
-
-   before do
+    before do
       sign_in(user)
     end
     let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
     context 'does' do
-      
-       it 'sets answer to be the best' do
+      it 'sets answer to be the best' do
         patch :set_best_answer, id: answer_to_update, question_id: question, answer: { best: true }, format: :js
         answer_to_update.reload
         expect(answer_to_update.best).to eq true
       end
 
-       it 'render template set_best_answer' do
+      it 'render template set_best_answer' do
         patch :set_best_answer, id: answer_to_update, question_id: question, answer: { best: true }, format: :js
-        
+
         expect(response).to render_template :set_best_answer
       end
     end
