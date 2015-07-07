@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
+//= require cocoon
 //= require bootstrap
 //= require_tree .
-$(function(){
-$('[data-is-best="true"]').addClass('best_answer');
-	
-});

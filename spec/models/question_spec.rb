@@ -19,6 +19,14 @@ RSpec.describe Question, type: :model do
     expect(subject).to have_many(:answers).dependent(:destroy)
   end
 
+  it 'should have_many(:attachments)' do
+    expect(subject).to have_many(:attachments).dependent(:destroy)
+  end
+
+   it 'accepts nested attributes ' do
+   expect(subject).to accept_nested_attributes_for(:attachments)     
+  end
+
   it 'should belong_to(:user)' do
     expect(subject).to belong_to(:user)
   end

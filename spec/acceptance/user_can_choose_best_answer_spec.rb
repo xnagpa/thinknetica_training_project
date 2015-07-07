@@ -8,30 +8,26 @@ feature 'User can choose best answer', '
 ' do
   given!(:user) { FactoryGirl.create(:user) }
   given!(:question) { FactoryGirl.create(:question, user: user) }
-  given!(:answer) { FactoryGirl.create(:answer,  question:  question) }
-  given!(:another_answer) { FactoryGirl.create(:another_answer,  question:  question) }
+  given!(:answer) { FactoryGirl.create(:answer,  question:  question, user: user) }
   given!(:another_user) { FactoryGirl.create(:another_user) }
 
   # given(:question_with_valid_answers){ FactoryGirl.create(:question_with_valid_answers) }
 
   scenario 'Author can choose the best answer', js: true do
     sign_in(user)
-    visit question_path(question)
-    first('.answer').click_link('Best ever')
-    # Otherwise it doesnt find element
-    sleep 1.seconds
-    visit question_path(question)
-    save_and_open_page
-    expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true']")
+    visit question_path(question)    
+    first('.answer').click_link('Best ever')    
+    expect(first('.answer')).to have_css(".best_answer")
   end
 
   scenario 'There is only one best answer and it situated first on the page', js: true do
     sign_in(user)
     visit question_path(question)
     answers = page.all('.answer')
+    
     answers[1].find('a').click
     visit question_path(question)
-    save_and_open_page
+ 
     expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")
   end
 

@@ -1,6 +1,8 @@
 class Answer < ActiveRecord::Base
   belongs_to :user
   belongs_to :question
+  has_many :attachments, dependent: :destroy, as: :attachable
+  accepts_nested_attributes_for :attachments
 
   default_scope { order('best desc') }
 

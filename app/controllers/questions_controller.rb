@@ -23,10 +23,13 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    @attachment= @question.attachments.new
   end
 
   def show
     @answer = @question.answers.build
+    @attachment= @answer.attachments.build
+            
   end
 
   def destroy
@@ -50,6 +53,6 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :content)
+    params.require(:question).permit(:title, :content, attachments_attributes: [:file])
     end
 end

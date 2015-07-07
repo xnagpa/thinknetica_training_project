@@ -20,6 +20,14 @@ RSpec.describe Answer, type: :model do
     expect(subject).to belong_to(:question)
   end
 
+  it 'has many attachments  ' do
+    expect(subject).to have_many(:attachments)
+  end
+
+  it 'accepts nested attributes ' do
+    expect(subject).to accept_nested_attributes_for(:attachments)
+  end
+
   it 'belong_to ' do
     expect(subject).to belong_to(:user)
   end

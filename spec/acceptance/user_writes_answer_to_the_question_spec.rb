@@ -15,7 +15,7 @@ feature 'User writes answer to the question', '
 
     fill_in 'Your answer', with: 'Test comment and some crap'
 
-    click_on 'Create'
+    click_on 'Save'
 
     expect(current_path).to eq question_path(question)
 
@@ -26,13 +26,13 @@ feature 'User writes answer to the question', '
 
   scenario 'Non Authed user cant create a  comment', js: true do
     visit question_path(question)
-    expect(page).to_not have_content 'Create'
+    expect(page).to_not have_content 'Save'
   end
 
   scenario 'User try to create invalid answer', js: true do
     sign_in(user)
     visit question_path(question)
-    click_on 'Create'
+    click_on 'Save'
     expect(page).to have_content 'Content can\'t be blank'
   end
 end

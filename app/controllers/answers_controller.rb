@@ -14,6 +14,7 @@ class AnswersController < ApplicationController
   end
 
   def update
+     
     @answer.update(answer_params) if @answer.user.id == current_user.id
   end
 
@@ -34,7 +35,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:content, :best)
+    params.require(:answer).permit(:content, :best, attachments_attributes: [:file])
   end
 
   def set_question
