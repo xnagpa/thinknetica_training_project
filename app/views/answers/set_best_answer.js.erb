@@ -5,13 +5,17 @@
 <% else %>
 		var s = '#<%= @answer.id%> .answer_content';
 		var new_best_answer_id ='#<%= @answer.id%>';
-		var parent_of_the_new_best_answer = $(new_best_answer_id).parent();
-
+		var parent_of_the_new_best_answer = $(new_best_answer_id).parent();	
+		$(new_best_answer_id).data("is-best","true"); 
+	
 		var aCopy = $(new_best_answer_id).clone();
 		$(new_best_answer_id).remove();
 		$(parent_of_the_new_best_answer).find("*").removeClass('best_answer');
+		 
 		$(parent_of_the_new_best_answer).prepend(aCopy);
 		aCopy.addClass('best_answer');
+
+		
 
 
 		//$(this).closest('.answers').prepend($(new_best_answer_id));

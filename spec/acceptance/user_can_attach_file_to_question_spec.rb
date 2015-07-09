@@ -8,21 +8,25 @@ feature 'User creates question and attaches file', '
 ' do
 
   given(:user) { FactoryGirl.create(:user) }
+  given(:user_with_questions) { FactoryGirl.create(:user_with_question) }
+  given!(:question) { FactoryGirl.create(:question, user: user) }
 
   scenario 'Authed user creates question' do
     sign_in(user)
-
-    visit questions_path
-    click_on 'Create new question'
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Content', with: 'texttext'
+    visit question_path(question)
+    click_on('Edit stupid question')
+    fill_in 'question[content]', with: 'Test edit question'
     attach_file 'File1', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File2', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File3', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File4', "#{Rails.root}/spec/spec_helper.rb"
+
     click_on 'Save'
-    
-    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb',count:3
+
+    within('.question') do
+      expect(page).to have_content('Test edit question')
+      expect(page).to_not have_content question.content
+      expect(page).to_not have_selector 'textarea'
+    end
+
+   
   end
 
   

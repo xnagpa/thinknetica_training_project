@@ -4,10 +4,9 @@
   = f.input  :content
   = f.semantic_fields_for :attachments do |a| 
    = render 'attachment_fields', f: a      
-  .links
-   = link_to_add_association 'add attachment', f, :attachments
-
-  = f.submit "Save"
+ .links
+  = link_to_add_association 'add attachment', f, :attachments
+ = f.submit "Save"
     
     
 

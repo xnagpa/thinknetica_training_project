@@ -13,11 +13,14 @@ feature 'User can choose best answer', '
 
   # given(:question_with_valid_answers){ FactoryGirl.create(:question_with_valid_answers) }
 
-  scenario 'Author can choose the best answer', js: true do
+
+   scenario 'Author can choose the best answer', js: true do
     sign_in(user)
-    visit question_path(question)    
-    first('.answer').click_link('Best ever')    
-    expect(first('.answer')).to have_css(".best_answer")
+    visit question_path(question)   
+    page.first('.answer .best-answer-link').click
+    sleep(5)
+    save_and_open_page
+    expect(page.first('.answer .best-answer-link')).to have_css(".best_answer")
   end
 
   scenario 'There is only one best answer and it situated first on the page', js: true do
