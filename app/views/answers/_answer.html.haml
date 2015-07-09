@@ -1,4 +1,4 @@
-.answer{id: answer.id, data: { is_best: answer.best.inspect} }
+.answer{id: "answer-#{answer.id}", data: { is_best: answer.best.inspect}, class: "#{answer.best? ? 'best_answer' : ''}" }
  .answer_content
   =answer.content
  %p

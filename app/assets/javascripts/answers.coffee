@@ -12,7 +12,7 @@ $ ->
     $('#edit-answer-'+form_id).show();    
     return 
  
-  $('[data-is-best="true"]').addClass 'best_answer'
+  
   
   return
 

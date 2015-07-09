@@ -3,8 +3,9 @@
         $('.answer-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-		var s = '#<%= @answer.id%> .answer_content';
-		var new_best_answer_id ='#<%= @answer.id%>';
+
+		var s = '#answer-<%= @answer.id%> .answer_content';
+		var new_best_answer_id ='#answer-<%= @answer.id%>';
 		var parent_of_the_new_best_answer = $(new_best_answer_id).parent();	
 		$(new_best_answer_id).data("is-best","true"); 
 	
