@@ -1,7 +1,18 @@
+alert("create js erb!!!!!!!!!!!!!!!");
 <% if @answer.errors.present?%>
 			<% @answer.errors.full_messages.each do |message|%>
 			$('.answers_errors').html('<%= j message %>').css('color','red');
 		<%end%>
-	<%else%>
-		$('.answers').append('<%= j render @answer %>');
+	<%else%>		
+		<% if remotipart_submitted? %>
+       		 
+       		 alert("remotipart!!!");   
+       		  $('.answers').append("<%= escape_javascript(render(@answer)).gsub('&quot;', "'") %>");
+			<% else %>
+   
+  		  $('.answers').append('<%= j render @answer %>');
+  		  alert("no remotipart!!!");
+		<% end %>
+
+
 	<%end%>	
