@@ -4,51 +4,22 @@
     <% end %>
 <% else %>
 	//$('.answers').html('<%=j render @answer.question.answers%>');
-	var s = '#<%= @answer.id%> .answer_content';
-	$(s).html('<%= @answer.content%>');
+	var s = '#answer-<%= @answer.id%> .answer_content';
+	var answer_id = '#answer-<%= @answer.id%>';
+	var at = '#answer-<%= @answer.id%> .attachments';
+
+	<% if remotipart_submitted? %>
+	//alert("remotipart!");
+		$(answer_id).after("<%= escape_javascript(render(@answer)).gsub('&quot;', "'") %>");
+		//alert("remove!!");
+		$(answer_id).remove();
+		
+ 	<%else%>
+ 	 	//alert("no remotipart!!!");
+ 		$(s).html('<%= @answer.content%>');	
+ 	<%end%>
+
   $('#edit-answer-'+<%= @answer.id%>).hide();  
   $('[data-answer-id="<%= @answer.id%>"]').show();
 <%end%>
 
- // Replace first answer on the page with the best answer	
-	// var first_answer_on_the_page = $('.answer').first();	
-	// var new_best_answer = $(new_best_answer_id);	
-	// var tmp=first_answer_on_the_page.html();
-	// first_answer_on_the_page.html(new_best_answer.html());
-	// new_best_answer.html(tmp);
-
-	// // Get the old best answer id if it is
- //  var old_best_answer_id = '#<%= @old_best_answer.blank? ? 0 : @old_best_answer.id  %>';
-	// $(old_best_answer_id).css('border','none');
-	// $(first_answer_on_the_page).css('border','4px solid orange');
-
-
-// 	<% if @answer.errors.present? %>
-//     <% @answer.errors.full_messages.each do |message| %>
-//         $('.answer-errors').html('<%= j message %>');
-//     <% end %>
-// <% else %>
-// var s = '#<%= @answer.id%> .answer_content';
-// var new_best_answer_id ='#<%= @answer.id%>';
-
-
-// $(s).html('<%= @answer.content%>');
-// <% if @answer.best %>
-	
-// 	// Replace first answer on the page with the best answer	
-// 	var first_answer_on_the_page = $('.answer').first();	
-// 	var new_best_answer = $(new_best_answer_id);	
-// 	var tmp=first_answer_on_the_page.html();
-// 	first_answer_on_the_page.html(new_best_answer.html());
-// 	new_best_answer.html(tmp);
-
-// 	// Get the old best answer id if it is
-//   var old_best_answer_id = '#<%= @old_best_answer.blank? ? 0 : @old_best_answer.id  %>';
-// 	$(old_best_answer_id).css('border','none');
-// 	$(new_best_answer_id).css('border','4px solid orange');
-
-// <%end%>
-
-//  $('#edit-answer-'+<%= @answer.id%>).hide();
-//  $('[data-answer-id="<%= @answer.id%>"]').show();
-//  <%end%>

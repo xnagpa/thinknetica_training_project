@@ -6,8 +6,8 @@
   %br
   = f.semantic_fields_for :attachments do |a| 
    = render 'answers/attachment_fields', f: a      
- .links
- = link_to_add_association 'add attachment', f, :attachments
+  .links
+   = link_to_add_association 'add attachment', f, :attachments
 
   
  =f.submit "Save"

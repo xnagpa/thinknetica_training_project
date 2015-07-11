@@ -1,1 +1,8 @@
-alert("Destroyed!");
+<% if @attachment.errors.present? %>
+    alert('Errors!!');
+<% else %>
+var id = "<%=@attachment.id%>";
+var s = "#attachment-"+id;
+$(s).remove();
+
+ <%end%>
