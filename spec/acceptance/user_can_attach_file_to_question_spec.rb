@@ -35,6 +35,7 @@ feature 'User creates question and attaches file', '
         fill_in 'question[title]', with: 'Test edit question' 
         fill_in 'question[content]', with: 'Test edit question' 
         click_on "add attachment" 
+        click_on "add attachment" 
 
         files = all("input[type='file']")
         files[0].set('#{Rails.root}/spec/spec_helper.rb')
