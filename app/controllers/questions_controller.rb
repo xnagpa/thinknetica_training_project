@@ -42,6 +42,7 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    
     @question.update(question_params) if current_user.id == @question.user_id
   end
 

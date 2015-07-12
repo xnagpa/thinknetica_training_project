@@ -9,8 +9,9 @@
    -question.attachments.each do |a|
     -if !a.file.blank?
      .attachment{id: "attachment-#{a.id}"}
-      =link_to a.file.file.filename, a.file.url  
-      =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true 
+      =link_to a.file.file.filename, a.file.url 
+      -if  user_signed_in? && current_user.id == question.user.id  
+       =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true 
 
  -if  user_signed_in? && current_user.id == question.user.id 
   %p

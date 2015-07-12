@@ -20,7 +20,7 @@ feature 'User creates question and attaches file', '
         first(".add_fields").click
         files = all("input[type='file']")
         files[0].set('#{Rails.root}/spec/spec_helper.rb')
-        save_and_open_page
+        
         submits =all("input[name='commit']")
         submits[0].click      
          

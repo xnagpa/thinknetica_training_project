@@ -7,23 +7,33 @@ feature 'User creates question and attaches file', '
 
 ' do
 
-  given(:user) { FactoryGirl.create(:user) }
+  given(:user) { FactoryGirl.create(:user) }  
+  given(:another_user) { FactoryGirl.create(:another_user) }  
 
-  scenario 'Authed user creates question' do
+  given!(:attachment) { FactoryGirl.create(:attachment) }
+  given!(:question_with_attachments) { FactoryGirl.create(:question_with_attachments, user:user) }
+ 
+
+  scenario 'Authed deletes attachment', js:true do
     sign_in(user)
 
-    visit questions_path
-    click_on 'Create new question'
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Content', with: 'texttext'
-    attach_file 'File1', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File2', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File3', "#{Rails.root}/spec/spec_helper.rb"
-    attach_file 'File4', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Save'
+    visit question_path(question_with_attachments) 
     
-    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb',count:3
+    expect(page).to have_content 'spec_helper.rb'
+ 
+    click_on 'destroy attachment'
+
+     expect(page).not_to have_content 'spec_helper.rb'
   end
+
+   scenario 'Non-author doesnt see delete attachment link', js:true do
+    sign_in(another_user)
+
+    visit question_path(question_with_attachments) 
+    expect(page).not_to have_content 'destroy attachment'
+  end
+
+
 
   
 end

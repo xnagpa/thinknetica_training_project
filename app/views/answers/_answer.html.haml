@@ -7,7 +7,8 @@
     -if !a.file.blank?
      .attachment{id: "attachment-#{a.id}"}
       =link_to a.file.file.filename, a.file.url
-      =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
+      -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
+       =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
 
  -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
   %p
