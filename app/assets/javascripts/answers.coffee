@@ -10,11 +10,4 @@ $ ->
     form_id= $(this).data('answerId');
     $(this).hide();    
     $('#edit-answer-'+form_id).show();    
-    return 
- 
-  
-  
-  return
-
-
 

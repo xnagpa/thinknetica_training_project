@@ -10,5 +10,3 @@ $ ->
     form_id= $(this).data('questionId');
     $(this).hide();    
     $('#edit-question-'+form_id).show();
-    return
-  return

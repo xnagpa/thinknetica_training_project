@@ -2,7 +2,6 @@
     alert('Errors!!');
 <% else %>
 
-var s = '#answer-<%= @answer.id%>';
-$(s).remove();
+$('#answer-<%= @answer.id%>').remove();
 
  <%end%>

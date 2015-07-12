@@ -1,11 +1,11 @@
 class AttachmentsController < ApplicationController
-  before_action :extract_attachment_id, only: [:destroy]
+  before_action :find_attachment, only: [:destroy]
 
   def destroy
-    @attachment.destroy if current_user.id == @attachment.attachable.user.id
+    @attachment.destroy if current_user.id == @attachment.attachable.user_id
   end
 
-  def extract_attachment_id
+  def find_attachment
     @attachment = Attachment.find(params[:id])
   end
 end

@@ -7,7 +7,7 @@
  %p
   -unless question.attachments.empty?
    -question.attachments.each do |a|
-    -if !a.file.blank?
+    -unless a.file.blank?
      .attachment{id: "attachment-#{a.id}"}
       =link_to a.file.file.filename, a.file.url 
       -if  user_signed_in? && current_user.id == question.user.id  

@@ -9,20 +9,7 @@ feature 'User creates answer and attaches file', '
   given(:user) { FactoryGirl.create(:user) }
   given(:question) { FactoryGirl.create(:question, user: user) }
 
-  scenario 'Authed user creates answer with attachment', js: true do
-    sign_in(user)
-    visit question_path(question)
-
-    fill_in 'answer[content]', with: 'Test answer'
-    files = all("input[type='file']")
-    files[0].set('#{Rails.root}/spec/spec_helper.rb')
-    click_on 'Save'
-
-    within '.answers' do
-      expect(page).to have_content('spec_helper.rb')
-    end
-  end
-
+  
   scenario 'Authed user creates answer two attachments', js: true do
     sign_in(user)
     visit question_path(question)
@@ -31,46 +18,32 @@ feature 'User creates answer and attaches file', '
     click_on 'add attachment'
     files = all("input[type='file']")
     files[0].set('#{Rails.root}/spec/spec_helper.rb')
-    files[1].set('#{Rails.root}/spec/spec_helper.rb')
+    files[1].set('#{Rails.root}/spec/rails_helper.rb')
 
     click_on 'Save'
 
     within '.answers' do
-      expect(page).to have_content('spec_helper.rb', count: 2)
+      expect(page).to have_content('spec_helper.rb', count: 1)
+      expect(page).to have_content('rails_helper.rb', count: 1)
     end
   end
 
-  # given(:user) { FactoryGirl.create(:user) }
-  #   given(:user_with_questions) { FactoryGirl.create(:user_with_question) }
-  #   given!(:question) { FactoryGirl.create(:question, user: user) }
+  scenario 'Authed user creates answer with attachment, ant then deletes the attachment', js: true do
+    sign_in(user)
+    visit question_path(question)
 
-  #   scenario 'User attaches one file to existing question', js: true do
-  #     sign_in(user)
-  #     visit question_path(question)
-  #       click_on 'Edit stupid question'
+    fill_in 'answer[content]', with: 'Test answer'
+    files = all("input[type='file']")
+    files[0].set('#{Rails.root}/spec/spec_helper.rb')
+   
+    click_on 'remove file'
+    click_on 'Save'
 
-  #         fill_in 'question[content]', with: 'Test edit question'
-  #         first(".add_fields").click
-  #         files = all("input[type='file']")
-  #         files[0].set('#{Rails.root}/spec/spec_helper.rb')
-  #         submits =all("input[name='commit']")
-  #         submits[0].click
-  #         save_and_open_page
-  #         expect(page).to have_content("spec_helper.rb");
-  #   end
+    within '.answers' do
+      expect(page).not_to have_content('spec_helper.rb')
+      expect(page).not_to have_content('Test answer')
+    end
+  end
 
-  # scenario 'Authed user creates question with many attachments', js: true do
-  #   sign_in(user)
-  #   visit question_path(question)
-  #   fill_in 'Your answer', with: 'Test comment and some crap'
-  #   attach_file 'File1', "#{Rails.root}/spec/spec_helper.rb"
-  #   attach_file 'File2', "#{Rails.root}/spec/spec_helper.rb"
-  #   attach_file 'File3', "#{Rails.root}/spec/spec_helper.rb"
-
-  #   click_on 'Save'
-
-  #   within '.answers' do
-  #    expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb',count:3
-  #   end
-  # end
+ 
 end
