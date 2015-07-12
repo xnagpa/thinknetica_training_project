@@ -23,8 +23,8 @@ RSpec.describe Question, type: :model do
     expect(subject).to have_many(:attachments).dependent(:destroy)
   end
 
-   it 'accepts nested attributes ' do
-   expect(subject).to accept_nested_attributes_for(:attachments)     
+  it 'accepts nested attributes ' do
+    expect(subject).to accept_nested_attributes_for(:attachments)
   end
 
   it 'should belong_to(:user)' do

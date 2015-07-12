@@ -29,7 +29,7 @@ gem 'haml-rails'
 
 gem 'bootstrap-generators', '~> 3.3.4'
 
-gem "cocoon"
+gem 'cocoon'
 
 # Use postgress as the database for Active Record
 gem 'pg'
@@ -40,7 +40,6 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
-
 
 # rails new myapp --database=postgresql
 

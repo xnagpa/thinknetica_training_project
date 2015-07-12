@@ -15,7 +15,7 @@ feature 'User deletes answer', '
     sign_in(answer.user)
 
     visit question_path(answer.question)
-    
+
     click_on 'Delete stupid answer'
     expect(page).to_not have_content answer.content
   end

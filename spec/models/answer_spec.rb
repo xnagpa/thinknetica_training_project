@@ -38,7 +38,6 @@ RSpec.describe Answer, type: :model do
   end
 
   it 'It deletes the previous best answer before assigning new one ' do
-    
     expect(best_answer.best).to eq true
     another_answer.make_best
     best_answer.reload

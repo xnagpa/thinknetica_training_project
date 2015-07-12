@@ -23,12 +23,12 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @attachment= @question.attachments.new
+    @attachment = @question.attachments.new
   end
 
   def show
     @answer = @question.answers.build
-    @attachment= @answer.attachments.build            
+    @attachment = @answer.attachments.build
   end
 
   def destroy
@@ -42,7 +42,6 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    
     @question.update(question_params) if current_user.id == @question.user_id
   end
 

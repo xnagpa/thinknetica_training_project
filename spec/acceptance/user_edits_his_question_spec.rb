@@ -10,12 +10,12 @@ feature 'In order to improve my question
   scenario 'Authed user edit his question', js: true do
     sign_in(user)
     visit question_path(question)
-    
+
     within('.question') do
       click_on 'Edit stupid question'
       fill_in 'question[content]', with: 'Test edit question'
-      click_on 'Save'     
-    end    
+      click_on 'Save'
+    end
 
     within('.question') do
       expect(page).to have_content('Test edit question')

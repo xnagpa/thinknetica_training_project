@@ -9,9 +9,6 @@ class Question < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 150 }
   validates :content, presence: true
 
-  
-  
-
   def best_answer
     answers.where(best: true).first
   end

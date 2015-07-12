@@ -11,8 +11,8 @@ FactoryGirl.define do
     end
 
     factory :question_with_attachments do
-      after(:create) do |question|          
-        create_list(:attachment,1, :attachable => question)
+      after(:create) do |question|
+        create_list(:attachment, 1, attachable: question)
       end
     end
 
