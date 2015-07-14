@@ -1,0 +1,8 @@
+.vote
+ %p
+  Rating
+  -unless votable.votes.empty?
+   =votable.votes.first.rating
+ =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true
+ =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true
+

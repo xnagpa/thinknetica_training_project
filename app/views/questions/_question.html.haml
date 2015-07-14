@@ -12,7 +12,8 @@
       =link_to a.file.file.filename, a.file.url 
       -if  user_signed_in? && current_user.id == question.user.id  
        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true 
-
+ %p Votes
+ =render "votes/vote", votable: question
  -if  user_signed_in? && current_user.id == question.user.id 
   %p
    =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }

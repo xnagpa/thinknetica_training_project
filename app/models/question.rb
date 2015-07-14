@@ -2,6 +2,7 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :attachments, dependent: :destroy, as: :attachable
+  has_many :votes, dependent: :destroy, as: :votable
 
   accepts_nested_attributes_for :attachments,reject_if: lambda { |a| a[:file].blank? }, allow_destroy: true
 
