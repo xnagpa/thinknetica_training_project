@@ -19,4 +19,16 @@ class Answer < ActiveRecord::Base
 
     update(best: true) unless self == best_answer
   end
+
+   def rating
+    positive_votes - negative_votes
+  end 
+
+  def positive_votes
+    positive_votes= Vote.sum(:thumb_up, conditions: {votable_id: self.id, votable_type: self.class.name})
+  end
+
+  def negative_votes
+      positive_votes= Vote.sum(:thumb_down, conditions: {votable_id: self.id, votable_type: self.class.name})
+  end
 end

@@ -13,4 +13,20 @@ class Question < ActiveRecord::Base
   def best_answer
     answers.where(best: true).first
   end
+
+  def rating
+    plus = positive_votes 
+    minus= negative_votes
+    plus - minus    
+  end 
+
+  def positive_votes
+    positive_votes= Vote.where(votable_id: self.id, votable_type: self.class.name).sum(:thumb_up)
+
+  end
+
+  def negative_votes
+      positive_votes= Vote.where(votable_id: self.id, votable_type: self.class.name).sum(:thumb_down)
+  end
+
 end

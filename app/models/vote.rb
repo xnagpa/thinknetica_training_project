@@ -10,16 +10,9 @@ class Vote < ActiveRecord::Base
 	attr_reader :positive_votes
 	attr_reader :negative_votes
 
-	def rating
-		positive_votes - negative_votes
-	end	
-
-	def positive_votes
-		positive_votes= Vote.sum(:thumb_up, conditions: {votable_id: votable_id, votable_type: votable_type})
-	end
-
-	def negative_votes
-			positive_votes= Vote.sum(:thumb_down, conditions: {votable_id: votable_id, votable_type: votable_type})
+	
+	def previous_vote(user)
+		Vote.where(user_id: user.id)
 	end
 
 end

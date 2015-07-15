@@ -1,8 +1,18 @@
 .vote
  %p
   Rating
-  -unless votable.votes.empty?
-   =votable.votes.first.rating
- =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true
- =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true
+  .rating
+   %p
+    =votable.rating if !votable.votes.empty?
+    =0 if votable.votes.empty?
+ -if user_signed_in? && current_user.id != votable.user_id  
+  =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true
+  =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true
+ -elsif 
+  No votes for your own stuff!
+ -else 	 
+  %p 
+   =link_to "Sign in", new_user_session_path
+   and  vote!
+
 

@@ -3,10 +3,10 @@ class VotesController < ApplicationController
 	def create
 	
 		klass = votable_params[:votable_type]
-		votable = klass.singularize.classify.constantize.find(votable_params[:id])
-		vote = votable.votes.new(vote_params)
-		vote.user = current_user
-    vote.save if votable.user != current_user
+		@votable = klass.singularize.classify.constantize.find(votable_params[:id])
+		@vote = @votable.votes.new(vote_params)
+		@vote.user = current_user
+    @vote.save if @votable.user != current_user && user_signed_in?
     
 	end
 
