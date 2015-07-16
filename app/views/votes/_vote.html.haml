@@ -8,7 +8,7 @@
  -if user_signed_in? && current_user.id != votable.user_id  
   =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true
   =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true
- -elsif 
+ -elsif user_signed_in? && current_user.id == votable.user_id  
   No votes for your own stuff!
  -else 	 
   %p 

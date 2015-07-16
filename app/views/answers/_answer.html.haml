@@ -9,7 +9,8 @@
       =link_to a.file.file.filename, a.file.url
       -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
-
+ %p Votes
+ =render "votes/vote", votable: answer
  -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
   %p
    %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true

@@ -1,4 +1,7 @@
+require "votable_module"
 class Question < ActiveRecord::Base
+
+  include Votable
   belongs_to :user
   has_many :answers, dependent: :destroy
   has_many :attachments, dependent: :destroy, as: :attachable
@@ -14,19 +17,6 @@ class Question < ActiveRecord::Base
     answers.where(best: true).first
   end
 
-  def rating
-    plus = positive_votes 
-    minus= negative_votes
-    plus - minus    
-  end 
-
-  def positive_votes
-    positive_votes= Vote.where(votable_id: self.id, votable_type: self.class.name).sum(:thumb_up)
-
-  end
-
-  def negative_votes
-      positive_votes= Vote.where(votable_id: self.id, votable_type: self.class.name).sum(:thumb_down)
-  end
+ 
 
 end
