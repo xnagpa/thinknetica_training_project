@@ -1,8 +1,10 @@
 module Votable
 	 def rating
+    
     plus = positive_votes 
     minus= negative_votes
     plus - minus    
+     
   end 
 
   def positive_votes

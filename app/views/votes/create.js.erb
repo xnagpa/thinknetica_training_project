@@ -5,7 +5,8 @@
 		<%end%>
 	<%else%>		
 	var s = "#<%=@votable.class.name.downcase%>-<%=@votable.id%> .rating p";
-
-	var rating = $(s).html("<%=@votable.rating%>")
+	alert(s);
+	var rating = $(s).html("Rating: <%=@votable.rating%>");
+	alert(rating);
   $(s).css("color","red");
 	<%end%>	

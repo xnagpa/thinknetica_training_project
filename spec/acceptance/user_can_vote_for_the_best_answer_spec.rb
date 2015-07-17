@@ -23,84 +23,78 @@ feature 'User can vote for the answer', '
     # "за" и "против")
 
 
-  scenario 'Authed user votes positively' do
+  scenario 'Authed user votes positively', js: true do
     sign_in(non_author)
 
     visit question_path(question)
     thumb_ups = page.all('.thumb_up')
-    thumb_ups[0].click
-
-    within '.answer' do
-    	expect(page).to have_content 'rating: 1'
+    thumb_ups[1].click
+    answers = page.all('.answer .rating')
+    
+    within answers[0] do
+    	expect(page).to have_content 'Rating: 1'
   	end    
   end
 
-   scenario 'Authed user votes negatively' do
+   scenario 'Authed user votes negatively', js: true do
     sign_in(non_author)
 
     visit question_path(question)
     thumb_downs = page.all('.thumb_down')
-    thumb_downs[0].click
-
-    within '.answer' do
-    	expect(page).to have_content 'rating: -1'
-  	end    
+    thumb_downs[1].click
+    answers = page.all('.answer .rating')
+    
+    within answers[0] do
+      expect(page).to have_content 'Rating: -1'
+    end  
   end
 
-  scenario 'Author can\'t vote for his own answer' do
+  scenario 'Author can\'t vote for his own answer', js: true do
     sign_in(author)
 
-    visit question_path(question)
-    thumb_downs = page.all('.thumb_down')
-    thumb_downs[0].click
-
-    within '.answer' do
-    	expect(page).to have_content 'You can\'t vote for your own answer!'
-  	end    
+    visit question_path(question)     
+    expect(page).to have_content 'No votes for your own stuff! '
+  	
   end
 
-   scenario 'User can change his mind and revote' do
+   scenario 'User can change his mind and revote', js: true do
 
    	sign_in(non_author)
-   	
+
     visit question_path(question)
-    thumb_downs = page.all('.thumb_down')
     thumb_ups = page.all('.thumb_up')
-    thumb_downs[0].click
+    thumb_ups[1].click
+    answers = page.all('.answer .rating')
+
+    within answers[0] do
+      expect(page).to have_content 'Rating: 1'
+    end    
+
+    thumb_downs = page.all('.thumb_down')
+    thumb_downs[1].click
+    answers = page.all('.answer .rating')
     
-    within '.answer' do
-    	expect(page).to have_content 'rating: -1'
-  	end   
-
-  	click_on "Revote" 
-  	within '.answer' do
-    	expect(page).to have_content 'rating: 0'
-  	end    
-
-  	thumb_ups[0].click
-    within '.answer' do
-    	expect(page).to have_content 'rating: 1'
-  	end    
+    within answers[0] do
+      expect(page).to have_content 'Rating: -1'
+    end  
    
   end
 
 
-   scenario 'User can vote only once for one question' do
+   scenario 'User can vote only once for one question', js: true do
 
-   	 sign_in(non_author)
+   	sign_in(non_author)
 
     visit question_path(question)
-    thumb_downs = page.all('.thumb_down')
-    thumb_downs[0].click
+    thumb_ups = page.all('.thumb_up')
+    thumb_ups[1].click
+    thumb_ups[1].click
+    answers = page.all('.answer .rating')
 
-    within '.answer' do
-    	expect(page).to have_content 'rating: -1'
-  	end    
+    within answers[0] do
+      expect(page).to have_content 'Rating: 1'
+    end  
 
-  	thumb_downs[0].click
-    within '.answer' do
-    	expect(page).to have_content 'rating: -1'
-  	end    
    
   end
 

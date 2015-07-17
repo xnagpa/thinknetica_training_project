@@ -1,25 +1,25 @@
-.answer{id: "answer-#{answer.id}", data: { is_best: answer.best.inspect}, class: "#{answer.best? ? 'best_answer' : ''}" }
- .answer_content
-  =answer.content
- .attachments
-  -if !answer.attachments.empty? && answer.persisted?
-   -answer.attachments.each do |a|   
-    -if !a.file.blank?
-     .attachment{id: "attachment-#{a.id}"}
-      =link_to a.file.file.filename, a.file.url
-      -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
-       =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
- %p Votes
- =render "votes/vote", votable: answer
- -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
-  %p
-   %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
-
- -if  user_signed_in? && current_user.id == answer.user_id && answer.persisted?
-  %p
-   %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
-  %p
-   =render "answers/form", question: answer.question, answer: answer
+-if answer.persisted?
+ .answer{id: "answer-#{answer.id}", data: { is_best: answer.best.inspect}, class: "#{answer.best? ? 'best_answer' : ''}" }
+  .answer_content
+   =answer.content
+  .attachments
+   -if !answer.attachments.empty? && answer.persisted?
+    -answer.attachments.each do |a|   
+     -if !a.file.blank?
+      .attachment{id: "attachment-#{a.id}"}
+       =link_to a.file.file.filename, a.file.url
+       -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
+        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
+  =render "votes/vote", votable: answer
+  -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
    %p
-    %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true
+    %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
+
+  -if  user_signed_in? && current_user.id == answer.user_id && answer.persisted?
+   %p
+    %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
+   %p
+    =render "answers/form", question: answer.question, answer: answer
+    %p
+     %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true
 

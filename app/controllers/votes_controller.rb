@@ -11,8 +11,6 @@ class VotesController < ApplicationController
 				
 				@vote.user = current_user
 			  @vote.save
-			else 
-				 flash[:notice] = 'You cant vote same way twice!'
 			end	 
 	  end
 

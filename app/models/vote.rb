@@ -11,8 +11,5 @@ class Vote < ActiveRecord::Base
 	attr_reader :negative_votes
 
 	
-	def previous_vote(user)
-		Vote.where(user_id: user.id)
-	end
 
 end
