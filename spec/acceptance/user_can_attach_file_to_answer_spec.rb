@@ -9,7 +9,6 @@ feature 'User creates answer and attaches file', '
   given(:user) { FactoryGirl.create(:user) }
   given(:question) { FactoryGirl.create(:question, user: user) }
 
-  
   scenario 'Authed user creates answer two attachments', js: true do
     sign_in(user)
     visit question_path(question)
@@ -35,7 +34,7 @@ feature 'User creates answer and attaches file', '
     fill_in 'answer[content]', with: 'Test answer'
     files = all("input[type='file']")
     files[0].set('#{Rails.root}/spec/spec_helper.rb')
-   
+
     click_on 'remove file'
     click_on 'Save'
 
@@ -44,6 +43,4 @@ feature 'User creates answer and attaches file', '
       expect(page).not_to have_content('Test answer')
     end
   end
-
- 
 end

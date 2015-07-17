@@ -30,7 +30,7 @@ feature 'User creates question and attaches file', '
     expect(page).to have_content('rails_helper.rb', count: 1)
   end
 
-    scenario 'Authed user creates question with attachment, ant then deletes the attachment', js: true do
+  scenario 'Authed user creates question with attachment, ant then deletes the attachment', js: true do
     sign_in(user)
     visit questions_path
     click_on 'Edit stupid question'
@@ -46,6 +46,5 @@ feature 'User creates question and attaches file', '
 
     expect(page).not_to have_content('spec_helper.rb')
     expect(page).to have_content('Test edit question')
-    
   end
 end
