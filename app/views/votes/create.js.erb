@@ -5,8 +5,18 @@
 		<%end%>
 	<%else%>		
 	var s = "#<%=@votable.class.name.downcase%>-<%=@votable.id%> .rating p";
-	alert(s);
-	var rating = $(s).html("Rating: <%=@votable.rating%>");
-	alert(rating);
-  $(s).css("color","red");
+	var links = "#vote-<%=@votable.class.name.downcase%>-<%=@votable.id%>";
+ 
+   $(s).html("Rating: <%=@votable.rating%>");
+   $(s).css("color","red");
+   $(links).css("color","red");   
+   l= "<%= j link_to %Q(Revote),%Q(#{vote_path(@vote.id)}), method: :delete, remote: :true, class: %Q(destroy_vote)%>";
+   $(links).html(l);
+   
+
 	<%end%>	
+
+
+	 // =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote'
+  //  =link_to "Thumb up", polymorphic_path([votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score'
+  //  =link_to "Thumb down", polymorphic_path([votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore' 

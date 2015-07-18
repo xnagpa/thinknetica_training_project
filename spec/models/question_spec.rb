@@ -4,6 +4,7 @@ RSpec.describe Question, type: :model do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:question) { FactoryGirl.create(:question_with_best_answer) }
   let!(:positive_vote) { FactoryGirl.create(:vote, user: user) }
+  let!(:another_vote) { FactoryGirl.create(:vote, votable: question, user: user) }
   let!(:negative_vote) { FactoryGirl.create(:unvote) }
 
   it do
@@ -38,32 +39,16 @@ RSpec.describe Question, type: :model do
     expect(subject).to belong_to(:user)
   end
 
-  it do
+  it 'returns best answer  ' do
     expect(question.best_answer).to eq question.answers.where(best: true).first
   end
 
-  it do
-    expect(question.positive_votes).to eq Vote.where(votable_id: question.id, votable_type: question.class.name).sum(:thumb_up)
+  it 'can return previous vote of the user' do
+    expect(question.previous_vote(user)).to eq (Vote.where(user_id: user, votable_id: question.id, votable_type: question.class.name).first)
   end
 
-  it do
-    expect(question.negative_votes).to eq Vote.where(votable_id: question.id, votable_type: question.class.name).sum(:thumb_down)
-  end
-
-  it do
-    expect(question.previous_vote(user)).to eq (Vote.where(user_id: user, votable_id: question.id, votable_type: question.class.name))
-  end
-
-  it do
-    expect(question.rating).to eq (question.positive_votes - question.negative_votes)
-  end
-
-  it do
-    expect(question.votes_are_different?(positive_vote, negative_vote)).to eq (true)
-  end
-
-  it do
-    expect(question.can_i_insert_this_vote?(negative_vote, user)).to eq (true)
+  it 'calculates the difference between negative and positive votes' do
+    expect(question.rating).to eq (Vote.where(votable_id: question.id, votable_type: question.class.name).sum(:score))
   end
 
   # validates :title, presence: true

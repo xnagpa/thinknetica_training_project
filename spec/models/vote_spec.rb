@@ -10,10 +10,6 @@ RSpec.describe Vote, type: :model do
   end
 
   it do
-    expect(subject).to validate_presence_of(:thumb_up)
-  end
-
-  it do
-    expect(subject).to validate_presence_of(:thumb_down)
+    expect(subject).to validate_presence_of(:score)
   end
 end

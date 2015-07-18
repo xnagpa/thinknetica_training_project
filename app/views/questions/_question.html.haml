@@ -20,9 +20,9 @@
     =render 'questions/form',question: question
    %p 
     =link_to "Delete stupid question", question_path(question), method: :delete
-  .answers
- =render question.answers
- %hr
+ .answers
+  =render question.answers
+  %hr
 
 
 

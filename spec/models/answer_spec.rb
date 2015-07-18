@@ -32,12 +32,12 @@ RSpec.describe Answer, type: :model do
     expect(subject).to belong_to(:user)
   end
 
-  it do
+  it 'makes answer best' do
     answer.make_best
     expect(answer.best).to eq true
   end
 
-  it do
+  it 'It gets rid of previous best answer ' do
     expect(best_answer.best).to eq true
     another_answer.make_best
     best_answer.reload
