@@ -26,8 +26,8 @@ feature 'User can vote for the answer', '
     sign_in(non_author)
 
     visit question_path(question)
-    thumb_ups = page.all('.thumb_up')
-    thumb_ups[1].click
+    scores = page.all('.score')
+    scores[1].click
     answers = page.all('.answer .rating')
 
     within answers[0] do
@@ -39,8 +39,8 @@ feature 'User can vote for the answer', '
     sign_in(non_author)
 
     visit question_path(question)
-    thumb_downs = page.all('.thumb_down')
-    thumb_downs[1].click
+    unscores = page.all('.unscore')
+    unscores[1].click
     answers = page.all('.answer .rating')
 
     within answers[0] do
@@ -59,34 +59,36 @@ feature 'User can vote for the answer', '
     sign_in(non_author)
 
     visit question_path(question)
-    thumb_ups = page.all('.thumb_up')
-    thumb_ups[1].click
+    scores = page.all('.score')
+    scores[1].click
     answers = page.all('.answer .rating')
 
     within answers[0] do
       expect(page).to have_content 'Rating: 1'
     end
 
-    thumb_downs = page.all('.thumb_down')
-    thumb_downs[1].click
+    click_on 'Revote'
     answers = page.all('.answer .rating')
 
     within answers[0] do
-      expect(page).to have_content 'Rating: -1'
+      expect(page).to have_content 'Rating: 0'
     end
+  end
+
+  scenario 'Anybody can see rating even without any votes', js: true do
+    visit question_path(question)
+    expect(page).to have_content 'Rating: 0'
   end
 
   scenario 'User can vote only once for one question', js: true do
     sign_in(non_author)
 
     visit question_path(question)
-    thumb_ups = page.all('.thumb_up')
-    thumb_ups[1].click
-    thumb_ups[1].click
-    answers = page.all('.answer .rating')
 
-    within answers[0] do
-      expect(page).to have_content 'Rating: 1'
-    end
+    scores = page.all('.score')
+
+    scores[1].click
+
+    expect(page).not_to have_content '.score'
   end
 end

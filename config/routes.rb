@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :questions, only: [:index, :new, :create, :show, :destroy, :update] do
-    resources :answers do
+  resources :questions do
+    resources :votes, only: [:destroy, :create], shallow: true
+    resources :answers, shallow: true do
       patch 'set_best_answer', on: :member
+      resources :votes, only: [:destroy, :create], shallow: true
     end
   end
 
   resources :attachments, only: [:destroy]
-
-  resources :votes, only: [:destroy, :create]
 
   root 'questions#index'
 

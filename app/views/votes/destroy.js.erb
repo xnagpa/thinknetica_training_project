@@ -1,0 +1,17 @@
+
+<% if @vote.errors.present?%>
+			<% @vote.errors.full_messages.each do |message|%>
+			$('.vote_errors').html('<%= j message %>').css('color','red');
+		<%end%>
+	<%else%>	
+	
+	 var s = "#<%=@vote.votable.class.name.downcase%>-<%=@vote.votable.id%> .rating p";
+   
+   var links = "#vote-<%=@vote.votable.class.name.downcase%>-<%=@vote.votable.id%>";
+   $(s).html("Rating: <%=@vote.votable.rating%>");
+   $(links).html("");
+   $(links).append("<%= j link_to 'Thumb up', polymorphic_path([@vote.votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score btn btn-success', role:'button'%>");
+   $(links).append("<%= j link_to 'Thumb down', polymorphic_path([@vote.votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore btn btn-warning', role:'button'%>");
+
+
+	<%end%>	

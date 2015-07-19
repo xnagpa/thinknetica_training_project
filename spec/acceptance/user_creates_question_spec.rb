@@ -5,13 +5,13 @@ feature 'User creates question', '
    I want to be able to be able to ask questions
 
 ' do
-  given(:user) { FactoryGirl.create(:user) }
+  given!(:user) { FactoryGirl.create(:user) }
 
   scenario 'Authed user creates question' do
-    sign_in(user)
-
     visit questions_path
+
     click_on 'Create new question'
+    sign_in(user)
     fill_in 'Title', with: 'Test question'
     fill_in 'Content', with: 'texttext'
     click_on 'Save'

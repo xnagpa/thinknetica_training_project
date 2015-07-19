@@ -9,17 +9,17 @@
       .attachment{id: "attachment-#{a.id}"}
        =link_to a.file.file.filename, a.file.url
        -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
-        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true
+        =link_to "Destroy attachment", attachment_path(a), class: 'btn btn-danger btn-xs',role:'button',method: :delete, remote: true
   =render "votes/vote", votable: answer
   -if user_signed_in? && current_user.id == answer.question.user_id && answer.persisted?
    %p
-    %i=link_to "Best ever",set_best_answer_question_answer_path(answer.question, answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
+    %i=link_to "Best ever",set_best_answer_answer_path(answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
 
   -if  user_signed_in? && current_user.id == answer.user_id && answer.persisted?
    %p
-    %i=link_to "Edit",'', class: 'edit-answer-link', data: { answer_id: answer.id }
+    %i=link_to "Edit",'', class: 'edit-answer-link btn btn-info',role:'button', data: { answer_id: answer.id }
    %p
     =render "answers/form", question: answer.question, answer: answer
     %p
-     %i=link_to "Delete stupid answer", question_answer_path(answer.question, answer), method: :delete, remote: true
+     %i=link_to "Delete stupid answer", answer_path(answer), class: 'btn btn-danger', role:'button', method: :delete, remote: true
 

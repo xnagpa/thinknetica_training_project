@@ -1,19 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Vote, type: :model do
-  it do
-    expect(subject).to belong_to(:votable)
-  end
+  it { expect(subject).to belong_to(:votable) }
 
-  it do
-    expect(subject).to belong_to(:votable)
-  end
+  it { expect(subject).to belong_to(:votable) }
 
-  it do
-    expect(subject).to validate_presence_of(:thumb_up)
-  end
+  it { expect(subject).to validate_presence_of(:score) }
 
-  it do
-    expect(subject).to validate_presence_of(:thumb_down)
-  end
+  it { expect(subject).to validate_presence_of(:user_id) }
 end

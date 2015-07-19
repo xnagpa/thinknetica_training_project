@@ -1,4 +1,4 @@
-require 'votable_module'
+
 class Question < ActiveRecord::Base
   include Votable
   belongs_to :user

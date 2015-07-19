@@ -8,36 +8,24 @@ RSpec.describe Answer, type: :model do
   let(:another_user) {  FactoryGirl.create(:another_user) }
   let(:best_answer) {  FactoryGirl.create(:best_answer, question:  question, user: user) }
 
-  it do
-    expect(subject).to validate_presence_of(:content)
-  end
+  it { expect(subject).to validate_presence_of(:content) }
 
-  it do
-    expect(subject).to validate_presence_of(:question_id)
-  end
+  it { expect(subject).to validate_presence_of(:question_id) }
 
-  it do
-    expect(subject).to belong_to(:question)
-  end
+  it { expect(subject).to belong_to(:question) }
 
-  it do
-    expect(subject).to have_many(:attachments)
-  end
+  it { expect(subject).to have_many(:attachments) }
 
-  it do
-    expect(subject).to accept_nested_attributes_for(:attachments)
-  end
+  it { expect(subject).to accept_nested_attributes_for(:attachments) }
 
-  it do
-    expect(subject).to belong_to(:user)
-  end
+  it { expect(subject).to belong_to(:user) }
 
-  it do
+  it 'makes answer best' do
     answer.make_best
     expect(answer.best).to eq true
   end
 
-  it do
+  it 'It gets rid of previous best answer ' do
     expect(best_answer.best).to eq true
     another_answer.make_best
     best_answer.reload

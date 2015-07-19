@@ -4,11 +4,16 @@
   .rating
    %p
     Rating:
-    =votable.rating if !votable.votes.empty?
-    =0 if votable.votes.empty?
+    =votable.rating
  -if user_signed_in? && current_user.id != votable.user_id  
-  =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true, class: 'thumb_up'
-  =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true,class: 'thumb_down'
+  -previous_vote = votable.previous_vote(current_user)
+  -unless previous_vote.nil?
+   .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
+    =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote btn btn-default',role:'button'
+  -else
+   .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
+    =link_to "Thumb up", polymorphic_path([votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score btn btn-success',role:'button'
+    =link_to "Thumb down", polymorphic_path([votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore btn btn-warning',role:'button'
  -elsif user_signed_in? && current_user.id == votable.user_id  
   No votes for your own stuff!
  -else 	 

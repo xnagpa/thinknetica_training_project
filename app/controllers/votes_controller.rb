@@ -1,27 +1,31 @@
 class VotesController < ApplicationController
+  before_action :find_vote, only: [:destroy]
+
   def create
-    klass = votable_params[:votable_type]
-    @votable = klass.singularize.classify.constantize.find(votable_params[:id])
+    klass, id = request.path.scan(/(?<=\/)(.*?)(?=\/)/)
+    @votable = klass[0].singularize.classify.constantize.find(id[0].to_i)
+
     @vote = @votable.votes.new(vote_params)
 
     if @votable.user != current_user && user_signed_in?
-      if @votable.can_i_insert_this_vote?(@vote, current_user)
-
+      previous_vote = @votable.previous_vote(current_user)
+      if previous_vote.nil? || previous_vote.score != @vote.score
         @vote.user = current_user
         @vote.save
       end
+
     end
   end
 
-  def find_vote
-    @vote = Attachment.find(params[:id])
- end
-
-  def vote_params
-    params.require(:vote).permit(:thumb_up, :thumb_down)
+  def destroy
+    @vote.destroy if current_user.id == @vote.user_id
   end
 
-  def votable_params
-    params.require(:votable).permit(:id,  :votable_type)
+  def find_vote
+    @vote = Vote.find(params[:id])
+  end
+
+  def vote_params
+    params.require(:vote).permit(:score)
   end
 end
