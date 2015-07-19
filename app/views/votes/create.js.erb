@@ -1,0 +1,12 @@
+
+<% if @vote.errors.present?%>
+			<% @vote.errors.full_messages.each do |message|%>
+			$('.vote_errors').html('<%= j message %>').css('color','red');
+		<%end%>
+	<%else%>		
+	var s = "#<%=@votable.class.name.downcase%>-<%=@votable.id%> .rating p";
+	alert(s);
+	var rating = $(s).html("Rating: <%=@votable.rating%>");
+	alert(rating);
+  $(s).css("color","red");
+	<%end%>	

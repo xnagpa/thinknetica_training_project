@@ -1,16 +1,27 @@
-.question{ id: question.id}
- %p.title
-  %b
-   =link_to question.title,question
- %p.content=question.content
- -if  user_signed_in? && current_user.id == question.user.id 
+.wrapper{id: "wrapper-#{question.id}"}
+ .question{ id: "question-#{question.id}"}
+  %p.title
+   %b
+    =link_to question.title,question
+  %p.content=question.content
+  %p Attachments
   %p
-   =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }
-   =render 'questions/form',locals:{:question => question}
-  %p 
-   =link_to "Delete stupid question", question_path(question), method: :delete
- .answers
-  =render question.answers
+   -unless question.attachments.empty?
+    -question.attachments.each do |a|
+     -unless a.file.blank?
+      .attachment{id: "attachment-#{a.id}"}
+       =link_to a.file.file.filename, a.file.url 
+       -if  user_signed_in? && current_user.id == question.user.id  
+        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true 
+  =render "votes/vote", votable: question
+  -if  user_signed_in? && current_user.id == question.user.id 
+   %p
+    =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }
+    =render 'questions/form',question: question
+   %p 
+    =link_to "Delete stupid question", question_path(question), method: :delete
+  .answers
+ =render question.answers
  %hr
 
 

@@ -13,11 +13,9 @@ feature 'In order to improve my question
 
     within('.question') do
       click_on 'Edit stupid question'
-
       fill_in 'question[content]', with: 'Test edit question'
+      click_on 'Save'
     end
-
-    click_on 'Save'
 
     within('.question') do
       expect(page).to have_content('Test edit question')

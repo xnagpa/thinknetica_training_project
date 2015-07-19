@@ -1,10 +1,13 @@
-=form_for locals[:question],remote: true,html: { id: "edit-question-#{locals[:question].id}"}  do |f|
- .question_errors
- =f.label :title
- =f.text_field :title
- %br
- =f.label :content
- =f.text_area :content
- %br
- =f.submit "Save"
+= semantic_form_for question, remote: true, html: { id: "edit-question-#{question.id}"} do |f|
+ = f.inputs do
+  = f.input :title         
+  = f.input  :content
+  = f.semantic_fields_for :attachments do |a| 
+   = render 'questions/attachment_fields', f: a      
+ .links
+  = link_to_add_association 'add attachment', f, :attachments
+ = f.submit "Save"
+    
+    
+
 

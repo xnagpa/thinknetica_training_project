@@ -1,7 +1,14 @@
-=form_for [@question,@answer],remote: true do |f|
- =f.label :content, "Your answer"
- .answers_errors
- =f.text_area :content
- %br
- =f.submit "Create"
+= semantic_form_for [question,answer], html: { id: "edit-answer-#{answer.id}"}, remote: true do |f|
+ = f.inputs do 
+  =f.label :content, "Your answer"
+  .answers_errors
+  =f.text_area :content
+  %br
+  = f.semantic_fields_for :attachments do |a| 
+   = render 'answers/attachment_fields', f: a      
+  .links
+   = link_to_add_association 'add attachment', f, :attachments
+
+  
+ =f.submit "Save"
 

@@ -34,7 +34,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:content, :best)
+    params.require(:answer).permit(:content, :best, attachments_attributes: [:id, :file, :_destroy])
   end
 
   def set_question

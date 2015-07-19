@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_150_625_180_943) do
+ActiveRecord::Schema.define(version: 20_150_713_183_455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20_150_625_180_943) do
 
   add_index 'answers', ['question_id'], name: 'index_answers_on_question_id', using: :btree
   add_index 'answers', ['user_id'], name: 'index_answers_on_user_id', using: :btree
+
+  create_table 'attachments', force: :cascade do |t|
+    t.string 'file'
+    t.datetime 'created_at',      null: false
+    t.datetime 'updated_at',      null: false
+    t.integer 'attachable_id'
+    t.string 'attachable_type'
+  end
+
+  add_index 'attachments', %w(attachable_id attachable_type), name: 'index_attachments_on_attachable_id_and_attachable_type', using: :btree
 
   create_table 'questions', force: :cascade do |t|
     t.string 'title'
@@ -55,4 +65,16 @@ ActiveRecord::Schema.define(version: 20_150_625_180_943) do
 
   add_index 'users', ['email'], name: 'index_users_on_email', unique: true, using: :btree
   add_index 'users', ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true, using: :btree
+
+  create_table 'votes', force: :cascade do |t|
+    t.integer 'thumb_up',     default: 0
+    t.integer 'thumb_down',   default: 0
+    t.datetime 'created_at',               null: false
+    t.datetime 'updated_at',               null: false
+    t.string 'votable_type'
+    t.integer 'votable_id'
+    t.integer 'user_id'
+  end
+
+  add_index 'votes', %w(votable_id votable_type), name: 'index_votes_on_votable_id_and_votable_type', using: :btree
 end

@@ -1,0 +1,19 @@
+-if votable.persisted?
+ .vote
+  %p Votes 
+  .rating
+   %p
+    Rating:
+    =votable.rating if !votable.votes.empty?
+    =0 if votable.votes.empty?
+ -if user_signed_in? && current_user.id != votable.user_id  
+  =link_to "Thumb up", votes_path( votable:{ id: votable, votable_type: votable.class.name},vote: {thumb_up:1}), method: :post, remote: true, class: 'thumb_up'
+  =link_to "Thumb down", votes_path(votable:{ id: votable, votable_type: votable.class.name}, vote: {thumb_down:1}), method: :post, remote: true,class: 'thumb_down'
+ -elsif user_signed_in? && current_user.id == votable.user_id  
+  No votes for your own stuff!
+ -else 	 
+  %p 
+   =link_to "Sign in", new_user_session_path
+   and  vote!
+
+

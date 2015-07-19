@@ -1,6 +1,6 @@
 =render @question
 -if user_signed_in?
- =render 'answers/form'
+ =render 'answers/form', question: @question, answer: @answer
 -else
  %b
   %p 
@@ -8,3 +8,7 @@
    =link_to "Sign in", new_user_session_path
 %br  
 =link_to "Back", root_path
+:javascript
+  $(function(){	
+  	$(".formtastic.answer:last").css("display","block");
+  });

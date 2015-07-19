@@ -4,9 +4,29 @@
         $('.question-errors').html('<%= j message %>');
     <% end %>
 <%else%>
-	var s = '#<%= @question.id%>';
-	$(s+' .content').html('<%= @question.content%>').css('color','red');
-	$(s+' .title a').html('<%= @question.title%>').css('color','red');
+	// var s = '#<%= @question.id%>';
+	// $(s+' .content').html('<%= @question.content%>').css('color','red');
+	// $(s+' .title a').html('<%= @question.title%>').css('color','red');
+
+	var s = '#question-<%= @question.id%> .content';
+	var question_id = '#question-<%= @question.id%>';
+	var at = '#question-<%= @question.id%> .attachments';
+
+
+	<% if remotipart_submitted? %>
+	alert("remotipart!");
+		$(question_id).after("<%= escape_javascript(render(@question)).gsub('&quot;', "'") %>");
+		//alert("remove!!");
+		$(question_id).remove();
+		
+ 	<%else%>
+ 	 	alert("no remotipart!!!");
+ 		$(s).html('<%= @question.content%>');	
+ 	<%end%>
+
+
+
+
 	$('#edit-question-'+<%= @question.id%>).hide();
   $('[data-question-id="<%= @question.id%>"]').show();
 <%end%>

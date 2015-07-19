@@ -8,31 +8,37 @@ feature 'User can choose best answer', '
 ' do
   given!(:user) { FactoryGirl.create(:user) }
   given!(:question) { FactoryGirl.create(:question, user: user) }
-  given!(:answer) { FactoryGirl.create(:answer,  question:  question) }
-  given!(:another_answer) { FactoryGirl.create(:another_answer,  question:  question) }
+  given!(:answer) { FactoryGirl.create(:answer,  question:  question, user: user) }
   given!(:another_user) { FactoryGirl.create(:another_user) }
+  given(:another_answer) { FactoryGirl.create(:another_answer,  question:  question, user: user) }
 
   # given(:question_with_valid_answers){ FactoryGirl.create(:question_with_valid_answers) }
 
   scenario 'Author can choose the best answer', js: true do
     sign_in(user)
     visit question_path(question)
-    first('.answer').click_link('Best ever')
-    # Otherwise it doesnt find element
-    sleep 1.seconds
-    visit question_path(question)
-    save_and_open_page
-    expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true']")
+    click_on 'Best ever'
+    # find(".answer[id='#{answer.id}'] .best-answer-link").click
+    expect(page).to have_css('.answer.best_answer')
   end
 
-  scenario 'There is only one best answer and it situated first on the page', js: true do
+  scenario 'There is only one best answer and it is situated first on the page', js: true do
     sign_in(user)
+    # I dont need 2 answers in the previous test
+    # That's why I don't use given!  from the begining
+    another_answer
+
     visit question_path(question)
-    answers = page.all('.answer')
-    answers[1].find('a').click
-    visit question_path(question)
-    save_and_open_page
-    expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")
+    links = page.all('.answer a')
+    links[0].click
+    expect(page).to have_css('.answer.best_answer')
+    links = page.all('.answer a')
+    links[1].click
+    sleep(5)
+    # find(".answer[id='#{another_answer.id}'] .best-answer-link")
+    # expect(find(".answer[id='answer-#{another_answer.id}']")).to have_css(".answer.best_answer")
+    # expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")
+    expect(first('.answer')[:id]).to eq 'answer-2'
   end
 
   scenario 'Guest can\'t choose the best answer', js: true do
