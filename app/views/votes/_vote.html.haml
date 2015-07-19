@@ -4,7 +4,7 @@
   .rating
    %p
     Rating:
-    =votable.rating if !votable.votes.empty?
+    =votable.rating
     =0 if votable.votes.empty?
  -if user_signed_in? && current_user.id != votable.user_id  
   -previous_vote = votable.previous_vote(current_user)

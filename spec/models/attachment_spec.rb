@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Attachment, type: :model do
-  it do
-    expect(subject).to belong_to(:attachable)
-  end
+  it{ expect(subject).to belong_to(:attachable) }
+  it{ expect(subject).to validate_presence_of(:file) }
+
 end

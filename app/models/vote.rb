@@ -4,4 +4,5 @@ class Vote < ActiveRecord::Base
   # validates :score, unless: :unscore?
   # validates :unscore, unless: :score?
   validates :score, presence: true
+  validates :user_id, presence: true
 end

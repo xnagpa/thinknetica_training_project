@@ -5,39 +5,23 @@ RSpec.describe Question, type: :model do
   let!(:question) { FactoryGirl.create(:question_with_best_answer) }
   let!(:positive_vote) { FactoryGirl.create(:vote, user: user) }
   let!(:another_vote) { FactoryGirl.create(:vote, votable: question, user: user) }
-  let!(:negative_vote) { FactoryGirl.create(:unvote) }
+  let!(:negative_vote) { FactoryGirl.create(:unvote, user: user) }
 
-  it do
-    expect(subject).to validate_presence_of(:title)
-  end
+  it{ expect(subject).to validate_presence_of(:title) }
 
-  it do
-    expect(subject).to validate_presence_of(:title)
-  end
+  it{ expect(subject).to validate_presence_of(:title) }
 
-  it do
-    expect(subject).to validate_length_of(:title).is_at_most(150)
-  end
+  it{ expect(subject).to validate_length_of(:title).is_at_most(150) }
 
-  it do
-    expect(subject).to validate_presence_of(:content)
-  end
+  it{ expect(subject).to validate_presence_of(:content) }
+  
+  it{ expect(subject).to have_many(:answers).dependent(:destroy) }
 
-  it do
-    expect(subject).to have_many(:answers).dependent(:destroy)
-  end
+  it{ expect(subject).to have_many(:attachments).dependent(:destroy) }
 
-  it do
-    expect(subject).to have_many(:attachments).dependent(:destroy)
-  end
-
-  it do
-    expect(subject).to accept_nested_attributes_for(:attachments)
-  end
-
-  it do
-    expect(subject).to belong_to(:user)
-  end
+  it{ expect(subject).to accept_nested_attributes_for(:attachments) }
+ 
+  it{ expect(subject).to belong_to(:user) }
 
   it 'returns best answer  ' do
     expect(question.best_answer).to eq question.answers.where(best: true).first
@@ -48,10 +32,7 @@ RSpec.describe Question, type: :model do
   end
 
   it 'calculates the difference between negative and positive votes' do
-    expect(question.rating).to eq (Vote.where(votable_id: question.id, votable_type: question.class.name).sum(:score))
+    expect(question.rating).to eq (1)
   end
 
-  # validates :title, presence: true
-  # validates :title, length: {maximum:150}
-  # validates :content, presence: true
 end
