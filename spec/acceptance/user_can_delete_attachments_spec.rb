@@ -19,7 +19,7 @@ feature 'User creates question and attaches file', '
 
     expect(page).to have_content 'spec_helper.rb'
 
-    click_on 'destroy attachment'
+    click_on 'Destroy attachment'
 
     expect(page).not_to have_content 'spec_helper.rb'
   end
@@ -28,6 +28,6 @@ feature 'User creates question and attaches file', '
     sign_in(another_user)
 
     visit question_path(question_with_attachments)
-    expect(page).not_to have_content 'destroy attachment'
+    expect(page).not_to have_content 'Destroy attachment'
   end
 end

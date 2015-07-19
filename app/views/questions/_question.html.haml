@@ -12,14 +12,14 @@
       .attachment{id: "attachment-#{a.id}"}
        =link_to a.file.file.filename, a.file.url 
        -if  user_signed_in? && current_user.id == question.user.id  
-        =link_to "destroy attachment", attachment_path(a),method: :delete, remote: true 
+        =link_to "Destroy attachment", attachment_path(a), class: 'btn btn-danger btn-xs',role:'button',method: :delete, remote: true 
   =render "votes/vote", votable: question
   -if  user_signed_in? && current_user.id == question.user.id 
    %p
-    =link_to "Edit stupid question",'', class: 'edit-question-link', data: { question_id: question.id }
+    =link_to "Edit stupid question",'', class: 'edit-question-link btn btn-info',role:'button', data: { question_id: question.id }
     =render 'questions/form',question: question
    %p 
-    =link_to "Delete stupid question", question_path(question), method: :delete
+    =link_to "Delete stupid question", question_path(question), class: 'btn btn-danger',role:'button', method: :delete
  .answers
   =render question.answers
   %hr

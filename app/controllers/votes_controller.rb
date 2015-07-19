@@ -2,12 +2,8 @@ class VotesController < ApplicationController
   before_action :find_vote, only: [:destroy]
 
   def create
-
-    temp = request.path
-    klass, id = temp.scan(/(?<=\/)(.*?)(?=\/)/)
+    klass, id = request.path.scan(/(?<=\/)(.*?)(?=\/)/)
     @votable = klass[0].singularize.classify.constantize.find(id[0].to_i)
-      
-    
 
     @vote = @votable.votes.new(vote_params)
 
@@ -16,7 +12,7 @@ class VotesController < ApplicationController
       if previous_vote.nil? || previous_vote.score != @vote.score
         @vote.user = current_user
         @vote.save
-     end
+      end
 
     end
   end
@@ -27,7 +23,7 @@ class VotesController < ApplicationController
 
   def find_vote
     @vote = Vote.find(params[:id])
- end
+  end
 
   def vote_params
     params.require(:vote).permit(:score)

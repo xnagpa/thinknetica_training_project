@@ -10,7 +10,7 @@
    $(s).html("Rating: <%=@votable.rating%>");
    $(s).css("color","red");
    $(links).css("color","red");   
-   l= "<%= j link_to %Q(Revote),%Q(#{vote_path(@vote.id)}), method: :delete, remote: :true, class: %Q(destroy_vote)%>";
+   l= "<%= j link_to 'Revote', "#{vote_path(@vote.id)}", method: :delete, remote: :true, class: 'destroy_vote btn btn-default',role:'button'%>";
    $(links).html(l);
    
 

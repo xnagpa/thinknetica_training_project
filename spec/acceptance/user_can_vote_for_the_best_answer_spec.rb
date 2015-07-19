@@ -75,6 +75,11 @@ feature 'User can vote for the answer', '
     end
   end
 
+  scenario 'Anybody can see rating even without any votes', js: true do
+    visit question_path(question)
+    expect(page).to have_content 'Rating: 0'
+  end
+
   scenario 'User can vote only once for one question', js: true do
     sign_in(non_author)
 

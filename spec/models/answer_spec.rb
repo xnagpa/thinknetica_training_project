@@ -8,18 +8,18 @@ RSpec.describe Answer, type: :model do
   let(:another_user) {  FactoryGirl.create(:another_user) }
   let(:best_answer) {  FactoryGirl.create(:best_answer, question:  question, user: user) }
 
-  it{ expect(subject).to validate_presence_of(:content) }
+  it { expect(subject).to validate_presence_of(:content) }
 
-  it{ expect(subject).to validate_presence_of(:question_id) }
+  it { expect(subject).to validate_presence_of(:question_id) }
 
-  it{ expect(subject).to belong_to(:question) }
-  
-  it{ expect(subject).to have_many(:attachments) }
+  it { expect(subject).to belong_to(:question) }
 
-  it{ expect(subject).to accept_nested_attributes_for(:attachments) }
-  
-  it{ expect(subject).to belong_to(:user) }
-  
+  it { expect(subject).to have_many(:attachments) }
+
+  it { expect(subject).to accept_nested_attributes_for(:attachments) }
+
+  it { expect(subject).to belong_to(:user) }
+
   it 'makes answer best' do
     answer.make_best
     expect(answer.best).to eq true

@@ -5,7 +5,7 @@ RSpec.describe VotesController, type: :controller do
   let(:author) { FactoryGirl.create(:another_user) }
   let!(:question) { FactoryGirl.create(:question, user: author) }
   let!(:answer) { FactoryGirl.create(:answer,  question:  question, user: author) }
-  let!(:vote){FactoryGirl.create(:vote, user:user)}
+  let!(:vote) { FactoryGirl.create(:vote, user: user) }
 
   # Аутентифицированный пользователь может голосовать за понравившийся вопрос/ответ +
   # Пользователь не может голосовать за свой вопрос/ответ +
@@ -62,10 +62,9 @@ RSpec.describe VotesController, type: :controller do
       expect { post :create, current_params }.to change(Vote, :count).by(1)
     end
 
-
-     it 'User can delete his vote' do
+    it 'User can delete his vote' do
       sign_in(user)
-      expect { delete :destroy, id:vote, format: :js }.to change(Vote, :count).by(-1)
+      expect { delete :destroy, id: vote, format: :js }.to change(Vote, :count).by(-1)
     end
   end
 end
