@@ -1,0 +1,13 @@
+= semantic_form_for question, html: { id: "edit-question-#{question.id}"} do |f|
+ = f.inputs do
+  = f.input :title         
+  = f.input  :content
+  = f.semantic_fields_for :attachments do |a| 
+   = render 'questions/attachment_fields', f: a      
+ .links
+  = link_to_add_association 'add attachment', f, :attachments
+ = f.submit "Save"
+    
+    
+
+

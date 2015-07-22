@@ -18,6 +18,7 @@ feature 'User can choose best answer', '
     sign_in(user)
     visit question_path(question)
     click_on 'Best ever'
+
     # find(".answer[id='#{answer.id}'] .best-answer-link").click
     expect(page).to have_css('.answer.best_answer')
   end
@@ -29,16 +30,16 @@ feature 'User can choose best answer', '
     another_answer
 
     visit question_path(question)
-    links = page.all('.answer a')
-    links[0].click
-    expect(page).to have_css('.answer.best_answer')
-    links = page.all('.answer a')
+    links = page.all('.answer a.best-answer-link')
     links[1].click
-    sleep(5)
+    
+    expect(page).to have_css('.answer.best_answer')
+
+    expect(first('.answer')[:id]).to eq 'answer-2'
     # find(".answer[id='#{another_answer.id}'] .best-answer-link")
     # expect(find(".answer[id='answer-#{another_answer.id}']")).to have_css(".answer.best_answer")
     # expect(first('.answer')).to have_xpath("//div[@class='answer' and @data-is-best='true'][1]")
-    expect(first('.answer')[:id]).to eq 'answer-2'
+  
   end
 
   scenario 'Guest can\'t choose the best answer', js: true do

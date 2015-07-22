@@ -2,13 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-
-$ ->
-  $('.edit-question-link').click (e) ->
+$ ->  
+  $('.create_comment').click (e) ->
    	e.preventDefault();
-    #alert $(this).data('questionId');
-    form_id= $(this).data('questionId');
+    form_id= $(this).data('commentableId');
+    form_type= $(this).data('commentableType').toLowerCase();
     $(this).hide();    
-    $('#edit-question-'+form_id).show();
-
+    $('#comment-'+form_type+'-'+form_id).show();    
 

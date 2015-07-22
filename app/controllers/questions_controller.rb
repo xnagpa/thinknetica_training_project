@@ -14,8 +14,10 @@ class QuestionsController < ApplicationController
       if @question.save
         flash[:notice] = 'Question successfully created'
         format.html { redirect_to @question }
+        format.js
       else
         format.html { render :new }
+        format.js
         flash[:notice] = 'Your parameters are not okay, try once again'
       end
     end

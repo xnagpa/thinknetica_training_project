@@ -1,0 +1,7 @@
+<% if @comment.errors.present? %>
+    alert('Errors!!');
+<% else %>
+
+$('#comment_<%= @comment.id%>').remove();
+
+ <%end%>
