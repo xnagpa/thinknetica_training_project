@@ -11,20 +11,19 @@ class VotesController < ApplicationController
     if @votable.user != current_user 
       previous_vote = @votable.previous_vote(current_user)
       if previous_vote.nil? || previous_vote.score != @vote.score
-        @vote.user = current_user
-        
+        @vote.user = current_user        
         @vote.save
       end
       
     end
   end
 
-  def destroy
+  def destroy    
     respond_with(@vote.destroy) if current_user.id == @vote.user_id
   end
 
   def find_vote
-    respond_with(@vote = Vote.find(params[:id]))
+    @vote = Vote.find(params[:id])
   end
 
   def find_votable

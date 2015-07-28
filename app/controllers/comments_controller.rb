@@ -6,12 +6,12 @@ class CommentsController < ApplicationController
   respond_to :html,:js
 
 	def create	
-    if user_signed_in?	
+   
       @comment = @commentable.comments.new(comment_params)
    	  @comment.user = current_user  
     #сравниваем по id  присв по объектам
       respond_with(@comment) if @comment.save
-    end
+   
   end
 
   def destroy
