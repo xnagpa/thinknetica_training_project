@@ -1,12 +1,10 @@
-
 <% if @answer.errors.present?%>
  <% @answer.errors.full_messages.each do |message|%>
 $('.answers_errors').html('<%= j message %>').css('color','red');
 <%end%>
 <%else%>		
 
-	<%publish_to "/questions/#{@question.id}/answers" do%>
-	 
+	<%publish_to "/questions/#{@question.id}/answers" do%>	 
 		$('.answers').append('<%= j render @answer %>');  		 
 		<%end%>
 <%end%>	

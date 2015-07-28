@@ -6,10 +6,10 @@ $('.comments_errors').html('<%= j message %>').css('color','red');
 
 		<%publish_to "/#{@commentable.class.name.downcase.pluralize}/#{@commentable.id}/comments" do%>
 	 		var s = "#<%=@commentable.class.name.downcase%>-<%=@commentable.id%> .comments";
-	 		$(s).append("<%=j render @comment %>");
-			var form = "#comment-<%= j @commentable.class.name.downcase%>-<%=@commentable.id%>";		 
+	 		$(s).append("<%=j render @comment %>");			
 		<%end%>
 
+		var form = "#comment-<%= j @commentable.class.name.downcase%>-<%=@commentable.id%>";		 
 		$(form).hide();
 		var link = "[data-commentable-type='<%= j @commentable.class.name%>'][data-commentable-id='<%= @commentable.id%>']";
 
