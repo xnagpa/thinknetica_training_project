@@ -1,6 +1,4 @@
-=render  "questions/form_not_remote",question: @question
-
-=render  "questions/form",question: @question
+=render  "questions/form",question: @question, remote: false
 :javascript
   $(function(){	
   	$(".formtastic.question").css("display","block");

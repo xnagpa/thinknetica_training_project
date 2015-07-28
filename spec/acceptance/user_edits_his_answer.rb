@@ -12,8 +12,7 @@ feature 'In order to improve my answer
   scenario 'Authed user edit his answer', js: true do
     sign_in(user)
     visit question_path(question)
-    save_and_open_page
-
+   
     within('.answers') do
        click_on 'Edit'
     end

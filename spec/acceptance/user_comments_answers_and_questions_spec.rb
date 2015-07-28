@@ -14,9 +14,12 @@ feature 'User comments question or answer', '
    
     click_on 'Leave a comment'     
  
-     within("#comment-question-1 .inputs"){ fill_in("comment[content]", with: "Test comment")}  
+     within("#comment-question-1") do
+      fill_in("comment_content", with: "Test comment")
+      click_on "Save"
+    end 
  
-    save_and_open_page
+  
     expect(page).to have_content 'Test comment'
   end
 

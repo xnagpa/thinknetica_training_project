@@ -8,7 +8,6 @@
 	// $(s+' .content').html('<%= @question.content%>').css('color','red');
 	// $(s+' .title a').html('<%= @question.title%>').css('color','red');
 	<%publish_to "/questions" do%>
-	  alert("Fuck you!!!");
 		$('.questions_container').append('<%= j render @question %>');  			 
   <%end%>
 

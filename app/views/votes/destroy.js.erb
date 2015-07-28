@@ -4,7 +4,7 @@
 			$('.vote_errors').html('<%= j message %>').css('color','red');
 		<%end%>
 	<%else%>	
-	
+	  alert("Destroy!!!");
 	 var s = "#<%=@vote.votable.class.name.downcase%>-<%=@vote.votable.id%> .rating p";
    
    var links = "#vote-<%=@vote.votable.class.name.downcase%>-<%=@vote.votable.id%>";

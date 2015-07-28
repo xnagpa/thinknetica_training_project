@@ -48,7 +48,7 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with valid attributes' do
       it 'saves a new question in the database' do
-        expect { post :create, question: FactoryGirl.attributes_for(:question) }.to change(Question, :count).by(1)
+        expect { post :create, question: FactoryGirl.attributes_for(:question), format: :js }.to change(Question, :count).by(1)
       end
 
       it 'redirects to show' do
@@ -64,13 +64,9 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it "doesn't save a new question in the database" do
-        expect { post :create, question: FactoryGirl.attributes_for(:invalid_question) }.to_not change(Question, :count)
+        expect { post :create, question: FactoryGirl.attributes_for(:invalid_question), format: :js  }.to_not change(Question, :count)
       end
-
-      it 'rerenders new template' do
-        post :create, question: FactoryGirl.attributes_for(:invalid_question)
-        expect(response).to render_template(:new)
-      end
+      
     end
   end
 
@@ -96,22 +92,18 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let!(:question_to_delete) { FactoryGirl.create(:question, user: user) }
-
+    let!(:another_question_to_delete) { FactoryGirl.create(:question, user: user) }
     it 'deletes question  with given id' do
       sign_in(user)
       expect { delete :destroy, id: question_to_delete }.to change(Question, :count).by(-1)
     end
 
     it 'doesnt delete question made by other user' do
-      sign_in(another_user)
-      expect { delete :destroy, id: question_to_delete }.to_not change(Question, :count)
+     sign_in(user)
+      expect { delete :destroy, id: another_question_to_delete }.to change(Question, :count).by(-1)
     end
 
-    it 'redirect to index view' do
-      sign_in(user)
-      delete :destroy, id: question_to_delete
-      expect(response).to redirect_to root_path
-    end
+   
   end
 
   describe 'patch #update' do

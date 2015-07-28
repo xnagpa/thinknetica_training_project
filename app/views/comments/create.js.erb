@@ -14,5 +14,6 @@ $('.comments_errors').html('<%= j message %>').css('color','red');
 		var link = "[data-commentable-type='<%= j @commentable.class.name%>'][data-commentable-id='<%= @commentable.id%>']";
 
 		$(link).show();
-		
+		//Автор не должен получать свое сообщение 2 раза
+		//Если id текущего польз совп с id на странице  то рендерить 2 раза не надо, только то, что вне publish_to
 <%end%>	

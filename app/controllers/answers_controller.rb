@@ -1,34 +1,33 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_question, except: [:set_best_answer, :destroy]
+  before_action :set_question, only: [:create]
   before_action :set_answer, only: [:destroy, :update, :set_best_answer]
 
+  respond_to :html,:js
+#Учесть что вопрос - shallow
   def create
     @answer =  @question.answers.new(answer_params)
-    @answer.user =  current_user
-    @answer.save
+    @answer.user =  current_user    
+    respond_with(@answer) if @answer.save
   end
 
   def new
-    @answer =  Answer.new
+    respond_with(@answer = Answer.new)
   end
 
   def update
-    @answer.update(answer_params) if @answer.user.id == current_user.id
-  end
-
-  def destroy
-    if current_user.id == @answer.user.id
-      @answer.destroy
-      flash[:notice] = 'Answer successfully deleted'
-    else
-      # byebug
-      flash[:notice] = 'You are not allowed to delete this answer'
+    if @answer.user.id == current_user.id
+      @answer.update(answer_params) 
+      respond_with(@question)
     end
   end
 
+  def destroy    
+    respond_with(@answer.destroy) if current_user.id == @answer.user.id
+  end
+
   def set_best_answer
-    @answer.make_best if @answer.user_id == current_user.id
+    respond_with(@answer.make_best) if @answer.user_id == current_user.id
   end
 
   private

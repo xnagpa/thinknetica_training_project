@@ -22,7 +22,7 @@
    %p
     %i=link_to "Edit",'', class: 'edit-answer-link btn btn-info',role:'button', data: { answer_id: answer.id }
    %p
-    =render "answers/form", question: answer.question, answer: answer
+    =render "answers/form",  answer: answer
     %p
      %i=link_to "Delete stupid answer", answer_path(answer), class: 'btn btn-danger', role:'button', method: :delete, remote: true 
   

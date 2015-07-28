@@ -7,7 +7,7 @@
     =votable.rating
  -if user_signed_in? && current_user.id != votable.user_id  
   -previous_vote = votable.previous_vote(current_user)
-  -unless previous_vote.nil?
+  -unless previous_vote.nil? 
    .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
     =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote btn btn-default',role:'button'
   -else

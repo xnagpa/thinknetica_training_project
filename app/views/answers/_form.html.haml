@@ -1,4 +1,5 @@
-= semantic_form_for answer, url:question_answers_path(question,answer), html: { id: "edit-answer-#{answer.id}"}, remote: true do |f|
+-object = answer.new_record? ? [question, answer] : answer
+= semantic_form_for object, html: { id: "edit-answer-#{answer.id}"}, remote: true do |f|
  = f.inputs do 
   =f.label :content, "Your answer"
   .answers_errors
