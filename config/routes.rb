@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
 
   concern :commentable do
     resources :comments, only: [:destroy, :create]
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   end
 
   resources :attachments, only: [:destroy]
+
+  resource :profile 
 
   root 'questions#index'
 

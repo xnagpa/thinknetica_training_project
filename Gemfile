@@ -44,7 +44,9 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'formtastic', '~> 3.0'
 gem 'formtastic-bootstrap'
-
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password

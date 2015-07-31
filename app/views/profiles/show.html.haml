@@ -1,0 +1,7 @@
+%h1 Please provide your email
+=semantic_form_for(User.new, url: profile_path, html: { method: 'PUT' }) do |f|
+ = f.inputs do 
+  =f.label :email, "Provide your email please"
+  .answers_errors
+  =f.text_area :email   
+ =f.submit "Save"
