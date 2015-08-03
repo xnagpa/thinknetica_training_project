@@ -34,6 +34,7 @@ gem 'haml-rails'
 gem 'bootstrap-generators', '~> 3.3.4'
 
 gem 'cocoon'
+gem 'cancancan'
 
 # Use postgress as the database for Active Record
 gem 'pg'

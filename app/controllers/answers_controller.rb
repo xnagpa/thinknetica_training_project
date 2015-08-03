@@ -4,7 +4,8 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: [:destroy, :update, :set_best_answer]
 
   respond_to :html,:js
-#Учесть что вопрос - shallow
+  authorize_resource
+
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user    

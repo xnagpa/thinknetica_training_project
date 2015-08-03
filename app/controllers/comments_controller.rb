@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :find_commentable, only: [:create]
 
   respond_to :html,:js
-
+  authorize_resource
 	def create	
    
       @comment = @commentable.comments.new(comment_params)

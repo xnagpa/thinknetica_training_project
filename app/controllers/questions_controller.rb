@@ -5,7 +5,13 @@ class QuestionsController < ApplicationController
 
   respond_to :html,:js
 
+  authorize_resource
+  #use load_and_authorize_resourse to load @question
+  #override def resourse if you want to customize the behaviour
+
   def index
+    #authorize! :index, Question
+    authorize! :read, Question
     respond_with(@questions = Question.includes([:answers,:attachments]).all)
   end
 
@@ -19,18 +25,21 @@ class QuestionsController < ApplicationController
   end
 
   def new
+   # authorize! :create, Question
     @question = Question.new
     @attachment = @question.attachments.new
     respond_with(@question)
   end
 
   def show
+   # authorize! :read, @question
     @answer = @question.answers.build
     @attachment = @answer.attachments.build
     respond_with(@question)
   end
 
-  def destroy      
+  def destroy  
+   # authorize! :destroy, @question    
     respond_with(@question.destroy)  if current_user.id == @question.user_id
   end
 

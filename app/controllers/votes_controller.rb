@@ -4,7 +4,7 @@ class VotesController < ApplicationController
   before_action :find_votable, only: [:create]
 
   respond_to :html,:js
-
+  authorize_resource
   def create     
     @vote = @votable.votes.new(vote_params)
     if @votable.user != current_user 
