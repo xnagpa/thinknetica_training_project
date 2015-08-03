@@ -17,18 +17,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if @answer.user.id == current_user.id
       @answer.update(answer_params) 
       respond_with(@question)
     end
   end
 
   def destroy    
-    respond_with(@answer.destroy) if current_user.id == @answer.user.id
+    respond_with(@answer.destroy) 
   end
 
   def set_best_answer
-    respond_with(@answer.make_best) if @answer.user_id == current_user.id
+    respond_with(@answer.make_best) 
   end
 
   private

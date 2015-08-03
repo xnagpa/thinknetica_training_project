@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
 
   def index
     #authorize! :index, Question
-    authorize! :read, Question
+    #authorize! :read, Question
     respond_with(@questions = Question.includes([:answers,:attachments]).all)
   end
 
@@ -40,14 +40,12 @@ class QuestionsController < ApplicationController
 
   def destroy  
    # authorize! :destroy, @question    
-    respond_with(@question.destroy)  if current_user.id == @question.user_id
+    respond_with(@question.destroy)  
   end
 
   def update
-    if current_user.id == @question.user_id
       @question.update(question_params) 
       respond_with(@question)
-    end
   end
 
   private

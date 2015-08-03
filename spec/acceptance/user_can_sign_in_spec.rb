@@ -5,6 +5,7 @@ feature 'User sign in', '
    I want to be able to sign in
 
 ' do
+  
   given(:user) { FactoryGirl.create(:user) }
   given!(:authorization) { FactoryGirl.create(:authorization, user: user) }
 

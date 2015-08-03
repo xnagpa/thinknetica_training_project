@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    respond_with(@comment.destroy) if @comment.user_id == current_user.id  
+    respond_with(@comment.destroy) 
   end  
 
 	def find_comment
