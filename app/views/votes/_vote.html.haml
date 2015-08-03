@@ -5,15 +5,24 @@
    %p
     Rating:
     =votable.rating
- -if user_signed_in? && current_user.id != votable.user_id  
+    / user:
+    / -unless current_user.nil?
+    /  =current_user.id 
+    / votable:
+    / =votable.class.name+ " "+votable.id.to_s
+    / previous_vote:
+    / -unless votable.previous_vote(current_user).nil?  
+    /  =votable.previous_vote(current_user).id 
+
+ -if user_signed_in? && current_user.id != votable.user_id
   -previous_vote = votable.previous_vote(current_user)
-  -unless previous_vote.nil?
-   .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
-    =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote btn btn-default',role:'button'
-  -else
+  -if previous_vote.nil?  
    .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
     =link_to "Thumb up", polymorphic_path([votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score btn btn-success',role:'button'
     =link_to "Thumb down", polymorphic_path([votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore btn btn-warning',role:'button'
+  -else 
+   .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
+    =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote btn btn-default',role:'button'
  -elsif user_signed_in? && current_user.id == votable.user_id  
   No votes for your own stuff!
  -else 	 

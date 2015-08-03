@@ -1,4 +1,3 @@
-
 <% if @vote.errors.present?%>
 			<% @vote.errors.full_messages.each do |message|%>
 			$('.vote_errors').html('<%= j message %>').css('color','red');

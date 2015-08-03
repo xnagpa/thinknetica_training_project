@@ -1,48 +1,44 @@
 class QuestionsController < ApplicationController
+
   before_action :authenticate_user!, except: [:index, :show]
   before_action :extract_question_id, only: [:show, :destroy, :update]
 
+  respond_to :html,:js
+
   def index
-    @questions = Question.all
+    respond_with(@questions = Question.includes([:answers,:attachments]).all)
   end
 
   def create
     @question = Question.new(question_params)
     @question.user = current_user
-
-    respond_to do |format|
-      if @question.save
-        flash[:notice] = 'Question successfully created'
-        format.html { redirect_to @question }
-      else
-        format.html { render :new }
-        flash[:notice] = 'Your parameters are not okay, try once again'
-      end
-    end
+    if @question.save
+     flash[:notice] = 'Question successfully created' 
+     respond_with(@question)
+    end   
   end
 
   def new
     @question = Question.new
     @attachment = @question.attachments.new
+    respond_with(@question)
   end
 
   def show
     @answer = @question.answers.build
     @attachment = @answer.attachments.build
+    respond_with(@question)
   end
 
-  def destroy
-    if current_user.id == @question.user_id
-      @question.destroy
-      flash[:notice] = 'Question successfully deleted'
-    else
-      flash[:notice] = 'You are not allowed to delete this question'
-    end
-    redirect_to root_path
+  def destroy      
+    respond_with(@question.destroy)  if current_user.id == @question.user_id
   end
 
   def update
-    @question.update(question_params) if current_user.id == @question.user_id
+    if current_user.id == @question.user_id
+      @question.update(question_params) 
+      respond_with(@question)
+    end
   end
 
   private

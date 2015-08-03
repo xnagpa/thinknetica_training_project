@@ -12,15 +12,17 @@ feature 'In order to improve my answer
   scenario 'Authed user edit his answer', js: true do
     sign_in(user)
     visit question_path(question)
-
-    click_on 'Edit'
+   
+    within('.answers') do
+       click_on 'Edit'
+    end
 
     within('.answers') do
       fill_in 'answer[content]', with: 'Test edit answer'
     end
-
-    click_on 'Save'
-
+    within('.answers') do
+      click_on 'Save'
+    end
     within('.answers') do
       expect(page).to have_content('Test edit answer')
       expect(page).to_not have_content answer.content

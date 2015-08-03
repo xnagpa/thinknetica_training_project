@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :questions do
-    resources :votes, only: [:destroy, :create], shallow: true
-    resources :answers, shallow: true do
-      patch 'set_best_answer', on: :member
-      resources :votes, only: [:destroy, :create], shallow: true
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+
+  concern :commentable do
+    resources :comments, only: [:destroy, :create]
+  end
+
+  concern :votable do
+    resources :votes, only: [:destroy, :create]
+  end
+
+
+  resources :questions,concerns: [:votable, :commentable], shallow: true do    
+    resources :answers,concerns: [:votable, :commentable] do
+      patch 'set_best_answer', on: :member     
     end
   end
 
   resources :attachments, only: [:destroy]
+
+  resource :profile 
 
   root 'questions#index'
 

@@ -8,6 +8,10 @@
    =link_to "Sign in", new_user_session_path
 %br  
 =link_to "Back", root_path
+=subscribe_to "/questions/#{@question.id}/answers"
+=subscribe_to "/questions/#{@question.id}/comments"
+
+
 :javascript
   $(function(){	
   	$(".formtastic.answer:last").css("display","block");

@@ -1,4 +1,6 @@
-.questions_container
+
 %h1 Questions will be listed lower!
 =link_to "Create new question",  new_question_path, method: :get, class: "create_question btn btn-success btn-lg", role:"button"
-=render @questions
+.questions_container
+ = render @questions
+ =subscribe_to "/questions"

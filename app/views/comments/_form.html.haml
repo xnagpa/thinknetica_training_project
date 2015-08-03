@@ -1,0 +1,7 @@
+= semantic_form_for [commentable, commentable.comments.new], html: { id: "comment-#{commentable.class.name.downcase}-#{commentable.id}"}, remote: true do |f|
+ = f.inputs do 
+  =f.label :content, "Your comment"
+  .comments_errors
+  =f.text_area :content
+  %br  
+ =f.submit "Save"
