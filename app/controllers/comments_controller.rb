@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :find_commentable, only: [:create]
 
   respond_to :html,:js
-
+  authorize_resource
 	def create	
    
       @comment = @commentable.comments.new(comment_params)
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    respond_with(@comment.destroy) if @comment.user_id == current_user.id  
+    respond_with(@comment.destroy) 
   end  
 
 	def find_comment

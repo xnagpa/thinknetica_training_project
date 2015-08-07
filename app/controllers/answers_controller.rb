@@ -4,7 +4,8 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: [:destroy, :update, :set_best_answer]
 
   respond_to :html,:js
-#Учесть что вопрос - shallow
+  authorize_resource
+
   def create
     @answer =  @question.answers.new(answer_params)
     @answer.user =  current_user    
@@ -16,18 +17,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if @answer.user.id == current_user.id
       @answer.update(answer_params) 
       respond_with(@question)
     end
   end
 
   def destroy    
-    respond_with(@answer.destroy) if current_user.id == @answer.user.id
+    respond_with(@answer.destroy) 
   end
 
   def set_best_answer
-    respond_with(@answer.make_best) if @answer.user_id == current_user.id
+    respond_with(@answer.make_best) 
   end
 
   private
