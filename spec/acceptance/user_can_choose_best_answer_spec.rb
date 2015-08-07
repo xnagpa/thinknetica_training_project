@@ -33,7 +33,7 @@ feature 'User can choose best answer', '
     
     links = page.all('.answer a.best-answer-link')
     links[1].click   
-    save_and_open_page
+  
     expect(page).to have_css('.answer.best_answer')
 
     expect(first('.answer.best_answer')[:id]).to eq 'answer-1'

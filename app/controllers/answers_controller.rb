@@ -19,7 +19,7 @@ class AnswersController < ApplicationController
   def update
       @answer.update(answer_params) 
       respond_with(@question)
-    end
+    
   end
 
   def destroy    

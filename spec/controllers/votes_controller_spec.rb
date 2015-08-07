@@ -64,7 +64,7 @@ RSpec.describe VotesController, type: :controller do
 
     it 'User can delete his vote' do
       sign_in(user)     
-      expect { delete :destroy, id:vote.id }.to change(Vote, :count).by(-1)
+      expect { delete :destroy, id:vote.id, format: :js}.to change(Vote, :count).by(-1)
     end
   end
 end
