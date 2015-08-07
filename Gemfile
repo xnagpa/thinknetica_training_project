@@ -34,7 +34,10 @@ gem 'haml-rails'
 gem 'bootstrap-generators', '~> 3.3.4'
 
 gem 'cocoon'
+
 gem 'cancancan'
+
+gem 'doorkeeper'
 
 # Use postgress as the database for Active Record
 gem 'pg'
@@ -81,4 +84,6 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'json_spec'
 end

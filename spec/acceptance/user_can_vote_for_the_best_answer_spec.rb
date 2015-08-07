@@ -62,7 +62,7 @@ feature 'User can vote for the answer', '
     scores = page.all('.score')
     scores[1].click
     answers = page.all('.answer .rating')
-    save_and_open_page
+   
     within answers[0] do
       expect(page).to have_content 'Rating: 1'
     end

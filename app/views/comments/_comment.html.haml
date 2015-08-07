@@ -1,9 +1,13 @@
 -if comment.persisted?
- =div_for(comment) do
-  %p
-   =comment.content
-   -if user_signed_in? && current_user.id ==comment.user_id
-    .links
-     = link_to 'Delete stupid comment',comment_path(comment),remote:  true, method: :delete  
-  %hr 
+ =div_for(comment, class:"panel panel-success") do
+  .panel-heading
+   %p 
+    comment
+  .panel-body
+   %p
+    =comment.content
+    -if can? :destroy, comment
+     .links
+      = link_to 'Delete stupid comment',comment_path(comment),remote:  true, method: :delete  
+
 

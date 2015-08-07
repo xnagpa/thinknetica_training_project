@@ -28,9 +28,15 @@ class Ability
      can :create, [Question, Answer, Comment, Attachment]
 
      can :create, Vote do |vote|
-       vote.votable.user != vote.user
+       vote.votable.user_id != user.id
      end
-
-     can :update, [Question, Answer, Comment, Vote, Attachment], user: @user
+     #Important operate with entity which is subordinate of other resource
+     can :update, [Question, Answer, Comment, Vote], user: user
+     can :destroy, [Question, Answer, Comment, Vote], user: user
+     can :set_best_answer, Answer, question: {user: user}
+     #cancan searches for the instance variable
+     #if didnt find authorize manually, otherwise it will ignore blocks
+     can :destroy, Attachment, attachable: {user: user}
+  
    end
 end
