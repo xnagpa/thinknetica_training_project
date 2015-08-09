@@ -7,7 +7,7 @@ class Question < ActiveRecord::Base
   has_many :comments, dependent: :destroy, as: :commentable
   has_many :votes, dependent: :destroy, as: :votable
 
-  #pagination
+  # pagination
   self.per_page = 5
 
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:file].blank? }, allow_destroy: true

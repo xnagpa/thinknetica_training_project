@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:question) { FactoryGirl.create(:question, user: user) }
-  let!(:answer) { FactoryGirl.create(:answer, question:  question, user: user) }
+  let!(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
   # let(:invalid_answer){ FactoryGirl.create(:invalid_answer, question:  question, user: user) }
-  let!(:another_user) {  FactoryGirl.create(:another_user) }
+  let!(:another_user) { FactoryGirl.create(:another_user) }
 
   describe 'GET #new' do
     before do
@@ -33,7 +33,7 @@ RSpec.describe AnswersController, type: :controller do
       expect { delete :destroy, current_users_answer_params }.to change(user.answers, :count).by(-1)
     end
 
-    it 'doesnt delete answer made by other user'  do
+    it 'doesnt delete answer made by other user' do
       sign_in(another_user)
       answer_to_delete = answer
       current_users_answer_params = { question_id: question, id: answer_to_delete, format: :js }
@@ -49,7 +49,7 @@ RSpec.describe AnswersController, type: :controller do
     # end
 
     context 'does ' do
-      let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
+      let!(:answer_to_update) { FactoryGirl.create(:answer, question: question, user: user) }
 
       it 'assign @answer ' do
         sign_in(user)
@@ -83,7 +83,7 @@ RSpec.describe AnswersController, type: :controller do
     before do
       sign_in(user)
     end
-    let!(:answer_to_update) { FactoryGirl.create(:answer, question:  question, user: user) }
+    let!(:answer_to_update) { FactoryGirl.create(:answer, question: question, user: user) }
     context 'does' do
       it 'sets answer to be the best' do
         patch :set_best_answer, id: answer_to_update, question_id: question, answer: { best: true }, format: :js

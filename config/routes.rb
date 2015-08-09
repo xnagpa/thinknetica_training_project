@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   use_doorkeeper
-  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   concern :commentable do
     resources :comments, only: [:destroy, :create]
@@ -10,25 +10,24 @@ Rails.application.routes.draw do
     resources :votes, only: [:destroy, :create]
   end
 
-
-  resources :questions,concerns: [:votable, :commentable], shallow: true do    
-    resources :answers,concerns: [:votable, :commentable] do
-      patch 'set_best_answer', on: :member     
+  resources :questions, concerns: [:votable, :commentable], shallow: true do
+    resources :answers, concerns: [:votable, :commentable] do
+      patch 'set_best_answer', on: :member
     end
   end
 
   resources :attachments, only: [:destroy]
 
-  resource :profile 
+  resource :profile
 
   root 'questions#index'
 
-  namespace :api, defaults: { format: :json } do 
+  namespace :api, defaults: { format: :json } do
     namespace :v1, defaults: { format: :json } do
-       resources :profiles do 
+      resources :profiles do
         get :me, on: :collection
-       end
-    end    
+      end
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

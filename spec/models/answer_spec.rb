@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Answer, type: :model do
   let(:user) { FactoryGirl.create(:user) }
   let(:question) { FactoryGirl.create(:question, user: user) }
-  let(:answer) { FactoryGirl.create(:answer, question:  question, user: user) }
-  let(:another_answer) { FactoryGirl.create(:another_answer, question:  question, user: user) }
-  let(:another_user) {  FactoryGirl.create(:another_user) }
-  let(:best_answer) {  FactoryGirl.create(:best_answer, question:  question, user: user) }
+  let(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
+  let(:another_answer) { FactoryGirl.create(:another_answer, question: question, user: user) }
+  let(:another_user) { FactoryGirl.create(:another_user) }
+  let(:best_answer) { FactoryGirl.create(:best_answer, question: question, user: user) }
 
   it { expect(subject).to validate_presence_of(:content) }
 

@@ -4,13 +4,13 @@ FactoryGirl.define do
     association :question
     content 'You are beautiful!'
 
-    factory :another_answer  do
+    factory :another_answer do
       association :user
       association :question
       content 'You are handsome!'
     end
 
-    factory :best_answer  do
+    factory :best_answer do
       association :user
       association :question
       content 'You are handsome!'

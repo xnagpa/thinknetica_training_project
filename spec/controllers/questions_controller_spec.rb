@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:question) { FactoryGirl.create(:question, user: user) }
-  let(:answer) { FactoryGirl.create(:answer, question:  question, user: user) }
+  let(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
   let(:another_user) {  FactoryGirl.create(:another_user) }
 
   describe 'GET #index' do
@@ -64,9 +64,8 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       it "doesn't save a new question in the database" do
-        expect { post :create, question: FactoryGirl.attributes_for(:invalid_question), format: :js  }.to_not change(Question, :count)
+        expect { post :create, question: FactoryGirl.attributes_for(:invalid_question), format: :js }.to_not change(Question, :count)
       end
-      
     end
   end
 
@@ -99,11 +98,9 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     it 'doesnt delete question made by other user' do
-     sign_in(user)
+      sign_in(user)
       expect { delete :destroy, id: another_question_to_delete }.to change(Question, :count).by(-1)
     end
-
-   
   end
 
   describe 'patch #update' do
