@@ -34,6 +34,8 @@ class Ability
      can :update, [Question, Answer, Comment, Vote], user: user
      can :destroy, [Question, Answer, Comment, Vote], user: user
      can :set_best_answer, Answer, question: {user: user}
+     can :index, User
+     can :me, User
      #cancan searches for the instance variable
      #if didnt find authorize manually, otherwise it will ignore blocks
      can :destroy, Attachment, attachable: {user: user}

@@ -42,6 +42,7 @@ gem 'doorkeeper'
 # Use postgress as the database for Active Record
 gem 'pg'
 gem 'devise'
+gem 'gravtastic'
 gem 'launchy'
 
 gem 'carrierwave'
@@ -51,6 +52,7 @@ gem 'formtastic-bootstrap'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'will_paginate', '~> 3.0.6'
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password

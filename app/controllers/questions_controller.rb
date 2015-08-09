@@ -12,7 +12,8 @@ class QuestionsController < ApplicationController
   def index
     #authorize! :index, Question
     #authorize! :read, Question
-    respond_with(@questions = Question.includes([:answers,:attachments]).all)
+    respond_with(@questions = Question.includes([:answers,:attachments]).paginate(:page => params[:page]))
+
   end
 
   def create

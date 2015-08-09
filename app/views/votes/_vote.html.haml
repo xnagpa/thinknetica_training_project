@@ -18,8 +18,9 @@
   -previous_vote = votable.previous_vote(current_user)
   -if previous_vote.nil?  
    .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
-    =link_to "Thumb up", polymorphic_path([votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score btn btn-success',role:'button'
-    =link_to "Thumb down", polymorphic_path([votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore btn btn-warning',role:'button'
+    =link_to raw(" <span class='glyphicon glyphicon-thumbs-up'></span>"), polymorphic_path([votable, Vote.new], vote:{score:1}), method: :post, remote: true, class: 'score btn btn-success',role:'button'
+     
+    =link_to raw(" <span class='glyphicon glyphicon-thumbs-down'></span>"), polymorphic_path([votable, Vote.new], vote:{score:-1} ), method: :post, remote: true,class: 'unscore btn btn-warning',role:'button'
   -else 
    .vote_links{id: "vote-#{votable.class.name.downcase}-#{votable.id}"}
     =link_to "Revote", vote_path(previous_vote), method: :delete, remote: true, class: 'destroy_vote btn btn-default',role:'button'

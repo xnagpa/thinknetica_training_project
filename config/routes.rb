@@ -23,11 +23,10 @@ Rails.application.routes.draw do
 
   root 'questions#index'
 
-  namespace :api do 
-    namespace :v1 do
-       resource :api_profiles do 
+  namespace :api, defaults: { format: :json } do 
+    namespace :v1, defaults: { format: :json } do
+       resources :profiles do 
         get :me, on: :collection
-        get :others, on: :collection
        end
     end    
   end

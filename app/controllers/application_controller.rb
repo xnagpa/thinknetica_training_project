@@ -18,4 +18,8 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(_resource)
     session[:previous_url] || root_path
   end
+
+  # def current_ability
+  #   @current_ability ||= Ability.new(current_resource_owner)
+  # end
 end
