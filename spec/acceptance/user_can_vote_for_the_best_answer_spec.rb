@@ -10,9 +10,9 @@ feature 'User can vote for the answer', '
   given!(:non_author) { FactoryGirl.create(:another_user) }
 
   given!(:question) { FactoryGirl.create(:question, user: author) }
-  given!(:answer) { FactoryGirl.create(:answer,  question:  question, user: author) }
+  given!(:answer) { FactoryGirl.create(:answer, question: question, user: author) }
 
-  given(:another_answer) { FactoryGirl.create(:another_answer,  question:  question, user: user) }
+  given(:another_answer) { FactoryGirl.create(:another_answer, question: question, user: user) }
 
   # Аутентифицированный пользователь может голосовать за понравившийся вопрос/ответ
   # Пользователь не может голосовать за свой вопрос/ответ
@@ -62,7 +62,7 @@ feature 'User can vote for the answer', '
     scores = page.all('.score')
     scores[1].click
     answers = page.all('.answer .rating')
-    save_and_open_page
+
     within answers[0] do
       expect(page).to have_content 'Rating: 1'
     end

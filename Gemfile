@@ -34,11 +34,15 @@ gem 'haml-rails'
 gem 'bootstrap-generators', '~> 3.3.4'
 
 gem 'cocoon'
+
 gem 'cancancan'
+
+gem 'doorkeeper'
 
 # Use postgress as the database for Active Record
 gem 'pg'
 gem 'devise'
+gem 'gravtastic'
 gem 'launchy'
 
 gem 'carrierwave'
@@ -48,6 +52,7 @@ gem 'formtastic-bootstrap'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'will_paginate', '~> 3.0.6'
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
@@ -81,4 +86,6 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'json_spec'
 end

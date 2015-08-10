@@ -5,3 +5,5 @@
 .questions_container
  = render @questions
  =subscribe_to "/questions"
+-if action_name =='index'
+ =will_paginate @questions

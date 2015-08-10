@@ -3,12 +3,12 @@ class AnswersController < ApplicationController
   before_action :set_question, only: [:create]
   before_action :set_answer, only: [:destroy, :update, :set_best_answer]
 
-  respond_to :html,:js
+  respond_to :html, :js
   authorize_resource
 
   def create
-    @answer =  @question.answers.new(answer_params)
-    @answer.user =  current_user    
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
     respond_with(@answer) if @answer.save
   end
 
@@ -17,17 +17,16 @@ class AnswersController < ApplicationController
   end
 
   def update
-      @answer.update(answer_params) 
-      respond_with(@question)
-    end
+    @answer.update(answer_params)
+    respond_with(@question)
   end
 
-  def destroy    
-    respond_with(@answer.destroy) 
+  def destroy
+    respond_with(@answer.destroy)
   end
 
   def set_best_answer
-    respond_with(@answer.make_best) 
+    respond_with(@answer.make_best)
   end
 
   private

@@ -1,51 +1,50 @@
 class QuestionsController < ApplicationController
-
   before_action :authenticate_user!, except: [:index, :show]
   before_action :extract_question_id, only: [:show, :destroy, :update]
 
-  respond_to :html,:js
+  respond_to :html, :js
 
   authorize_resource
-  #use load_and_authorize_resourse to load @question
-  #override def resourse if you want to customize the behaviour
+  # use load_and_authorize_resourse to load @question
+  # override def resourse if you want to customize the behaviour
 
   def index
-    #authorize! :index, Question
-    #authorize! :read, Question
-    respond_with(@questions = Question.includes([:answers,:attachments]).all)
+    # authorize! :index, Question
+    # authorize! :read, Question
+    respond_with(@questions = Question.includes([:answers, :attachments]).paginate(page: params[:page]))
   end
 
   def create
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-     flash[:notice] = 'Question successfully created' 
-     respond_with(@question)
-    end   
+      flash[:notice] = 'Question successfully created'
+      respond_with(@question)
+    end
   end
 
   def new
-   # authorize! :create, Question
+    # authorize! :create, Question
     @question = Question.new
     @attachment = @question.attachments.new
     respond_with(@question)
   end
 
   def show
-   # authorize! :read, @question
+    # authorize! :read, @question
     @answer = @question.answers.build
     @attachment = @answer.attachments.build
     respond_with(@question)
   end
 
-  def destroy  
-   # authorize! :destroy, @question    
-    respond_with(@question.destroy)  
+  def destroy
+    # authorize! :destroy, @question
+    respond_with(@question.destroy)
   end
 
   def update
-      @question.update(question_params) 
-      respond_with(@question)
+    @question.update(question_params)
+    respond_with(@question)
   end
 
   private

@@ -3,11 +3,11 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    current_user.update(user_params) 
+    current_user.update(user_params)
     redirect_to root_path
-	end
+  end
 
-	def user_params
+  def user_params
     params.require(:user).permit(:email)
   end
 end

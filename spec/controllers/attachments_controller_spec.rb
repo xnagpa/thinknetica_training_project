@@ -16,7 +16,7 @@ RSpec.describe AttachmentsController, type: :controller do
       expect { delete :destroy, current_params }.to change(Attachment, :count).by(-1)
     end
 
-    it 'doesnt delete attachment made by other user'  do
+    it 'doesnt delete attachment made by other user' do
       sign_in(another_user)
 
       current_params = { id: question_with_attachments.attachments.first, format: :js }

@@ -7,14 +7,14 @@ feature 'In order to improve my answer
   given(:user_with_questions) { FactoryGirl.create(:user_with_question) }
 
   given!(:question) { FactoryGirl.create(:question, user: user) }
-  given!(:answer) { FactoryGirl.create(:answer, question:  question, user: user) }
+  given!(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
 
   scenario 'Authed user edit his answer', js: true do
     sign_in(user)
     visit question_path(question)
-   
+
     within('.answers') do
-       click_on 'Edit'
+      click_on 'Edit'
     end
 
     within('.answers') do
