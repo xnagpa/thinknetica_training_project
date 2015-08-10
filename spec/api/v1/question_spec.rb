@@ -14,16 +14,24 @@ describe "Question API" do
 				get '/api/v1/questions', format: :json, access_token: 123
 				expect(response.status).to eq 401
 			end
+		end
 
 		 context 'authorized' do 
 		 	let(:me) { FactoryGirl.create(:user) }
-      let!(:smb_else) { FactoryGirl.create(:another_user) }
-      let!(:smb_else2) { FactoryGirl.create(:another_user) }
-      let!(:smb_else3) { FactoryGirl.create(:another_user) }
+      let!(:question) { FactoryGirl.create(:question_with_valid_answers) }
+      let!(:questions) { FactoryGirl.create_list(:question, 2) }
       let(:access_token) { FactoryGirl.create(:access_token, resource_owner_id: me.id) }
 
+      before { get '/api/v1/questions', format: :json, access_token: access_token.token }
+
 		 	it 'returns list of questions' do 
+		 		
+		 		 expect(response.body).to have_json_size(2).at_path("questions")
 		 	end
-		 end
+
+		 	it 'returns 200' do
+        expect(response).to be_success
+      end
+		end
 	end
 end

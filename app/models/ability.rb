@@ -4,7 +4,6 @@ class Ability
   attr_reader :user
 
   def initialize(user)
-    user ||= User.new # guest user (not logged in)
     @user = user
     if user
       user.admin? ? admin_abilities : user_abilities
@@ -34,7 +33,8 @@ class Ability
     can :destroy, [Question, Answer, Comment, Vote], user: user
     can :set_best_answer, Answer, question: { user: user }
     can :index, User
-    can :me, User
+    can :me, User, id: user.id
+    # в левой части свойства которые будут вызваны у объекта, в правой значения
     # cancan searches for the instance variable
     # if didnt find authorize manually, otherwise it will ignore blocks
     can :destroy, Attachment, attachable: { user: user }
