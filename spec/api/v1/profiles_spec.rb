@@ -61,9 +61,8 @@ describe 'Profile API' do
       before { get '/api/v1/profiles', format: :json, access_token: access_token.token }
 
       it 'contain all users except me' do
-        expect(response.body).to include_json(smb_else.to_json)
-        expect(response.body).to include_json(smb_else2.to_json)
-        expect(response.body).to include_json(smb_else3.to_json)
+        expect(response.body).to have_json_size(3).at_path("profiles")
+
       end
 
       it 'doesnt contain me' do

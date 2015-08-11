@@ -1,9 +1,7 @@
-class Api::V1::ProfilesController < ApplicationController
+class Api::V1::ProfilesController < Api::V1::BaseController
   # skip_authorization_check
 
-  before_action :doorkeeper_authorize!
 
-  respond_to :json
 
   authorize_resource class: User
 
@@ -19,15 +17,12 @@ class Api::V1::ProfilesController < ApplicationController
 
   protected
 
-  def current_resource_owner
-    @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-  end
-
-  def current_ability 
-		@current_ability ||= Ability.new(current_resource_owner)
-  end
 
   def other_users
     @users ||= User.where.not(id: doorkeeper_token.resource_owner_id) if doorkeeper_token
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(current_resource_owner)
   end
 end

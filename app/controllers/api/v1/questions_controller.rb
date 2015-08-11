@@ -1,25 +1,34 @@
-class Api::V1::QuestionsController < ApplicationController
+class Api::V1::QuestionsController < Api::V1::BaseController
   # skip_authorization_check
+  before_action :extract_question_id, only: [:show, :destroy, :update]
 
-  before_action :doorkeeper_authorize!
 
-  respond_to :json
-
-  authorize_resource 
+  authorize_resource
 
   def index
-    respond_with(@questions = Question.all)
+    @questions = Question.all
+    respond_with(@questions)
   end
 
-  protected
-
-  def current_resource_owner
-    @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+  def show
+    respond_with(@question)
   end
 
-  def current_ability 
-    @current_ability ||= Ability.new(current_resource_owner)
+  def create
+    @question = Question.new(question_params)
+    @question.user = current_user
+    @question.save
+    respond_with(@question)
   end
- 
-  
+
+private
+
+  def extract_question_id
+    @question = Question.find(params[:id])
+  end
+
+  def question_params
+    params.require(:question).permit(:title, :content, attachments_attributes: [:file, :id, :_destroy])
+  end
+
 end
