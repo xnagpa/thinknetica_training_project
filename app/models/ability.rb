@@ -22,6 +22,7 @@ class Ability
   end
 
   def user_abilities
+    
     can :read, :all
     can :create, [Question, Answer, Comment, Attachment]
 
