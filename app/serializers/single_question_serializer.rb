@@ -1,5 +1,5 @@
 class SingleQuestionSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content, :created_at, :updated_at,:short_title
+  attributes :id, :title, :content, :created_at, :updated_at, :short_title
   has_many :comments
   has_many :attachments
 

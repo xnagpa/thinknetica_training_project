@@ -4,7 +4,6 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   before_action :extract_question_id, only: [:show, :destroy, :update]
 
-
   authorize_resource
 
   def index
@@ -13,26 +12,23 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def show
-    respond_with(@question,serializer: SingleQuestionSerializer)
+    respond_with(@question, serializer: SingleQuestionSerializer)
   end
 
   def create
     @question = Question.new(question_params)
     @question.user = current_resource_owner
     @question.save
-    respond_with(@question,serializer: SingleQuestionSerializer)
+    respond_with(@question, serializer: SingleQuestionSerializer)
   end
 
-private
+  private
 
   def extract_question_id
-    
     @question = Question.find(params[:id])
-
   end
 
   def question_params
     params.require(:question).permit(:title, :content, attachments_attributes: [:file, :id, :_destroy])
   end
-
 end
