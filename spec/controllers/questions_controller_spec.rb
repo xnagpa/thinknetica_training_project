@@ -23,22 +23,10 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    before do
-      sign_in(user)
-      get :new
-    end
+    let!(:entity){question.class.to_s.downcase}
+    let!(:params) { {} } #I'm sick of this part. To refactor later
+    it_behaves_like "New entity creator"
 
-    it 'assigns new variable to @question' do
-      expect(assigns(:question)).to be_a_new(Question)
-    end
-
-    it 'assigns new variable to @attachment' do
-      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
-    end
-
-    it 'renders new template' do
-      expect(response).to render_template(:new)
-    end
   end
 
   describe 'POST #create' do
@@ -104,35 +92,17 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'patch #update' do
-    context 'does ' do
-      let!(:question_to_update) { FactoryGirl.create(:question, user: user) }
+    let!(:entity_to_update) { FactoryGirl.create(:question, user: user) }
 
-      it 'assign @question ' do
-        sign_in(user)
-        patch :update, id: question_to_update, question: FactoryGirl.attributes_for(:question), format: :js
-        expect(assigns(:question)).to eq question_to_update
-      end
+    it_behaves_like "Entity updater"
 
-      it 'render template create' do
-        sign_in(user)
-        patch :update, id: question_to_update, question: FactoryGirl.attributes_for(:question), format: :js
-        expect(response).to render_template :update
-      end
-
-      it 'changes the original content off the answer' do
-        sign_in(user)
-        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
-        question_to_update.reload
-        expect(question_to_update.content).to eq 'new crap'
-        expect(question_to_update.title).to eq 'crap'
-      end
-
-      it 'doesnt change if another user tries to change it' do
-        sign_in(another_user)
-        patch :update, id: question_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
-        question_to_update.reload
-        expect(question_to_update.content).not_to eq 'new crap'
-      end
+    def do_update_request
+      patch :update, id: entity_to_update, question: FactoryGirl.attributes_for(:question), format: :js
     end
+
+    def do_change_content_request
+      patch :update, id: entity_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
+    end
+
   end
 end

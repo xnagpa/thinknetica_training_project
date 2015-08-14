@@ -14,17 +14,7 @@ describe 'Question API' do
   let!(:answer) { FactoryGirl.create(:answer, question: single_question) }
 
   describe 'get /questions' do
-    context 'unauthorized' do
-      it 'returns 401 if no access token' do
-        get '/api/v1/questions', format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if no access token is invalid' do
-        get '/api/v1/questions', format: :json, access_token: 123
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'authorized' do
       before { get '/api/v1/questions', format: :json, access_token: access_token.token }
@@ -37,9 +27,7 @@ describe 'Question API' do
         expect(response.body).to be_json_eql(single_question.title.truncate(10).to_json).at_path('questions/0/short_title')
       end
 
-      it 'returns 200' do
-        expect(response).to be_success
-      end
+      it_behaves_like "good request"
 
       %w(id content created_at updated_at).each do |attr|
         it "has attr #{attr}" do
@@ -61,27 +49,19 @@ describe 'Question API' do
         end
       end
     end
+    def do_request(options = {})
+      get '/api/v1/questions', {format: :json}.merge(options)
+    end
   end
 
   describe 'get /questions/1' do
-    context 'unauthorized' do
-      it 'returns 401 if no access token' do
-        get '/api/v1/questions/1', format: :json
-        expect(response.status).to eq 401
-      end
 
-      it 'returns 401 if no access token is invalid' do
-        get '/api/v1/questions/1', format: :json, access_token: 123
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'single question show ' do
       before { get "/api/v1/questions/#{Question.first.id}", format: :json, access_token: access_token.token }
 
-      it 'returns 200' do
-        expect(response).to be_success
-      end
+      it_behaves_like "good request"
 
       it 'has attr attachments' do
         expect(response.body).to have_json_size(1).at_path('single_question/attachments')
@@ -97,20 +77,13 @@ describe 'Question API' do
         end
       end
     end
+    def do_request(options = {})
+      get '/api/v1/questions/1', {format: :json}.merge(options)
+    end
   end
 
   describe 'post /questions' do
-    context 'unauthorized' do
-      it 'returns 401 if no access token' do
-        post '/api/v1/questions', format: :json
-        expect(response.status).to eq 401
-      end
-
-      it 'returns 401 if no access token is invalid' do
-        post '/api/v1/questions', format: :json, access_token: 123
-        expect(response.status).to eq 401
-      end
-    end
+    it_behaves_like "API Authenticable"
 
     context 'single question create' do
       it 'changes count of the Question' do
@@ -121,6 +94,9 @@ describe 'Question API' do
       it "doesn't save a new question in the database if params are invalid" do
         expect { post '/api/v1/questions', question: FactoryGirl.attributes_for(:invalid_question), format: :json, access_token: access_token.token }.to_not change(Question, :count)
       end
+    end
+    def do_request(options = {})
+      post '/api/v1/questions', {format: :json}.merge(options)
     end
   end
 end
