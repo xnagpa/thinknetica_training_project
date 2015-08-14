@@ -27,12 +27,5 @@ RSpec.describe Question, type: :model do
   end
 
   it_behaves_like "Votable"
-
-  # it 'can return previous vote of the user' do
-  #   expect(question.previous_vote(user)).to eq (another_vote)
-  # end
-  #
-  # it 'calculates rating' do
-  #   expect(question.rating).to eq (1)
-  # end
+  
 end
