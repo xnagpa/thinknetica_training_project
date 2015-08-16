@@ -18,6 +18,8 @@ RSpec.describe Question, type: :model do
 
   it { expect(subject).to have_many(:attachments).dependent(:destroy) }
 
+  it { expect(subject).to have_many(:users) }
+
   it { expect(subject).to accept_nested_attributes_for(:attachments) }
 
   it { expect(subject).to belong_to(:user) }
@@ -27,5 +29,5 @@ RSpec.describe Question, type: :model do
   end
 
   it_behaves_like "Votable"
-  
+
 end
