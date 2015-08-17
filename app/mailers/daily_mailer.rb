@@ -10,4 +10,10 @@ class DailyMailer < ApplicationMailer
     @today_questions = Question.where(created_at: (Time.now - 1.day)..Time.now)
     mail to: user.email
   end
+
+  def new_answer(user, answer)
+  #  @today_questions = Question.where(created_at: (Time.now - 1.day)..Time.now)
+    @answer = answer
+    mail to: user.email
+  end
 end

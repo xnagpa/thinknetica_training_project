@@ -9,6 +9,8 @@ class Answer < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, reject_if: ->(a) { a[:file].blank? }, allow_destroy: true
 
+  after_create :notify_subscribers
+
   default_scope { order('best desc') }
 
   validates :user_id, presence: true
@@ -21,5 +23,9 @@ class Answer < ActiveRecord::Base
     best_answer.update(best: false) unless best_answer.blank?
 
     update(best: true) unless self == best_answer
+  end
+
+  def notify_subscribers
+    NewAnswerNotifierJob.perform_later(self.question, self)
   end
 end

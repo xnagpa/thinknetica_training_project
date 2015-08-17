@@ -4,6 +4,7 @@ RSpec.describe Answer, type: :model do
   let(:user) { FactoryGirl.create(:user) }
   let(:question) { FactoryGirl.create(:question, user: user) }
   let(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
+  let(:unsaved_answer) { FactoryGirl.build(:answer, question: question, user: user) }
   let(:another_answer) { FactoryGirl.create(:another_answer, question: question, user: user) }
   let(:another_user) { FactoryGirl.create(:another_user) }
   let(:best_answer) { FactoryGirl.create(:best_answer, question: question, user: user) }
@@ -34,4 +35,9 @@ RSpec.describe Answer, type: :model do
     expect(another_answer.best).to eq true
     expect(best_answer.best).to eq false
   end
+
+  it 'should send mails to subscribers after creating' do
+   expect(NewAnswerNotifierJob).to receive(:perform_later)
+   unsaved_answer.save!
+ end
 end

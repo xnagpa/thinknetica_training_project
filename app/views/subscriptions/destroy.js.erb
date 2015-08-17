@@ -1,0 +1,9 @@
+<% if @subscription.errors.present?%>
+			<% @subscription.errors.full_messages.each do |message|%>
+			$('.subscription_errors').html('<%= j message %>').css('color','red');
+		<%end%>
+	<%else%>
+	$('.unfollow-button').hide();
+	l= "<%= j link_to 'Follow', "#{polymorphic_path([@question, Subscription.new])}", method: :post, remote: :true, class: 'btn btn-success follow-button',role:'button'%>";
+	$('.follow_links').html(l);
+	<%end%>

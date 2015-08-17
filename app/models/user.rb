@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :authorizations, dependent: :destroy
-  belongs_to :subscrivable, polymorphic: true
+  
 
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
