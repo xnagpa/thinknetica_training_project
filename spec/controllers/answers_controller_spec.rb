@@ -7,36 +7,41 @@ RSpec.describe AnswersController, type: :controller do
   # let(:invalid_answer){ FactoryGirl.create(:invalid_answer, question:  question, user: user) }
   let!(:another_user) { FactoryGirl.create(:another_user) }
 
+
+
+
   describe 'GET #new' do
-    before do
-      sign_in(user)
-      params = { question_id: question }
-      get :new, params
-    end
-
-    it 'assigns new variable to @answer of the @question' do
-      expect(assigns(:answer)).to be_a_new(Answer)
-    end
-
-    it 'renders new template' do
-      expect(response).to render_template('answers/new')
-    end
+    let!(:entity){answer.class.to_s.downcase}
+    let!(:params) { {question_id: question.id} }
+    it_behaves_like "New entity creator"
+    # before do
+    #   sign_in(user)
+    #   params = { question_id: question }
+    #   get :new, params
+    # end
+    #
+    # it 'assigns new variable to @answer of the @question' do
+    #   expect(assigns(:answer)).to be_a_new(Answer)
+    # end
+    #
+    # it 'renders new template' do
+    #   expect(response).to render_template(:new)
+    # end
   end
   ###############################
   describe 'delete #destroy'  do
     it 'deletes answer of the signed in owner' do
       sign_in(user)
 
-      answer_to_delete = answer
-      current_users_answer_params = { question_id: question, id: answer_to_delete, format: :js }
+      current_users_answer_params = { question_id: question, id: answer, format: :js }
 
       expect { delete :destroy, current_users_answer_params }.to change(user.answers, :count).by(-1)
     end
 
     it 'doesnt delete answer made by other user' do
       sign_in(another_user)
-      answer_to_delete = answer
-      current_users_answer_params = { question_id: question, id: answer_to_delete, format: :js }
+
+      current_users_answer_params = { question_id: question, id: answer, format: :js }
 
       expect { delete :destroy, current_users_answer_params }.to_not change(user.answers, :count)
     end
@@ -44,39 +49,19 @@ RSpec.describe AnswersController, type: :controller do
   ######################################
 
   describe 'patch #update' do
-    # before do
-    #  sign_in(user)
-    # end
 
-    context 'does ' do
-      let!(:answer_to_update) { FactoryGirl.create(:answer, question: question, user: user) }
+    let!(:entity_to_update) { FactoryGirl.create(:answer, question: question, user: user) }
 
-      it 'assign @answer ' do
-        sign_in(user)
-        patch :update, id: answer_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
-        expect(assigns(:answer)).to eq answer_to_update
-      end
+    it_behaves_like "Entity updater"
 
-      it 'render template update' do
-        sign_in(user)
-        patch :update, id: answer_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
-        expect(response).to render_template :update
-      end
-
-      it 'changes the original content off the answer' do
-        sign_in(user)
-        patch :update, id: answer_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
-        answer_to_update.reload
-        expect(answer_to_update.content).to eq 'new crap'
-      end
-
-      it 'doesnt change if another user tries to change it' do
-        sign_in(another_user)
-        patch :update, id: answer_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
-        answer_to_update.reload
-        expect(answer_to_update.content).not_to eq 'new crap'
-      end
+    def do_update_request
+      patch :update, id: entity_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
     end
+
+    def do_change_content_request
+     patch :update, id: entity_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
+    end
+
   end
 
   describe 'PATCH #set_best_answer' do

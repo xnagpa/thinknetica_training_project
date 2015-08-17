@@ -20,6 +20,8 @@ RSpec.describe Answer, type: :model do
 
   it { expect(subject).to belong_to(:user) }
 
+  it_behaves_like "Votable"
+
   it 'makes answer best' do
     answer.make_best
     expect(answer.best).to eq true

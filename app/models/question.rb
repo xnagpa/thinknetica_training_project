@@ -19,4 +19,5 @@ class Question < ActiveRecord::Base
   def best_answer
     answers.where(best: true).first
   end
+  
 end

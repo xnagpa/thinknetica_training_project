@@ -4,7 +4,6 @@ RSpec.describe Question, type: :model do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:question) { FactoryGirl.create(:question_with_best_answer) }
   let!(:positive_vote) { FactoryGirl.create(:vote, user: user) }
-  let!(:another_vote) { FactoryGirl.create(:vote, votable: question, user: user) }
   let!(:negative_vote) { FactoryGirl.create(:unvote, user: user) }
 
   it { expect(subject).to validate_presence_of(:title) }
@@ -27,11 +26,6 @@ RSpec.describe Question, type: :model do
     expect(question.best_answer).to eq question.answers.where(best: true).first
   end
 
-  it 'can return previous vote of the user' do
-    expect(question.previous_vote(user)).to eq (another_vote)
-  end
-
-  it 'calculates the difference between negative and positive votes' do
-    expect(question.rating).to eq (1)
-  end
+  it_behaves_like "Votable"
+  
 end

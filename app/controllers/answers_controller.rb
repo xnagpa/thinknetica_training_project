@@ -13,7 +13,9 @@ class AnswersController < ApplicationController
   end
 
   def new
-    respond_with(@answer = Answer.new)
+    @answer = Answer.new
+    @attachment = @answer.attachments.new
+    respond_with(@answer)
   end
 
   def update
