@@ -19,9 +19,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     if @question.save
       flash[:notice] = 'Question successfully created'
-      @subscription =   @question.subscriptions.new
-      @subscription.user = current_user
-      @subscription.save
+      @subscription =   @question.subscriptions.create(user: current_user)
       respond_with(@question)
     end
   end

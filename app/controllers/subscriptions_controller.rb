@@ -2,13 +2,13 @@ class SubscriptionsController < ApplicationController
   respond_to :js
 
     before_action :find_subscription, only: [:destroy]
-    before_action :find_subscrivable, only: [:create]
+    before_action :find_question, only: [:create]
 
 
     authorize_resource #except: :create
 
     def create
-      
+
       @subscription= @question.subscriptions.new
       @subscription.user = current_user
       @subscription.save
@@ -26,7 +26,7 @@ class SubscriptionsController < ApplicationController
       @subscription = Subscription.find(params[:id])
     end
 
-    def find_subscrivable
+    def find_question
       @question = Question.find(params[:question_id])
     end
 
