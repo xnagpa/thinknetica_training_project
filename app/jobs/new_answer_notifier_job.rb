@@ -8,7 +8,7 @@ class NewAnswerNotifierJob < ActiveJob::Base
   def NewAnswerNotifierJob.mail_to_subscribers_of(question, answer)
     list = Subscription.where( subscrivable:question )
     list.each do |subscr|
-      byebug
+      
      DailyMailer.new_answer(subscr.user, answer).deliver_later
     end
   end

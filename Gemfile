@@ -45,6 +45,10 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 
+#fulltext search
+gem 'mysql2'
+gem 'thinking-sphinx'
+
 # Use postgress as the database for Active Record
 gem 'pg'
 gem 'devise'
