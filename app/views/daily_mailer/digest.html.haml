@@ -1,0 +1,10 @@
+%h1 Hello, fellow user!
+%h2 Here is a digest:
+- @today_questions.each do |question|
+  %h3
+    =question.title
+  %p
+    =question.content
+  %p
+    %i
+      = question.content

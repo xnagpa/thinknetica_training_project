@@ -14,7 +14,7 @@ class Ability
   end
 
   def guest_abilities
-    can :read, [Question, Answer, Comment, Vote]
+    can :read, [Question, Answer, Comment, Vote, Subscription]
   end
 
   def admin_abilities
@@ -23,14 +23,19 @@ class Ability
 
   def user_abilities
     can :read, :all
-    can :create, [Question, Answer, Comment, Attachment]
+    can :create, [Question, Answer, Comment, Attachment,Subscription]
+
+    can :create, Subscription do |subs|
+      Subscription.where(user: user, subscrivable: subs).empty?
+    end
+
 
     can :create, Vote do |vote|
       vote.votable.user_id != user.id
     end
     # Important operate with entity which is subordinate of other resource
     can :update, [Question, Answer, Comment, Vote], user: user
-    can :destroy, [Question, Answer, Comment, Vote], user: user
+    can :destroy, [Question, Answer, Comment, Vote, Subscription], user: user
     can :set_best_answer, Answer, question: { user: user }
     can :index, User
     can :me, User, id: user.id

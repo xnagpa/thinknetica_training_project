@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
     @question.user = current_user
     if @question.save
       flash[:notice] = 'Question successfully created'
+      @subscription =   @question.subscriptions.create(user: current_user)
       respond_with(@question)
     end
   end
@@ -34,6 +35,7 @@ class QuestionsController < ApplicationController
     # authorize! :read, @question
     @answer = @question.answers.build
     @attachment = @answer.attachments.build
+    @subscription = Subscription.where(user: current_user, subscrivable: @question).first
     respond_with(@question)
   end
 

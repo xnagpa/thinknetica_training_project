@@ -20,12 +20,13 @@ RSpec.describe Question, type: :model do
 
   it { expect(subject).to accept_nested_attributes_for(:attachments) }
 
-  it { expect(subject).to belong_to(:user) }
+  it { expect(subject).to have_many(:subscriptions).dependent(:destroy) }
+
 
   it 'returns best answer  ' do
     expect(question.best_answer).to eq question.answers.where(best: true).first
   end
 
   it_behaves_like "Votable"
-  
+
 end

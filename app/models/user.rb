@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :authorizations, dependent: :destroy
+  
 
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
@@ -24,4 +25,5 @@ class User < ActiveRecord::Base
     end
     user
   end
+
 end

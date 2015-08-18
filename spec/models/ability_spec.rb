@@ -26,6 +26,8 @@ describe Ability do
     it { expect(subject).to be_able_to :create, Question }
     it { expect(subject).to be_able_to :create, Answer }
     it { expect(subject).to be_able_to :create, Comment }
+    it { expect(subject).to be_able_to :create, Subscription }
+
 
     # it{ expect(subject).to be_able_to :create, FactoryGirl.create(:vote, votable: question, user: another_user), user: user  }
     it { expect(subject).to_not be_able_to :create, FactoryGirl.create(:vote, votable: question, user: user), user: user }
@@ -40,5 +42,8 @@ describe Ability do
     it { expect(subject).to_not be_able_to :update, FactoryGirl.create(:comment, user: another_user), user: user }
 
     it { expect(subject).to be_able_to :update, FactoryGirl.create(:vote, user: user), user: user }
+
+    it { expect(subject).to be_able_to :destroy, FactoryGirl.create(:subscription, user: user), user: user }
+    it { expect(subject).to_not be_able_to :destroy, FactoryGirl.create(:subscription, user: another_user), user: user }
   end
 end

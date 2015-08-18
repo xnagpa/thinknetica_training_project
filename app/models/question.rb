@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :attachments, dependent: :destroy, as: :attachable
   has_many :comments, dependent: :destroy, as: :commentable
+  has_many :subscriptions, dependent: :destroy, as: :subscrivable
   has_many :votes, dependent: :destroy, as: :votable
 
   # pagination
@@ -19,5 +20,5 @@ class Question < ActiveRecord::Base
   def best_answer
     answers.where(best: true).first
   end
-  
+
 end

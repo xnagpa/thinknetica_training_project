@@ -39,6 +39,10 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, question: FactoryGirl.attributes_for(:question), format: :js }.to change(Question, :count).by(1)
       end
 
+      it 'creates a new subscription for the current user' do
+        expect { post :create, question: FactoryGirl.attributes_for(:question), format: :js }.to change(Subscription, :count).by(1)
+      end
+
       it 'redirects to show' do
         post :create, question: FactoryGirl.attributes_for(:question)
         expect(response).to redirect_to(action: 'show', id: Question.last)
