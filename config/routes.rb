@@ -3,6 +3,10 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
 
 
+
+
+  get 'searches/show'
+
   authenticate :user, lambda {|user| user.admin?} do
     mount Sidekiq::Web => '/sidekiq'
   end
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
   resources :attachments, only: [:destroy]
 
   resource :profile
+  resource :search, only: [:show]
 
   root 'questions#index'
 

@@ -1,0 +1,37 @@
+.page-header
+  %h1 Search results
+-if @result.empty?
+  %p
+    Ooops, we didn't find anything. Try again.
+-else
+  -@result.each do |r|
+    -if r.class.name=="Question"
+      .search_result{ class: "panel panel-primary" }
+        .panel-heading
+          %p
+            %b
+              =r.class.name
+              =link_to r.title,r
+        .panel-body
+          %p
+            =r.content
+
+    -elsif r.class.name=="Answer"
+      .search_result{ class: "panel panel-info" }
+        .panel-heading
+          %p
+            %b
+              =link_to r.class.name,r
+        .panel-body
+          %p
+            =r.content
+    -elsif r.class.name=="Comment"
+      .search_result{ class: "panel panel-success" }
+        .panel-heading
+          %p
+            %b
+              =link_to r.class.name,r.commentable
+        .panel-body
+          %p
+            =r.content
+=will_paginate @result

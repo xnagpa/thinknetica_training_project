@@ -33,18 +33,47 @@
               %a{href: "#about"} About
             %li
               %a{href: "#contact"} Contact
-            -unless user_signed_in?  
-              %li 
+            -unless user_signed_in?
+              %li
                 =link_to "Sign in",new_user_session_path
-              %li 
+              %li
                 =link_to "Sign up",new_user_registration_path
             -if user_signed_in?
               %li
                 =link_to "Sign out", destroy_user_session_path, method: :delete
               %li
                 = image_tag current_user.gravatar_url
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              = form_tag(search_path, method: "get", class: "search_form", role:"form") do
 
-            
+                =radio_button_tag 'search_type', 'Answer'
+                = label_tag("search_type", "Answers")
+                =radio_button_tag 'search_type', 'Question'
+                = label_tag("search_type", "Questions")
+                =radio_button_tag 'search_type', 'Comment'
+                = label_tag("search_type", "Comments")
+                =radio_button_tag 'search_type', 'All', checked: true
+                = label_tag("search_type", "All")
+
+
+                -# = label_tag("Questions", "Questions")
+                -# = check_box("Questions", "validated")
+                -#
+                -# = label_tag("Answers", "Answers")
+                -# = check_box("Answers", "validated")
+                -#
+                -# = label_tag("Comments", "Comments")
+                -# = check_box("Comments", "validated")
+                -#
+                -#
+                = label_tag(:search_field, "Search for:", class:"control-label")
+                = text_field_tag(:search_field)
+
+
+                = submit_tag("Search")
+
+
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do
@@ -53,5 +82,5 @@
             %span.sr-only Close
           = msg
       %p.notice= notice
-      %p.alert= alert    
+      %p.alert= alert
       = yield
