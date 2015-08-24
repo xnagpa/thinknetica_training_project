@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+ruby "2.1.5"
+
 gem 'rails', '4.2.1'
 
 gem 'sinatra', '>= 1.3.0', require: nil
@@ -67,6 +69,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'will_paginate', '~> 3.0.6'
+
+gem 'dotenv'
+gem 'dotenv-deployment',require: 'dotenv/deployment'
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
@@ -77,6 +82,13 @@ gem 'will_paginate', '~> 3.0.6'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+group :development do
+  gem 'capistrano', require:false
+  gem 'capistrano-bundler', require:false
+  gem 'capistrano-rails', require:false
+  gem 'capistrano-rvm', require:false
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
