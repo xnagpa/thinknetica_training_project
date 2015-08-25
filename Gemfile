@@ -72,6 +72,7 @@ gem 'will_paginate', '~> 3.0.6'
 
 gem 'dotenv'
 gem 'dotenv-deployment',require: 'dotenv/deployment'
+gem 'therubyracer'
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
