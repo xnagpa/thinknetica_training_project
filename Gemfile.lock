@@ -347,7 +347,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    timers (4.0.2)
+    timers (4.0.0)
       hitimes
     turbolinks (2.5.3)
       coffee-rails
@@ -431,6 +431,7 @@ DEPENDENCIES
   spring
   thin
   thinking-sphinx
+  timers (= 4.0.0)
   turbolinks
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
