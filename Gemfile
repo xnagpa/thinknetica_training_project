@@ -58,7 +58,7 @@ gem 'launchy'
 
 gem 'whenever'
 gem 'sidekiq'
-gem 'sidetiq'
+
 
 gem 'carrierwave'
 gem 'remotipart'
