@@ -79,7 +79,7 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
-    celluloid (0.16.1)
+    celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
     cocoon (1.2.6)
@@ -392,6 +392,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   carrierwave
+  celluloid (= 0.16.0)
   cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner

@@ -59,6 +59,7 @@ gem 'launchy'
 gem 'whenever'
 gem 'sidekiq'
 gem 'timers', '4.0.0'
+gem 'celluloid', '0.16.0'
 
 gem 'carrierwave'
 gem 'remotipart'
