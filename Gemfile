@@ -73,6 +73,8 @@ gem 'will_paginate', '~> 3.0.6'
 gem 'dotenv'
 gem 'dotenv-deployment',require: 'dotenv/deployment'
 gem 'therubyracer'
+gem 'unicorn'
+
 # rails new myapp --database=postgresql
 
 # Use ActiveModel has_secure_password
@@ -90,6 +92,7 @@ group :development do
   gem 'capistrano-rails', require:false
   gem 'capistrano-rvm', require:false
   gem 'capistrano-sidekiq', require:false
+  gem 'capistrano3-unicorn',require: false
 end
 
 group :development, :test do

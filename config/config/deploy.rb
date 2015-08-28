@@ -11,7 +11,7 @@ set :repo_url, 'git@github.com:xnagpa/thinknetica_training_project.git'
  set :deploy_to, '/home/deployer/overflow'
  set :deploy_user, 'deployer'
 
-
+ set :sidekiq_options_per_process, [ "--queue default --queue mailers "]
 
 
 # Default value for :scm is :git
@@ -44,7 +44,8 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait:5 do
-      execute :touch, release_path.join('tmp/restart.txt')
+      #execute :touch, release_path.join('tmp/restart.txt')
+      invoke 'unicorn:restart'
     end
   end
 
