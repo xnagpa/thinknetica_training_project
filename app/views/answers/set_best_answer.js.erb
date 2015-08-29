@@ -7,30 +7,31 @@
 		var s = '#answer-<%= @answer.id%> .answer_content';
 		var new_best_answer_id ='#answer-<%= @answer.id%>';
 		var answer_question ='#question-<%= @answer.question.id%>';
-		var parent_of_the_new_best_answer = $(new_best_answer_id).parent();	
-		//var parent_of_the_new_best_answer = $(new_best_answer_id).parent();	
-		$(new_best_answer_id).data("is-best","true"); 
-	
+		var parent_of_the_new_best_answer = $(new_best_answer_id).parent();
+		//var parent_of_the_new_best_answer = $(new_best_answer_id).parent();
+		$(new_best_answer_id).data("is-best","true");
+
 		var aCopy = $(new_best_answer_id).clone();
 		$(new_best_answer_id).remove();
-		$(parent_of_the_new_best_answer).find("*").removeClass('best_answer');
-		 
-		$('.answers').prepend(aCopy);
-		aCopy.addClass('best_answer');
+		$(parent_of_the_new_best_answer).find("*").removeClass('panel-primary');
+		$(parent_of_the_new_best_answer).find("*").addClass('panel-info');
 
-		
+		$('.answers').prepend(aCopy);
+		aCopy.removeClass('panel-info');
+		aCopy.addClass('panel-primary');
+
+
 
 
 		//$(this).closest('.answers').prepend($(new_best_answer_id));
 		//$(this)
 
 		//$( ".answer:first").before($(new_best_answer_id) );
-		
+
 		//$('.answer').removeClass('best_answer');
-	
-		//$('.answer:first').addClass('best_answer');	 	 
-		//$('.answer').css('border','none');	 
+
+		//$('.answer:first').addClass('best_answer');
+		//$('.answer').css('border','none');
 		//$( ".answer:first").css('border','4px solid orange ');
 		//$('.answer:first').addClass('best_answer');
 <%end%>
-

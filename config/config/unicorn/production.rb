@@ -10,7 +10,7 @@ listen "/tmp/unicorn.overflow.sock", backlog: 64
 stderr_path "log/unicorn.stderr.log"
 stdout_path "log/unicorn.stdout.log"
 
-# workers
+# workers master
 worker_processes 2
 
 # use correct Gemfile on restarts

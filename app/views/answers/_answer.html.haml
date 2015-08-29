@@ -6,10 +6,10 @@
   .panel-body
    .answer_content{class:"panel-body"}
     =answer.content
-  
+
    .attachments
     -if !answer.attachments.empty? && answer.persisted?
-     -answer.attachments.each do |a|   
+     -answer.attachments.each do |a|
       -if !a.file.blank?
        .attachment{id: "attachment-#{a.id}"}
         =link_to a.file.file.filename, a.file.url
@@ -19,10 +19,10 @@
   .panel-footer
    -if user_signed_in?
     %p
-     %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: answer.id, commentable_type: answer.class.name } 
+     %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: answer.id, commentable_type: answer.class.name }
    -if can? :update, answer
     %p
-     %i=link_to "Best ever",set_best_answer_answer_path(answer, answer: {best: true}), class: 'best-answer-link', data: { best_id: answer.id }, method: :patch, remote: true
+     %i=link_to "Best ever",set_best_answer_answer_path(answer, answer: {best: true}), class: 'best-answer-link btn btn-warning', data: { best_id: answer.id }, method: :patch, remote: true
 
    -if can? :update, answer && answer.persisted?
     %p
@@ -31,11 +31,9 @@
      =render "answers/form",  answer: answer
    -if can? :destroy, answer
     %p
-     %i=link_to "Delete stupid answer", answer_path(answer), class: 'btn btn-danger', role:'button', method: :delete, remote: true 
+     %i=link_to "Delete stupid answer", answer_path(answer), class: 'btn btn-danger', role:'button', method: :delete, remote: true
   .panel-footer
-   .comments      
-    -unless answer.comments.empty?         
+   .comments
+    -unless answer.comments.empty?
      =render answer.comments
-    =render "comments/form", commentable: answer 
-
-
+    =render "comments/form", commentable: answer
