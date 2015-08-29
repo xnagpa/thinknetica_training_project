@@ -44,6 +44,4 @@ class AnswersController < ApplicationController
   def set_answer
     @answer = Answer.find(params[:id])
   end
-
-  
 end

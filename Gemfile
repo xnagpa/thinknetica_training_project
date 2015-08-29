@@ -46,7 +46,7 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 
-#fulltext search
+# fulltext search
 gem 'mysql2'
 gem 'thinking-sphinx'
 
@@ -71,7 +71,7 @@ gem 'omniauth-twitter'
 gem 'will_paginate', '~> 3.0.6'
 
 gem 'dotenv'
-gem 'dotenv-deployment',require: 'dotenv/deployment'
+gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'therubyracer'
 gem 'unicorn'
 
@@ -87,12 +87,12 @@ gem 'unicorn'
 # gem 'capistrano-rails', group: :development
 
 group :development do
-  gem 'capistrano', require:false
-  gem 'capistrano-bundler', require:false
-  gem 'capistrano-rails', require:false
-  gem 'capistrano-rvm', require:false
-  gem 'capistrano-sidekiq', require:false
-  gem 'capistrano3-unicorn',require: false
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-sidekiq', require: false
+  gem 'capistrano3-unicorn', require: false
 end
 
 group :development, :test do

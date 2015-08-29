@@ -23,10 +23,9 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #new' do
-    let!(:entity){question.class.to_s.downcase}
-    let!(:params) { {} } #I'm sick of this part. To refactor later
-    it_behaves_like "New entity creator"
-
+    let!(:entity) { question.class.to_s.downcase }
+    let!(:params) { {} } # I'm sick of this part. To refactor later
+    it_behaves_like 'New entity creator'
   end
 
   describe 'POST #create' do
@@ -98,7 +97,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe 'patch #update' do
     let!(:entity_to_update) { FactoryGirl.create(:question, user: user) }
 
-    it_behaves_like "Entity updater"
+    it_behaves_like 'Entity updater'
 
     def do_update_request
       patch :update, id: entity_to_update, question: FactoryGirl.attributes_for(:question), format: :js
@@ -107,6 +106,5 @@ RSpec.describe QuestionsController, type: :controller do
     def do_change_content_request
       patch :update, id: entity_to_update, question: { title: 'crap', content: 'new crap' }, format: :js
     end
-
   end
 end

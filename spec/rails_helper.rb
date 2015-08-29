@@ -6,7 +6,6 @@ require 'rspec/rails'
 require 'cancan/matchers'
 require 'sidekiq/testing'
 
-
 Sidekiq::Testing.fake!
 
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -40,8 +39,6 @@ RSpec.configure do |config|
   config.include AcceptanceHelper, type: :feature
   config.include OmniauthMacros, type: :feature
 
-
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -65,13 +62,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     # Ensure sphinx directories exist for the test environment
-
   end
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
     # Index data when running an acceptance spec.
-
   end
 
   config.before(:each, js: true) do

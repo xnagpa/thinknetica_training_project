@@ -4,12 +4,11 @@ RSpec.describe SearchesController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:question) { FactoryGirl.create(:question, user: user) }
   let(:answer) { FactoryGirl.create(:answer, question: question, user: user) }
-  let(:another_user) {  FactoryGirl.create(:another_user) }
+  let(:another_user) { FactoryGirl.create(:another_user) }
 
-  describe "GET #show" do
-    before { get :show, search_type: "All" }
+  describe 'GET #show' do
+    before { get :show, search_type: 'All' }
 
-  
     it 'renders show view' do
       ThinkingSphinx::Test.run do
         sign_in(user)
@@ -17,5 +16,4 @@ RSpec.describe SearchesController, type: :controller do
       end
     end
   end
-
 end

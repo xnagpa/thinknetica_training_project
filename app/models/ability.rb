@@ -23,12 +23,11 @@ class Ability
 
   def user_abilities
     can :read, :all
-    can :create, [Question, Answer, Comment, Attachment,Subscription]
+    can :create, [Question, Answer, Comment, Attachment, Subscription]
 
     can :create, Subscription do |subs|
       Subscription.where(user: user, subscrivable: subs).empty?
     end
-
 
     can :create, Vote do |vote|
       vote.votable.user_id != user.id

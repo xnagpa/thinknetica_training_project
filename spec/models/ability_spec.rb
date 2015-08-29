@@ -28,7 +28,6 @@ describe Ability do
     it { expect(subject).to be_able_to :create, Comment }
     it { expect(subject).to be_able_to :create, Subscription }
 
-
     # it{ expect(subject).to be_able_to :create, FactoryGirl.create(:vote, votable: question, user: another_user), user: user  }
     it { expect(subject).to_not be_able_to :create, FactoryGirl.create(:vote, votable: question, user: user), user: user }
 
