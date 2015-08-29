@@ -16,10 +16,12 @@
         -if can? :destroy, a
          =link_to "Destroy attachment", attachment_path(a), class: 'btn btn-danger btn-xs',role:'button',method: :delete, remote: true
   =render "votes/vote", votable: answer
+  %br
+  -if can? :create, Comment
+   %p
+    %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: answer.id, commentable_type: answer.class.name }
   .panel-footer
-   -if user_signed_in?
-    %p
-     %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: answer.id, commentable_type: answer.class.name }
+
    -if can? :update, answer
     %p
      %i=link_to "Best ever",set_best_answer_answer_path(answer, answer: {best: true}), class: 'best-answer-link btn btn-warning', data: { best_id: answer.id }, method: :patch, remote: true
