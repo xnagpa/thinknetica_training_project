@@ -3,6 +3,7 @@
 -if can?(:create, Question)
  =link_to "Create new question",  new_question_path, method: :get, class: "create_question btn btn-success btn-lg", role:"button"
 .questions_container
+ -# -cache collection_cache_key_for :question do
  = render @questions
  =subscribe_to "/questions"
 -if action_name =='index'
