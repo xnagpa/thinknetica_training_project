@@ -21,7 +21,7 @@ RSpec.describe Answer, type: :model do
 
   it { expect(subject).to belong_to(:user) }
 
-  it_behaves_like "Votable"
+  it_behaves_like 'Votable'
 
   it 'makes answer best' do
     answer.make_best
@@ -37,7 +37,7 @@ RSpec.describe Answer, type: :model do
   end
 
   it 'should send mails to subscribers after creating' do
-   expect(NewAnswerNotifierJob).to receive(:perform_later)
-   unsaved_answer.save!
- end
+    expect(NewAnswerNotifierJob).to receive(:perform_later)
+    unsaved_answer.save!
+  end
 end

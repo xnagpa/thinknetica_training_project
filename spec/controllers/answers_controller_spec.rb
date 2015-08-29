@@ -7,13 +7,10 @@ RSpec.describe AnswersController, type: :controller do
   # let(:invalid_answer){ FactoryGirl.create(:invalid_answer, question:  question, user: user) }
   let!(:another_user) { FactoryGirl.create(:another_user) }
 
-
-
-
   describe 'GET #new' do
-    let!(:entity){answer.class.to_s.downcase}
-    let!(:params) { {question_id: question.id} }
-    it_behaves_like "New entity creator"
+    let!(:entity) { answer.class.to_s.downcase }
+    let!(:params) { { question_id: question.id } }
+    it_behaves_like 'New entity creator'
     # before do
     #   sign_in(user)
     #   params = { question_id: question }
@@ -49,19 +46,17 @@ RSpec.describe AnswersController, type: :controller do
   ######################################
 
   describe 'patch #update' do
-
     let!(:entity_to_update) { FactoryGirl.create(:answer, question: question, user: user) }
 
-    it_behaves_like "Entity updater"
+    it_behaves_like 'Entity updater'
 
     def do_update_request
       patch :update, id: entity_to_update, question_id: question, answer: FactoryGirl.attributes_for(:answer), format: :js
     end
 
     def do_change_content_request
-     patch :update, id: entity_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
+      patch :update, id: entity_to_update, question_id: question, answer: { content: 'new crap' }, format: :js
     end
-
   end
 
   describe 'PATCH #set_best_answer' do

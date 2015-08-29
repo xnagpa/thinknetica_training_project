@@ -6,7 +6,6 @@ RSpec.describe User do
   it { expect(subject).to validate_presence_of :email }
   it { expect(subject).to validate_presence_of :password }
 
-
   describe '.find_for_oauth' do
     # user is new
     # user is old but never authed through facebook
@@ -63,5 +62,4 @@ RSpec.describe User do
       end
     end
   end
-
 end

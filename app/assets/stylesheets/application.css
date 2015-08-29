@@ -16,5 +16,9 @@
  *= require formtastic-bootstrap
  */
 body{
-	background-color: #A4A1C4;
+	background-color: white;
+	background: url(http://i205.photobucket.com/albums/bb164/ZephramStark/LightEaster.png);
+}
+.gray{
+		background-color: #f5f5f5;
 }

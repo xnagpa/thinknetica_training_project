@@ -26,6 +26,6 @@ class Answer < ActiveRecord::Base
   end
 
   def notify_subscribers
-    NewAnswerNotifierJob.perform_later(self.question, self)
+    NewAnswerNotifierJob.perform_later(question, self)
   end
 end

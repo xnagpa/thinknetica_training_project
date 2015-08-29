@@ -1,34 +1,29 @@
 class SubscriptionsController < ApplicationController
   respond_to :js
 
-    before_action :find_subscription, only: [:destroy]
-    before_action :find_question, only: [:create]
+  before_action :find_subscription, only: [:destroy]
+  before_action :find_question, only: [:create]
 
+  authorize_resource # except: :create
 
-    authorize_resource #except: :create
+  def create
+    @subscription = @question.subscriptions.new
+    @subscription.user = current_user
+    @subscription.save
+  end
 
-    def create
+  def destroy
+    @question = @subscription.subscrivable
+    respond_with(@subscription.destroy)
+  end
 
-      @subscription= @question.subscriptions.new
-      @subscription.user = current_user
-      @subscription.save
-    end
+  private
 
-    def destroy
+  def find_subscription
+    @subscription = Subscription.find(params[:id])
+  end
 
-      @question = @subscription.subscrivable
-      respond_with(@subscription.destroy)
-    end
-
-    private
-
-    def find_subscription
-      @subscription = Subscription.find(params[:id])
-    end
-
-    def find_question
-      @question = Question.find(params[:question_id])
-    end
-
-
+  def find_question
+    @question = Question.find(params[:question_id])
+  end
   end

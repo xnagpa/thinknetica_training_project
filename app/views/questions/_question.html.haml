@@ -1,4 +1,4 @@
-.wrapper{id: "wrapper-#{question.id}"}
+.wrapper{id: "wrapper-#{question.id}", class: "panel panel-primary gray"}
  .question{ id: "question-#{question.id}", class: "panel panel-primary"}
   .panel-heading
    %b
@@ -23,7 +23,10 @@
         -if  can? :destroy, a
          =link_to "Destroy attachment", attachment_path(a), class: 'btn btn-danger btn-xs',role:'button',method: :delete, remote: true
    =render "votes/vote", votable: question
-
+   %br
+   -if (can? :create, Comment) && (action_name != 'index')
+    %p
+     %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: question.id, commentable_type: question.class.name }
    -if  can? :update, question
     %p
      =link_to "Edit stupid question",'', class: 'edit-question-link btn btn-info',role:'button', data: { question_id: question.id }
@@ -31,16 +34,20 @@
    -if  can? :destroy, question
     %p
      =link_to "Delete stupid question", question_path(question), class: 'btn btn-danger',role:'button', method: :delete
-   -if user_signed_in? && action_name != 'index'
-    %p
-     %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: question.id, commentable_type: question.class.name }
+
   .panel-footer
-   .comments
-    -unless question.comments.empty?
-     -if action_name != 'index'
-      =render question.comments
-   =render "comments/form", commentable: question
+   .row
+    .col-sm-4
+    .col-sm-8
+     .comments
+      -unless question.comments.empty?
+       -if action_name != 'index'
+        =render question.comments
+     =render "comments/form", commentable: question
 
   -unless action_name == 'index'
-   .answers
-    =render question.answers
+   .row
+   .col-sm-1
+   .col-sm-11
+    .answers
+     =render question.answers

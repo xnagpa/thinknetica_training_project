@@ -8,11 +8,10 @@ set :repo_url, 'git@github.com:xnagpa/thinknetica_training_project.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
- set :deploy_to, '/home/deployer/overflow'
- set :deploy_user, 'deployer'
+set :deploy_to, '/home/deployer/overflow'
+set :deploy_user, 'deployer'
 
- set :sidekiq_options_per_process, [ "--queue default --queue mailers "]
-
+set :sidekiq_options_per_process, ['--queue default --queue mailers ']
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -27,10 +26,10 @@ set :repo_url, 'git@github.com:xnagpa/thinknetica_training_project.git'
 # set :pty, true
 
 # Default value for :linked_files is []
- set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/private_pub.yml', 'config/private_pub_thin.yml', '.env')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/private_pub.yml', 'config/private_pub_thin.yml', '.env')
 
 # Default value for linked_dirs is []
- set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system','public/uploads')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -38,13 +37,11 @@ set :repo_url, 'git@github.com:xnagpa/thinknetica_training_project.git'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait:5 do
-      #execute :touch, release_path.join('tmp/restart.txt')
+    on roles(:app), in: :sequence, wait: 5 do
+      # execute :touch, release_path.join('tmp/restart.txt')
       invoke 'unicorn:restart'
     end
   end
@@ -59,8 +56,6 @@ namespace :deploy do
   # end
 
   after :publishing, :restart
-
-
 end
 
 namespace :private_pub do
@@ -69,7 +64,7 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml start"
+          execute :bundle, 'exec thin -C config/private_pub_thin.yml start'
         end
       end
     end
@@ -80,7 +75,7 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml stop"
+          execute :bundle, 'exec thin -C config/private_pub_thin.yml stop'
         end
       end
     end
@@ -91,11 +86,10 @@ namespace :private_pub do
     on roles(:app) do
       within current_path do
         with rails_env: fetch(:rails_env) do
-          execute :bundle, "exec thin -C config/private_pub_thin.yml restart"
+          execute :bundle, 'exec thin -C config/private_pub_thin.yml restart'
         end
       end
     end
   end
   after 'deploy:restart', 'private_pub:restart'
-
 end

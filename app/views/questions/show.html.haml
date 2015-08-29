@@ -3,16 +3,16 @@
  =render 'answers/form', question: @question, answer: @answer
 -else
  %b
-  %p 
+  %p
    If you want to comment
    =link_to "Sign in", new_user_session_path
-%br  
-=link_to "Back", root_path
+%br
+=link_to "Back", root_path, class: "btn btn-warning"
 =subscribe_to "/questions/#{@question.id}/answers"
 =subscribe_to "/questions/#{@question.id}/comments"
 
 
 :javascript
-  $(function(){	
+  $(function(){
   	$(".formtastic.answer:last").css("display","block");
   });

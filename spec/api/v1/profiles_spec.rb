@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Profile API' do
   describe 'get /me' do
-    it_behaves_like "API Authenticable"
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:me) { FactoryGirl.create(:user) }
@@ -22,15 +22,15 @@ describe 'Profile API' do
         end
       end
 
-      it_behaves_like "good request"
+      it_behaves_like 'good request'
     end
     def do_request(options = {})
-      get '/api/v1/profiles/me', {format: :json}.merge(options)
+      get '/api/v1/profiles/me', { format: :json }.merge(options)
     end
   end
 
   describe 'get /index' do
-    it_behaves_like "API Authenticable"
+    it_behaves_like 'API Authenticable'
 
     context 'authorized' do
       let(:me) { FactoryGirl.create(:user) }
@@ -55,11 +55,10 @@ describe 'Profile API' do
       # 	end
       # end
 
-      it_behaves_like "good request"
+      it_behaves_like 'good request'
     end
     def do_request(options = {})
-      get '/api/v1/profiles', {format: :json}.merge(options)
+      get '/api/v1/profiles', { format: :json }.merge(options)
     end
   end
-
 end

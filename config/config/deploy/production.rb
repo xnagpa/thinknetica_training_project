@@ -3,11 +3,9 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server '188.166.36.168', user: 'deployer', roles: %w{app db web}, primary: true
+server '188.166.36.168', user: 'deployer', roles: %w(app db web), primary: true
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
-
-
 
 # role-based syntax
 # ==================
@@ -17,14 +15,12 @@ server '188.166.36.168', user: 'deployer', roles: %w{app db web}, primary: true
 # property set. Specify the username and a domain or IP for the server.
 # Don't use `:all`, it's a meta role.
 
-role :app, %w{deployer@188.166.36.168}
-role :web, %w{deployer@188.166.36.168}
-role :db,  %w{deployer@188.166.36.168}
+role :app, %w(deployer@188.166.36.168)
+role :web, %w(deployer@188.166.36.168)
+role :db,  %w(deployer@188.166.36.168)
 
 set :rails_env, :production
 set :stage, :production
-
-
 
 # Configuration
 # =============
@@ -34,8 +30,6 @@ set :stage, :production
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
@@ -44,11 +38,9 @@ set :stage, :production
 #
 # Global options
 # --------------
- set :ssh_options, {
-   keys: %w(/Users/maxc/.ssh/id_rsa),
-   forward_agent: true,
-   auth_methods: %w(publickey password), port:4321
- }
+set :ssh_options,    keys: %w(/Users/maxc/.ssh/id_rsa),
+                     forward_agent: true,
+                     auth_methods: %w(publickey password), port: 4321
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
