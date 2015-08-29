@@ -1,5 +1,5 @@
 -if answer.persisted?
- .answer{id: "answer-#{answer.id}", data: { is_best: answer.best.inspect}, class: "#{answer.best? ? 'best_answer' : ''}"+"panel panel-info" }
+ .answer{id: "answer-#{answer.id}", data: { is_best: answer.best.inspect}, class: "#{answer.best? ? 'best_answer' : ''}"+" panel panel-info" }
   .panel-heading
    %p
     answer
@@ -35,7 +35,10 @@
     %p
      %i=link_to "Delete stupid answer", answer_path(answer), class: 'btn btn-danger', role:'button', method: :delete, remote: true
   .panel-footer
-   .comments
-    -unless answer.comments.empty?
-     =render answer.comments
-    =render "comments/form", commentable: answer
+   .row
+    .col-sm-4
+    .col-sm-8
+     .comments
+      -unless answer.comments.empty?
+       =render answer.comments
+      =render "comments/form", commentable: answer

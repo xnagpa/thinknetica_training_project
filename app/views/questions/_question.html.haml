@@ -1,4 +1,4 @@
-.wrapper{id: "wrapper-#{question.id}"}
+.wrapper{id: "wrapper-#{question.id}", class: "panel panel-primary gray"}
  .question{ id: "question-#{question.id}", class: "panel panel-primary"}
   .panel-heading
    %b
@@ -36,12 +36,18 @@
      =link_to "Delete stupid question", question_path(question), class: 'btn btn-danger',role:'button', method: :delete
 
   .panel-footer
-   .comments
-    -unless question.comments.empty?
-     -if action_name != 'index'
-      =render question.comments
-   =render "comments/form", commentable: question
+   .row
+    .col-sm-4
+    .col-sm-8
+     .comments
+      -unless question.comments.empty?
+       -if action_name != 'index'
+        =render question.comments
+     =render "comments/form", commentable: question
 
   -unless action_name == 'index'
-   .answers
-    =render question.answers
+   .row
+   .col-sm-1
+   .col-sm-11
+    .answers
+     =render question.answers
