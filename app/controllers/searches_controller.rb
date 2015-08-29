@@ -9,10 +9,12 @@ class SearchesController < ApplicationController
 
     if search_type == 'All'
 
-      @result = ThinkingSphinx.search search_params[:search_field], page: search_params[:page], per_page: 5
+      @result = ThinkingSphinx.search(search_params[:search_field], page: search_params[:page], per_page: 5)
+
     else
 
-      @result = search_type.singularize.classify.constantize.search search_params[:search_field], page: search_params[:page], per_page: 5
+      @result = search_type.singularize.classify.constantize.search(search_params[:search_field], page: search_params[:page], per_page: 5)
+      
     end
   end
 

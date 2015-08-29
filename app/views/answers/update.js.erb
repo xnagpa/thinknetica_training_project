@@ -9,17 +9,16 @@
 	var at = '#answer-<%= @answer.id%> .attachments';
 
 	<% if remotipart_submitted? %>
-	//alert("remotipart!");
+
 		$(answer_id).after("<%= escape_javascript(render(@answer)).gsub('&quot;', "'") %>");
-		//alert("remove!!");
+
 		$(answer_id).remove();
-		
+
  	<%else%>
- 	 	//alert("no remotipart!!!");
- 		$(s).html('<%= @answer.content%>');	
+
+ 		$(s).html('<%= @answer.content%>');
  	<%end%>
 
-  $('#edit-answer-'+<%= @answer.id%>).hide();  
+  $('#edit-answer-'+<%= @answer.id%>).hide();
   $('[data-answer-id="<%= @answer.id%>"]').show();
 <%end%>
-

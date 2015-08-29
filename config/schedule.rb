@@ -19,6 +19,7 @@ end
 
 every 60.minutes do
   rake 'ts:index'
+  rake 'ts:rebuild'
 end
 
 # Learn more: http://github.com/javan/whenever

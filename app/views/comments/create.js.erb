@@ -11,17 +11,3 @@ $('.comments_errors').html('<%= j message %>').css('color','red');
     var link = "[data-commentable-type='<%= j @commentable.class.name%>'][data-commentable-id='<%= @commentable.id%>']";
     $(link).show();
 <%end%>
-// <%publish_to "/#{@commentable.class.name.downcase.pluralize}/#{@commentable.id}/comments" do%>
-  // s ="#<%=@commentable.class.name.downcase%>-<%=@commentable.id%> .comments"
-
-//	var s = "#<%=@commentable.class.name.downcase%>-<%=@commentable.id%> .comments";
-//	$(s).append("<%=j render @comment %>");
-// <%end%>
-
-// var form = "#comment-<%= j @commentable.class.name.downcase%>-<%=@commentable.id%>";
-// $(form).hide();
-// var link = "[data-commentable-type='<%= j @commentable.class.name%>'][data-commentable-id='<%= @commentable.id%>']";
-//
-// $(link).show();
-//Автор не должен получать свое сообщение 2 раза
-//Если id текущего польз совп с id на странице  то рендерить 2 раза не надо, только то, что вне publish_to

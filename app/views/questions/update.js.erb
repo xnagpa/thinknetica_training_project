@@ -14,14 +14,14 @@
 
 
 	<% if remotipart_submitted? %>
-	alert("remotipart!");
+
 		$(question_id).after("<%= escape_javascript(render(@question)).gsub('&quot;', "'") %>");
-		//alert("remove!!");
+
 		$(question_id).remove();
-		
+
  	<%else%>
- 	 	alert("no remotipart!!!");
- 		$(s).html('<%= @question.content%>');	
+
+ 		$(s).html('<%= @question.content%>');
  	<%end%>
 
 
