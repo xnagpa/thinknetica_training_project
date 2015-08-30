@@ -23,7 +23,7 @@
      %i=link_to "Leave a comment", "", class: 'create_comment btn btn-success', role:'button', data: { commentable_id: answer.id, commentable_type: answer.class.name }
    .panel-footer
 
-    -if can? :update, answer
+    -if can? :set_best_answer, answer
      %p
       %i=link_to "Best ever",set_best_answer_answer_path(answer, answer: {best: true}), class: 'best-answer-link btn btn-warning', data: { best_id: answer.id }, method: :patch, remote: true
 
