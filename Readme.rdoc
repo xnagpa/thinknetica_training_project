@@ -1,28 +1,28 @@
-== README
+=== Клон Stackoverflow
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Пользователь может зарегистрироваться на сайте или через Facebook или через Twitter.
+* Пользователь может создать вопрос.
+* Пользователь может написать ответ на вопрос.
+* Пользователь, создавший вопрос, может выбрать лучший ответ.
+* Все зарегистрированные пользователи могут голосовать за вопросы и ответы.
+* Пользователь может воспользоваться поиском, чтобы найти интересующую его информацию.
+* Искать можно как отдельно -вопросы, ответы, комментарии,  так и все сразу.
 
-Things you may want to cover:
+* Ответы, вопросы, комментарии можно удалять и редактировать.
+* К ответу или вопросу можно прикрепить файл.
 
-* Ruby version
+* Пользователь, создавший запрос получает письма с ответами, которые появляются под этим вопросом.
+* Все пользователи раз в сутки получают дайджест со всеми созданными вопросами.
 
-* System dependencies
+Gems:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Devise
+* Cancan
+* Faye
+* Doorkeeper
+* omniauth
+* sidekiq
+* thinking-sphinx
+* Factory girl
+* carrierwave
+* Formtastic
